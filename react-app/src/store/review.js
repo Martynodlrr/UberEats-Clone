@@ -105,7 +105,7 @@ export const reviewReducer = (state = initialState, action) => {
             const updatedState = {...state}
             const updatedReviews = {...updatedState.allReviews}
             updatedReviews[updatedReview.id] = updatedReview
-            return {...oldState, allReviews: updatedReviews}
+            return {...updatedState, allReviews: updatedReviews}
         case DELETE_REVIEW:
             const reviewId = action.payload
             const finalState = {...state}

@@ -44,7 +44,7 @@ export const allRestaurants = () => async (dispatch) => {
 
 export const createRestaurant = (restaurant) => async (dispatch) => {
 
-    const res = awaitfetch('/api/restaurants', {
+    const res = await fetch('/api/restaurants', {
         method: 'POST',
         body: JSON.stringify(restaurant)
     })
@@ -105,7 +105,7 @@ export const restaurantReducer = (state = initialState, action) => {
             const updatedState = {...state}
             const updatedRestaurants = {...updatedState.allRestaurants}
             updatedRestaurants[updatedRestaurant.id] = updatedRestaurant
-            return {...oldState, allRestaurants: updatedRestaurants}
+            return {...updatedState, allRestaurants: updatedRestaurants}
         case DELETE_RESTAURANT:
             const restaurantId = action.payload
             const finalState = {...state}

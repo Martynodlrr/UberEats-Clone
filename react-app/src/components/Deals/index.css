@@ -1,0 +1,60 @@
+#deals {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0px 80px 0px 80px;
+    padding: 50px 10px;
+}
+
+.deal-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    width: 600px;
+    height: 250px;
+}
+
+.deal-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 10px 0px 0px 10px;
+    padding: 10px;
+}
+
+.deal-image {
+    height: 250px;
+    justify-self: flex-end;
+    align-self: flex-end;
+    border-radius: 0px 10px 10px 0px;
+}
+
+#deal-inner-card-1 {
+    background-color: rgb(253, 190, 73);
+}
+
+#deal-inner-card-2 {
+    background-color: rgb(243, 217, 170);
+}
+
+#deal-inner-card-3 {
+    background-color: rgb(248, 106, 106);
+}
+
+.deal-info > p {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.deal-info > button {
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    width: 100px;
+    font-weight: 700;
+}
+
+#promo-code {
+    width: 200px;
+}
