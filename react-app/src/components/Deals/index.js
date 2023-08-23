@@ -19,7 +19,7 @@ export default function Deals() {
             </div>
             <div className="deal-card" id='deal-inner-card-3'>
                 <div className="deal-info">
-                    <p>Got a friend who has never ordered on Uber Eats? Spread the word!</p>
+                    <p>Got a friend who has never ordered on Hello Eats? Spread the word!</p>
                     <button ID='promo-code'>Use code: YOUTHOUGHT69</button>
                 </div>
                 <img className='deal-image' src='/images/deals/deal-3.jpg' />
