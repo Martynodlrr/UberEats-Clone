@@ -1,7 +1,7 @@
-const GET_SHOPPING_CART = 'reviews/all'
-const UPDATE_SHOPPING_CART = 'reviews/update'
-const CREATE_SHOPPING_CART = 'reviews/create'
-const DELETE_SHOPPING_CART = 'reviews/delete'
+const GET_SHOPPING_CART = 'shoppingCart/all'
+// const UPDATE_SHOPPING_CART = 'shoppingCart/update'
+const CREATE_SHOPPING_CART = 'shoppingCart/create'
+const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
 const setShoppingCart = (data) => {
     return {
@@ -10,12 +10,12 @@ const setShoppingCart = (data) => {
     }
 }
 
-const setUpdateShoppingCart= (data) => {
-    return {
-        type: UPDATE_SHOPPING_CART,
-        payload: data
-    }
-}
+// const setUpdateShoppingCart= (data) => {
+//     return {
+//         type: UPDATE_SHOPPING_CART,
+//         payload: data
+//     }
+// }
 
 const setNewShoppingCart = (data) => {
     return {
@@ -44,7 +44,7 @@ export const shoppingCart = (userId) => async (dispatch) => {
 
 export const createShoppingCart = (shoppingCart) => async (dispatch) => {
 
-    const res = await fetch(`/api/restaurants/${shoppingCart.user_id}/reviews`, {
+    const res = await fetch(`/api/shopping-carts/${shoppingCart.user_id}`, {
         method: 'POST',
         body: JSON.stringify(shoppingCart)
     })
@@ -57,29 +57,29 @@ export const createShoppingCart = (shoppingCart) => async (dispatch) => {
 
 }
 
-export const updateShoppingCart = (shoppingCart) => async (dispatch) => {
+// export const updateShoppingCart = (shoppingCart) => async (dispatch) => {
 
-    const res = await fetch(`/api/reviews/${shoppingCart.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(shoppingCart)
-    })
+//     const res = await fetch(`/api/shopping-carts/${shoppingCart.user_id}`, {
+//         method: 'PUT',
+//         body: JSON.stringify(shoppingCart)
+//     })
 
-    const data = await res.json()
+//     const data = await res.json()
 
-    if (data && !data.errors) dispatch(setUpdateShoppingCart(data))
+//     if (data && !data.errors) dispatch(setUpdateShoppingCart(data))
 
-    return res
-}
+//     return res
+// }
 
-export const deleteShoppingCart = (shopping_cart_id) => async (dispatch) => {
+export const deleteShoppingCart = (user_id) => async (dispatch) => {
 
-    const res = await fetch(`/api/review/${shopping_cart_id}`, {
+    const res = await fetch(`/api/shoppingCarts/${user_id}`, {
         method: 'DELETE'
     })
 
     const data = await res.json()
 
-    if (data && !data.errors) dispatch(removeShoppingCart(shopping_cart_id))
+    if (data && !data.errors) dispatch(removeShoppingCart(user_id))
 
     return res
 
@@ -87,24 +87,23 @@ export const deleteShoppingCart = (shopping_cart_id) => async (dispatch) => {
 
 const initialState = {}
 
-export const reviewReducer = (state = initialState, action) => {
+export const shoppingCartReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_SHOPPING_CART:
-
             return {...state, shoppingCart: action.payload}
 
         case CREATE_SHOPPING_CART:
             return {...state, shoppingCart: action.payload}
 
-        case UPDATE_SHOPPING_CART:
-            return {...state, shoppingCart: action.payload}
+        // case UPDATE_SHOPPING_CART:
+        //     return {...state, shoppingCart: action.payload}
 
         case DELETE_SHOPPING_CART:
             const newState = {...state}
             delete newState.shoppingCart
             return {...newState}
-            
+
         default:
             return state
     }
