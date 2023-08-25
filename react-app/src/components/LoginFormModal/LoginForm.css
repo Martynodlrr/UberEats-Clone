@@ -1,0 +1,41 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-area: content;
+    gap: 7px;
+}
+
+.loginLabel {
+    height: 45px;
+    border-radius: 8px;
+    width: 262px;
+    background-color: rgb(235, 234, 234);
+    border: none;
+}
+
+.loginSubmit {
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    width: 270px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.otherLoginButtons {
+    background-color: rgb(235, 234, 234);
+    border-radius: 8px;
+    width: 100%;
+    height: 45px;
+    border: none;
+    cursor: pointer;
+}
+
+#modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: ". content .";
+    max-width: 50%;
+}
