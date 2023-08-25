@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
 
     #! Potentially broken
     #relations 1 to many
-    reviews = db.relationship("Review", back_populates='user')
-    restaurants = db.relationship("Restaurant", back_populates='user')
+    reviews_user = db.relationship("Review", back_populates='user_review')
+    restaurants_user = db.relationship("Restaurant", back_populates='user_restaurant')
 
     #join table stuff
     user_cart = db.relationship(

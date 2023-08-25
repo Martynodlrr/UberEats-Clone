@@ -7,14 +7,14 @@ class Review(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("User.id"))
-    restaurant_id = db.Column(db.Integer, db.ForeignKey("Restaurant.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"))
     body = db.Column(db.String(255),nullable=False)
     rating = db.Column(db.Integer,nullable=False)
 
     #relations Many reviews to ONE user
-    user = db.relationship("User",back_populates='reviews')
-    restaurant = db.relationship("Restaurant",back_populates='reviews')
+    user_review = db.relationship("User",back_populates='reviews_user')
+    restaurant_reviews = db.relationship("Restaurant",back_populates='reviews_restaurant')
 
 
     def to_dict(self):

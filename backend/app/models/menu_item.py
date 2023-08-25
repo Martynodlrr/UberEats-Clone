@@ -7,18 +7,17 @@ class MenuItem(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey("Restaurant.id"))
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"))
     name = db.Column(db.String(60), nullable=False, unique=True)
     price = db.Column(db.Float,nullable=False)
     image = db.Column(db.String(255),nullable=False)
     calories = db.Column(db.Integer,nullable=False)
 
-    #! POssibly wrong
     #relations
     #MANY menu items to ONE restaurant
-
+    restaurant_menu = db.relationship("Restaurant",back_populates='menu_restaurant')
     #ONE menu item to ONE shopping cart item??
-
+    shopping_item = db.relationship("ShoppingCartItem",uselist=False,back_populates='menu_item')
     def to_dict(self):
         return {
             'id': self.id,

@@ -2,7 +2,7 @@ from .db import db,environment,SCHEMA
 from .shopping_cart import shopping_cart
 
 class ShoppingCartItem(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'shopping_cart_items'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -13,7 +13,7 @@ class ShoppingCartItem(db.Model):
 
     #relations
     #ONE Shopping cart item to ONE menu item
-    menu_items = db.relationship()
+    menu_item = db.relationship("MenuItem",back_populates='shopping_item')
 
     #join table
     item_cart = db.relationship(
