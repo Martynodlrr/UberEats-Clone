@@ -26,11 +26,7 @@ function App() {
           <Route exact path='/'>
             <Categories />
             <Deals />
-<<<<<<< HEAD
             <RestaurantCategories />
-=======
-            <Restaurants />
->>>>>>> items
           </Route>
           <Route path="/login" >
             <LoginFormPage />
