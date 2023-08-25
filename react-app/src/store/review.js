@@ -43,8 +43,9 @@ export const allReviews = () => async (dispatch) => {
 }
 
 export const createReview = (review) => async (dispatch) => {
+    const { restaurant_id } = review
 
-    const res = await fetch(`/api/restaurants/${review.restaurant_id}/reviews`, {
+    const res = await fetch(`/api/reviews/restaurants/${restaurant_id}`, {
         method: 'POST',
         body: JSON.stringify(review)
     })
@@ -73,7 +74,7 @@ export const updateReview = (review) => async (dispatch) => {
 
 export const deleteReview = (reviewId) => async (dispatch) => {
 
-    const res = await fetch(`/api/review/${reviewId}`, {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
 
