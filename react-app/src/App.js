@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import Categories from "./components/Categories";
 import Deals from "./components/Deals";
+import RestaurantCategories from "./components/RestaurantCategories";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
           <Route exact path='/'>
             <Categories />
             <Deals />
+            <RestaurantCategories />
           </Route>
           <Route path="/login" >
             <LoginFormPage />

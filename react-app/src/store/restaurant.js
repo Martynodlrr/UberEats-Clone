@@ -85,33 +85,33 @@ export const deleteRestaurant = (restaurantId) => async (dispatch) => {
 
 }
 
-const initialState = {}
+const initialState = { restaurants: {}}
 
 export const restaurantReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_ALL_RESTAURANTS:
-            return {...state, allRestaurants: action.payload}
+            return {...state, restaurants: action.payload}
 
         case CREATE_RESTAURANT:
             const restaurant = action.payload
             const newState = {...state}
-            const allRestaurants = {...newState.allRestaurants}
+            const allRestaurants = {...newState.restaurants}
             allRestaurants[restaurant.id] = restaurant
-            return {...newState, allRestaurants: {...allRestaurants}}
+            return {...newState, restaurants: {...allRestaurants}}
 
         case UPDATE_RESTAURANT:
             const updatedRestaurant = action.payload
             const updatedState = {...state}
-            const updatedRestaurants = {...updatedState.allRestaurants}
+            const updatedRestaurants = {...updatedState.restaurants}
             updatedRestaurants[updatedRestaurant.id] = updatedRestaurant
-            return {...updatedState, allRestaurants: updatedRestaurants}
+            return {...updatedState, restaurants: updatedRestaurants}
         case DELETE_RESTAURANT:
             const restaurantId = action.payload
             const finalState = {...state}
-            const finalRestaurants = {...finalState.allRestaurants}
+            const finalRestaurants = {...finalState.restaurants}
             delete finalRestaurants[restaurantId]
-            return {...finalState, allRestaurants: finalRestaurants}
+            return {...finalState, restaurants: finalRestaurants}
         default:
             return state
     }

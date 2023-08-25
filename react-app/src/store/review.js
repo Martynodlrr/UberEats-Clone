@@ -85,33 +85,33 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 
 }
 
-const initialState = {}
+const initialState = { reviews: {}}
 
 export const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_RESTAURANT_REVIEWS:
-            return {...state, allReviews: action.payload}
+            return {...state, reviews: action.payload}
 
         case CREATE_REVIEW:
             const review = action.payload
             const newState = {...state}
-            const allReviews = {...newState.allReviews}
+            const allReviews = {...newState.reviews}
             allReviews[review.id] = review
-            return {...newState, allReviews: {...allReviews}}
+            return {...newState, reviews: {...allReviews}}
 
         case UPDATE_REVIEW:
             const updatedReview = action.payload
             const updatedState = {...state}
-            const updatedReviews = {...updatedState.allReviews}
+            const updatedReviews = {...updatedState.reviews}
             updatedReviews[updatedReview.id] = updatedReview
-            return {...updatedState, allReviews: updatedReviews}
+            return {...updatedState, reviews: updatedReviews}
         case DELETE_REVIEW:
             const reviewId = action.payload
             const finalState = {...state}
-            const finalReviews = {...finalState.finalReviews}
+            const finalReviews = {...finalState.reviews}
             delete finalReviews[reviewId]
-            return {...finalState, allReviews: finalReviews}
+            return {...finalState, reviews: finalReviews}
         default:
             return state
     }

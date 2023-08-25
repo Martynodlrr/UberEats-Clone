@@ -24,10 +24,10 @@ const setNewShoppingCart = (data) => {
     }
 }
 
-const removeShoppingCart = (shopping_cart_id) => {
+const removeShoppingCart = (shoppingCartId) => {
     return {
         type: DELETE_SHOPPING_CART,
-        payload: shopping_cart_id
+        payload: shoppingCartId
     }
 }
 
@@ -85,7 +85,7 @@ export const deleteShoppingCart = (user_id) => async (dispatch) => {
 
 }
 
-const initialState = {}
+const initialState = { shoppingCart: {}}
 
 export const shoppingCartReducer = (state = initialState, action) => {
     switch (action.type) {

@@ -4,3 +4,14 @@ body, html {
     padding: 0px;
     font-family: sans-serif;
 }
+
+#root {
+    width: 72vw;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
