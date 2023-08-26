@@ -19,13 +19,8 @@ class User(db.Model, UserMixin):
     reviews_user = db.relationship("Review", back_populates='user_review')
     restaurants_user = db.relationship("Restaurant", back_populates='user_restaurant')
 
-    #join table stuff
-    user_cart = db.relationship(
-        "ShoppingCartItem",
-        secondary=shopping_cart,
-        back_populates='item_cart'
-    )
-
+    #one user to ONE cart
+    cart_user = db.relationship("ShoppingCartItems",uselist=False,back_populates='user_cart')
     @property
     def password(self):
         return self.hashed_password

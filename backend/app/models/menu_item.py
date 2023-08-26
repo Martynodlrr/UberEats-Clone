@@ -16,8 +16,8 @@ class MenuItem(db.Model):
     #relations
     #MANY menu items to ONE restaurant
     restaurant_menu = db.relationship("Restaurant",back_populates='menu_restaurant')
-    #ONE menu item to ONE shopping cart item??
-    shopping_item = db.relationship("ShoppingCartItem",uselist=False,back_populates='menu_item')
+    #Many menu item to ONE shopping cart
+    shopping_item = db.relationship("ShoppingCartItems",back_populates='menu_item')
     def to_dict(self):
         return {
             'id': self.id,

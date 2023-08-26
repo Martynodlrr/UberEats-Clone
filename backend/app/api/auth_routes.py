@@ -1,8 +1,10 @@
+import json
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from app.models import ShoppingCartItems
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -21,7 +23,7 @@ def validation_errors_to_error_messages(validation_errors):
 @auth_routes.route('/')
 def authenticate():
     """
-    Authenticates a user.
+    Authenticates a user
     """
     if current_user.is_authenticated:
         return current_user.to_dict()
@@ -40,8 +42,11 @@ def login():
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
+        shopping_cart = ShoppingCartItems.query.filter_by(user_id=user.id).all()
+
         login_user(user)
-        return user.to_dict()
+
+        return json.dumps({'User': user.to_dict()}, {'Shopping cart': [shopping_cart.to_dict()]})
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -70,7 +75,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        return json.dumps({'User': user.to_dict()}, {'Shopping cart': []})
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

@@ -24,7 +24,7 @@ const setNewShoppingCart = (data) => {
     }
 }
 
-const removeShoppingCart = (shopping_cart_id) => {
+const removeShoppingCartItems = (shopping_cart_id) => {
     return {
         type: DELETE_SHOPPING_CART,
         payload: shopping_cart_id
@@ -71,7 +71,7 @@ export const createShoppingCart = (shoppingCart) => async (dispatch) => {
 //     return res
 // }
 
-export const deleteShoppingCart = (user_id) => async (dispatch) => {
+export const emptyShoppingCart = (user_id) => async (dispatch) => {
 
     const res = await fetch(`/api/shoppingCarts/${user_id}`, {
         method: 'DELETE'
@@ -79,7 +79,7 @@ export const deleteShoppingCart = (user_id) => async (dispatch) => {
 
     const data = await res.json()
 
-    if (data && !data.errors) dispatch(removeShoppingCart(user_id))
+    if (data && !data.errors) dispatch(removeShoppingCartItems(user_id))
 
     return res
 

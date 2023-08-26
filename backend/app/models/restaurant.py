@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA
-from restaurant_enum import RestaurantType
+from .restaurant_enum import RestaurantType
 
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'

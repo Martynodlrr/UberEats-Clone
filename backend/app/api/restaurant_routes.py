@@ -1,4 +1,5 @@
 # code needs to be tested
+
 import json
 from flask_login import login_required
 from decimal import Decimal
@@ -64,19 +65,15 @@ def create_restaurant():
         db.session.commit()
         res = {'restaurant': [new_restaurant.to_dict()]}
         return json.dumps(res, cls=EnumEncoder), 201
-    else:
-        errors = []
-        for field, error_list in form.errors.items():
-            errors.extend([f"{field}: {error}" for error in error_list])
-
-        return ', '.join(errors)
+    if form.errors:
+        return form.errors
 
 
 @restaurant_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_restaurant(id):
     """
-    Updates a restaurant and returns that updated restaurant in a dictionary
+    Updates a restaurant and returns the updated restaurant in a dictionary
     """
     restaurant = Restaurant.query.get(id)
 
@@ -95,17 +92,16 @@ def update_restaurant(id):
         db.session.commit()
         res = {'restaurant': [restaurant.to_dict()]}
         return json.dumps(res, cls=EnumEncoder)
-    else:
-        errors = []
-        for field, error_list in form.errors.items():
-            errors.extend([f"{field}: {error}" for error in error_list])
-
-        return ', '.join(errors)
+    if form.errors:
+        return form.errors
 
 
 @restaurant_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_restaurant(id):
+    """
+    Deletes a restaurant
+    """
     restaurant = Restaurant.query.get(id)
     if restaurant:
         db.session.delete(restaurant)

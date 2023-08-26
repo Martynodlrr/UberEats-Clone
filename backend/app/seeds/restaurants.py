@@ -1,5 +1,6 @@
-from app import app
-from app.models import db, Restaurant, environment, SCHEMA
+from ..models import db, environment, SCHEMA
+from ..models.restaurant import Restaurant
+
 from sqlalchemy.sql import text
 
 
@@ -515,4 +516,12 @@ def seed_restaurants():
 
     [db.session.add(Restaurant(**restaurant)) for restaurant in restaurants]
     db.session.commit()
+    db.session.commit()
+
+def undo_restaurants():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.restaurants RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM restaurants"))
+
     db.session.commit()
