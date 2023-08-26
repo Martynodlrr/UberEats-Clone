@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA
 from .restaurant_enum import RestaurantType
 
 class Restaurant(db.Model):
-    __tablename__ = 'restaurants'
+    __tablename__ = 'Restaurants'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

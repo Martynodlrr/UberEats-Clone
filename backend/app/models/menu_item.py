@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA
 
-class MenuItem(db.Model):
-    __tablename__ = 'menu_items'
+class MenuItems(db.Model):
+    __tablename__ = 'MenuItems'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

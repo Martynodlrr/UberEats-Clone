@@ -1,10 +1,10 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .shopping_cart import shopping_cart
+from .shopping_cart_item import ShoppingCartItems
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = 'Users'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

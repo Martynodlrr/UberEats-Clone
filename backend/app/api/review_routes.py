@@ -2,15 +2,14 @@
 import json
 from flask_login import login_required
 from flask import Blueprint, jsonify
+from app.models import db, Review
 from app.forms import ReviewForm
-from app.models import Review
-from models import db
 
 review_routes = Blueprint('reviews', __name__)
 
 
 @review_routes.route('/')
-def reviews_by_restaurant_id():
+def reviews():
     """
     Fetches all reviews by restaurant id and returns the list of reviews in a dictionary
     """

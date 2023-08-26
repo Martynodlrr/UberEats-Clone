@@ -5,9 +5,8 @@ from flask_login import login_required
 from decimal import Decimal
 from flask import Blueprint
 from enum import Enum
+from app.models import db, Restaurant
 from app.forms import RestaurantForm
-from app.models import Restaurant
-from models import db
 
 restaurant_routes = Blueprint('restaurants', __name__)
 

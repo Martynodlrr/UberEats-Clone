@@ -1,9 +1,9 @@
 
-from ..models import db, environment, SCHEMA
-from ..models.menu_item import MenuItem
 from sqlalchemy.sql import text
 from random import randint
 from faker import Faker
+from app.models import db, environment, SCHEMA
+from app.models import MenuItems
 
 
 def seed_menu_items():

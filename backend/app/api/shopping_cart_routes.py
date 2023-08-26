@@ -3,10 +3,7 @@
 import json
 from flask_login import login_required
 from flask import Blueprint, request
-from app.models import ShoppingCartItems
-from app.models import ShoppingCart
-from app.models import MenuItem
-from models import db
+from app.models import db, ShoppingCartItems, MenuItems
 
 shopping_cart_routes = Blueprint('shopping-carts', __name__)
 
@@ -32,13 +29,13 @@ def update_shopping_cart(userId):
     """
     Updates a shopping cart and returns that updated shopping cart in a dictionary
     """
-    shopping_cart = ShoppingCart.query.filter_by(user_id=userId)
+    shopping_cart = ShoppingCartItems.query.filter_by(user_id=userId)
 
     if not shopping_cart:
         return json.dumps({'message': 'Shopping cart not found'}), 404
 
     data = request.get_json()
-    item = MenuItem(item_id=data.get('itemId'))
+    item = MenuItems.query.filter(item_id=data.get('itemId'))
     #check to see how we recieve itemId or this line will not work as intended ^
     shopping_cart.append(item)
 
@@ -59,7 +56,7 @@ def delete_shopping_cart_item(userId, itemId):
     if not shopping_cart:
         return json.dumps({'message': 'Shopping cart not found'}), 404
 
-    item = MenuItem(id=itemId)
+    item = MenuItems.query.filter(id=itemId)
 
     if not item:
         return json.dumps({'message': 'Item not found'}), 404
