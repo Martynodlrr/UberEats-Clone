@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 from random import randint
 from faker import Faker
 from app.models import db, environment, SCHEMA
-from app.models import MenuItems
+from app.models import MenuItem
 
 
 def seed_menu_items():
@@ -50,7 +50,7 @@ def seed_menu_items():
                 "price": randint(1, 10),
                 # item_dict[name][1][item] for image
                 "image": "https://i.imgur.com/1ZoHOCG.jpeg",
-                "calories": randint(300, 1000, 50)
+                "calories": randint(300, 1000)
             }
             menu_items.append(item_data)
     [db.session.add(MenuItem(**item)) for item in menu_items]
@@ -60,8 +60,8 @@ def seed_menu_items():
 def undo_menu_items():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.menu_items RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.MenuItems RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM menu_items"))
+        db.session.execute(text("DELETE FROM MenuItems"))
 
     db.session.commit()

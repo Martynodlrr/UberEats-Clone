@@ -4,21 +4,21 @@
 # from flask_login import login_required
 # from flask import Blueprint, jsonify
 # from app.forms import MenuItemForm
-# from app.models import db, MenuItems
+# from app.models import db, MenuItem
 
 # menu_items_routes = Blueprint('menu-items', __name__)
 
 
 # @menu_items_routes.route('/')
 # def reviews_by_restaurant_id():
-#     reviews = MenuItems.query.all()
+#     reviews = MenuItem.query.all()
 
 #     return json.dumps({'reviews': [review.to_dict() for review in reviews]})
 
 
 # @menu_items_routes.route('/restaurants/<int:restaurantId>')
 # def reviews_by_restaurant_id(restaurantId):
-#     menu_item = MenuItems.query.filter_by(restaurant_id=restaurantId).all()
+#     menu_item = MenuItem.query.filter_by(restaurant_id=restaurantId).all()
 
 #     if not reviews:
 #         return jsonify({'message': 'Restaurant has no reviews'}), 404
@@ -32,7 +32,7 @@
 #     form = MenuItemForm()
 
 #     if form.validate_on_submit():
-#         menu_item = MenuItems(
+#         menu_item = MenuItem(
 #             restaurant_id=restaurantId,
 #             description=form.data['body'],
 #             rating=form.data['rating']
@@ -49,7 +49,7 @@
 # @menu_items_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 # def update_review(id):
-#     menu_item = MenuItems.query.get(id)
+#     menu_item = MenuItem.query.get(id)
 
 #     if not menu_item:
 #         return json.dumps({'message': 'Review not found'}), 404
@@ -70,7 +70,7 @@
 # @menu_items_routes.route('/<int:id>', methods=['DELETE'])
 # @login_required
 # def delete_review(id):
-#     menu_item = MenuItems.query.get(id)
+#     menu_item = MenuItem.query.get(id)
 #     if menu_item:
 #         db.session.delete(menu_item)
 #         db.session.commit()

@@ -4,7 +4,7 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import ShoppingCartItems
+from app.models import ShoppingCartItem
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -42,7 +42,7 @@ def login():
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
-        shopping_cart = ShoppingCartItems.query.filter_by(user_id=user.id).all()
+        shopping_cart = ShoppingCartItem.query.filter_by(user_id=user.id).all()
 
         login_user(user)
 
