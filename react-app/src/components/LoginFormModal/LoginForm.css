@@ -10,18 +10,18 @@
 .loginLabel {
     height: 45px;
     border-radius: 8px;
-    width: 262px;
     background-color: rgb(235, 234, 234);
     border: none;
+    width: 315px;
 }
 
 .loginSubmit {
     background-color: black;
     color: white;
     border-radius: 8px;
-    width: 270px;
     height: 45px;
     cursor: pointer;
+    width: 315px;
 }
 
 .otherLoginButtons {
@@ -37,5 +37,5 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: ". content .";
-    max-width: 50%;
+    max-width: 45%;
 }
