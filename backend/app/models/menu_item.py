@@ -9,7 +9,7 @@ class MenuItem(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey("Restaurants.id"))
-    name = db.Column(db.String(60), nullable=False, unique=True)
+    name = db.Column(db.String(60), nullable=False)
     price = db.Column(db.Float, nullable=False)
     image = db.Column(db.String(255), nullable=False)
     calories = db.Column(db.Integer, nullable=False)

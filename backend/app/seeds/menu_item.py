@@ -50,7 +50,7 @@ def seed_menu_items():
                 "price": randint(1, 10),
                 # item_dict[name][1][item] for image
                 "image": "https://i.imgur.com/1ZoHOCG.jpeg",
-                "calories": randint(300, 1000, 50)
+                "calories": randint(300, 1000)
             }
             menu_items.append(item_data)
     [db.session.add(MenuItem(**item)) for item in menu_items]
