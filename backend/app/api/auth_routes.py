@@ -45,11 +45,8 @@ def login():
         shopping_cart = ShoppingCartItem.query.filter_by(user_id=user.id).all()
 
         login_user(user)
-        if shopping_cart == []:
-            shopping_cart = {}
-        else:
-            shopping_cart.to_dict()
-        return json.dumps([{'User': user.to_dict()}, {'Shopping cart': [shopping_cart]}])
+
+        return {'User': user.to_dict(), 'Shopping cart': shopping_cart}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -78,7 +75,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return json.dumps({'User': user.to_dict()}, {'Shopping cart': []})
+        return {'User': user.to_dict(), 'Shopping cart': []}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
