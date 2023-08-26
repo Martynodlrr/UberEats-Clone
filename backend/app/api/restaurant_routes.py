@@ -105,6 +105,6 @@ def delete_restaurant(id):
     if restaurant:
         db.session.delete(restaurant)
         db.session.commit()
-        return json.dumps({'message': 'Restaurant deleted successfully'}), 200
+        return json.dumps([{'message': 'Restaurant deleted successfully'}]), 200
     else:
-        return json.dumps({'message': 'Restaurant not found'}), 404
+        return json.dumps([{'message': 'Restaurant not found'}]), 404

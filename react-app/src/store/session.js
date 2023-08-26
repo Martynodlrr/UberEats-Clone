@@ -84,7 +84,7 @@ export const login = (email, password) => async (dispatch) => {
 			password,
 		}),
 	});
-	console.log(response)
+
 
 	if (response.ok) {
 		const data = await response.json();
@@ -142,7 +142,16 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			let user ={}
+			let userShoppingCart = {}
+			if (action.payload.length) {
+				console.log(action.payload)
+			user = action.payload[0].User
+			userShoppingCart = action.payload[1].ShoppingCart
+			console.log(user, userShoppingCart)
+			}
+
+			return { user: user, shoppingCart: {}};
 		case REMOVE_USER:
 			return { user: null };
 		case ADD_SHOPPING_CART_ITEM:

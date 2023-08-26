@@ -15,7 +15,7 @@ def reviews():
     """
     reviews = Review.query.all()
 
-    return json.dumps({'reviews': [review.to_dict() for review in reviews]})
+    return json.dumps([{'reviews': [review.to_dict() for review in reviews]}])
 
 
 @review_routes.route('/restaurants/<int:restaurantId>')
@@ -25,7 +25,7 @@ def reviews_by_restaurant_id(restaurantId):
     if not reviews:
         return json.dumps({'message': 'Restaurant has no reviews'}), 404
 
-    return json.dumps({'reviews': [review.to_dict() for review in reviews]})
+    return json.dumps([{'reviews': [review.to_dict() for review in reviews]}])
 
 
 @review_routes.route('/restaurants/<int:restaurantId>', methods=['POST'])
@@ -45,7 +45,7 @@ def create_review(restaurantId):
         db.session.add(new_review)
         db.session.commit()
 
-        return json.dumps({'review': new_review.to_dict()}), 201
+        return json.dumps([{'review': new_review.to_dict()}]), 201
 
     if form.errors:
         return form.errors
@@ -69,7 +69,7 @@ def update_review(id):
         review.rating = form.data['rating']
 
         db.session.commit()
-        return json.dumps({'review': review.to_dict()})
+        return json.dumps([{'review': review.to_dict()}])
 
     if form.errors:
         return form.errors
@@ -85,6 +85,6 @@ def delete_review(id):
     if review:
         db.session.delete(review)
         db.session.commit()
-        return json.dumps({'message': 'Review deleted successfully'}), 200
+        return json.dumps([{'message': 'Review deleted successfully'}]), 200
 
-    return json.dumpsjson.dumps({'message': 'Review not found'}), 404
+    return json.dumps([{'message': 'Review not found'}]), 404

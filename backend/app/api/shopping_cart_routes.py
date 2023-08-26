@@ -42,7 +42,7 @@ def update_shopping_cart(userId):
     db.session.add(item)
     db.session.commit()
 
-    return json.dumps({"Shopping cart": [shopping_cart.to_dict()]})
+    return json.dumps([{"Shopping cart": [shopping_cart.to_dict()]}])
 
 
 @shopping_cart_routes.route("/<int:userId>/item/<int:itemId>", methods=["DELETE"])
@@ -54,7 +54,7 @@ def delete_shopping_cart_item(userId, itemId):
     shopping_cart = ShoppingCartItem.query.filter_by(user_id=userId).all()
 
     if not shopping_cart:
-        return json.dumps({"message": "Shopping cart not found"}), 404
+        return json.dumps([{"message": "Shopping cart not found"}]), 404
 
     item = MenuItem.query.filter(id=itemId)
 
@@ -62,12 +62,12 @@ def delete_shopping_cart_item(userId, itemId):
         return json.dumps({"message": "Item not found"}), 404
 
     if item not in shopping_cart.items:
-        return json.dumps({"message": "Item not found in shopping cart"}), 404
+        return json.dumps([{"message": "Item not found in shopping cart"}]), 404
 
     db.session.delete(item)
     db.session.commit()
 
-    return json.dumps({"message": "Item deleted successfully"})
+    return json.dumps([{"message": "Item deleted successfully"}])
 
 
 @shopping_cart_routes.route("/<int:userId>", methods=["DELETE"])
@@ -79,11 +79,11 @@ def clear_shopping_cart(userId):
     shopping_cart = ShoppingCartItem.query.filter_by(user_id=userId).all()
 
     if not shopping_cart:
-        return json.dumps({"message": "Shopping cart not found"}), 404
+        return json.dumps([{"message": "Shopping cart not found"}]), 404
 
     for item in shopping_cart.items:
         db.session.delete(item)
 
     db.session.commit()
 
-    return json.dumps({"message": "Cart cleared successfully"})
+    return json.dumps([{"message": "Cart cleared successfully"}])
