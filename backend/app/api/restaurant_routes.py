@@ -27,7 +27,7 @@ def restaurants():
     """
     restaurants = Restaurant.query.all()
 
-    if not restaurant:
+    if not restaurants:
         return json.dumps({'message': 'Restaurant not found'}), 404
 
     res = {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}

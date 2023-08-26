@@ -1,5 +1,4 @@
-from ..models import db, environment, SCHEMA
-from ..models.restaurant import Restaurant
+from app.models import db, environment, SCHEMA, Restaurant
 
 from sqlalchemy.sql import text
 
@@ -515,7 +514,6 @@ def seed_restaurants():
         restaurants[i]['image']=restaurant_links[i]
 
     [db.session.add(Restaurant(**restaurant)) for restaurant in restaurants]
-    db.session.commit()
     db.session.commit()
 
 def undo_restaurants():

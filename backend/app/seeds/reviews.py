@@ -1,6 +1,5 @@
 
-from ..models import db, environment, SCHEMA
-from ..models.review import Review
+from app.models import db, environment, SCHEMA, Review
 
 from sqlalchemy.sql import text
 from random import randint

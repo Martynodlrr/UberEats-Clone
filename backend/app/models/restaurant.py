@@ -13,7 +13,7 @@ class Restaurant(db.Model):
     address = db.Column(db.String(255), nullable=False)
     category = db.Column(db.Enum(RestaurantType))
     description = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("Users.id"))
     miles_to_user = db.Column(db.Float, nullable=False)
 
     #relationships

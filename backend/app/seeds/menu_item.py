@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 from random import randint
 from faker import Faker
 from app.models import db, environment, SCHEMA
-from app.models import MenuItems
+from app.models import MenuItem
 
 
 def seed_menu_items():
