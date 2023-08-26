@@ -2,13 +2,13 @@ from .db import db, environment, SCHEMA
 
 
 class ShoppingCartItem(db.Model):
-    __tablename__ = "ShoppingCartItem"
+    __tablename__ = "ShoppingCartItems"
 
     if environment == "production":
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    menu_item_id = db.Column(db.Integer, db.ForeignKey("MenuItem.id"))
+    menu_item_id = db.Column(db.Integer, db.ForeignKey("MenuItems.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("Users.id"))
 
     # relations
