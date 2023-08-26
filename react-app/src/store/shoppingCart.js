@@ -1,110 +1,109 @@
-const GET_SHOPPING_CART = 'shoppingCart/all'
-// const UPDATE_SHOPPING_CART = 'shoppingCart/update'
-const CREATE_SHOPPING_CART = 'shoppingCart/create'
-const DELETE_SHOPPING_CART = 'shoppingCart/delete'
+// // const GET_SHOPPING_CART = 'shoppingCart/all'
+// const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
+// // const CREATE_SHOPPING_CART = 'shoppingCart/create'
+// const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
-const setShoppingCart = (data) => {
-    return {
-        type: GET_SHOPPING_CART,
-        payload: data
-    }
-}
+// // const setShoppingCart = (data) => {
+// //     return {
+// //         type: GET_SHOPPING_CART,
+// //         payload: data
+// //     }
+// // }
 
-// const setUpdateShoppingCart= (data) => {
+// const setAddShoppingCartItem= (data) => {
 //     return {
-//         type: UPDATE_SHOPPING_CART,
+//         type: ADD_SHOPPING_CART_ITEM,
 //         payload: data
 //     }
 // }
 
-const setNewShoppingCart = (data) => {
-    return {
-        type: CREATE_SHOPPING_CART,
-        payload: data
-    }
-}
+// const removeShoppingCartItem = (shoppingCartId) => {
+//     return {
+//         type: DELETE_SHOPPING_CART,
+//         payload: shoppingCartId
+//     }
+// }
 
-const removeShoppingCart = (shoppingCartId) => {
-    return {
-        type: DELETE_SHOPPING_CART,
-        payload: shoppingCartId
-    }
-}
+// // export const getShoppingCart = (userId) => async (dispatch) => {
 
-export const shoppingCart = (userId) => async (dispatch) => {
+// //     const res = await fetch(`/api/shopping-cart-items/${userId}`)
 
-    const res = await fetch(`/api/shopping-carts/${userId}`)
+// //     const data = await res.json()
 
-    const data = await res.json()
+// //     if (data && !data.errors) dispatch(setShoppingCart(data))
 
-    if (data && !data.errors) dispatch(setShoppingCart(data))
+// //     return res
+// // }
 
-    return res
-}
+// // export const createShoppingCart = (shoppingCart) => async (dispatch) => {
 
-export const createShoppingCart = (shoppingCart) => async (dispatch) => {
+// //     const res = await fetch(`/api/shopping-carts/${shoppingCart.user_id}`, {
+// //         method: 'POST',
+// //         body: JSON.stringify(shoppingCart)
+// //     })
 
-    const res = await fetch(`/api/shopping-carts/${shoppingCart.user_id}`, {
-        method: 'POST',
-        body: JSON.stringify(shoppingCart)
-    })
+// //     const data = await res.json()
 
-    const data = await res.json()
+// //     if (data && !data.errors) dispatch(setNewShoppingCart(data))
 
-    if (data && !data.errors) dispatch(setNewShoppingCart(data))
+// //     return res
 
-    return res
+// // }
 
-}
 
-// export const updateShoppingCart = (shoppingCart) => async (dispatch) => {
+// //shopping cart item = {userId, itemId}
+// export const addShoppingCartItem = (shoppingCart) => async (dispatch) => {
 
-//     const res = await fetch(`/api/shopping-carts/${shoppingCart.user_id}`, {
-//         method: 'PUT',
+//     const res = await fetch(`/api/shopping-cart-items`, {
+//         method: 'POST',
 //         body: JSON.stringify(shoppingCart)
 //     })
 
 //     const data = await res.json()
 
-//     if (data && !data.errors) dispatch(setUpdateShoppingCart(data))
+//     if (data && !data.errors) dispatch(setAddShoppingCartItem(data))
 
 //     return res
 // }
 
-export const deleteShoppingCart = (user_id) => async (dispatch) => {
+// export const deleteShoppingCartItem = (itemId) => async (dispatch) => {
 
-    const res = await fetch(`/api/shoppingCarts/${user_id}`, {
-        method: 'DELETE'
-    })
+//     const res = await fetch(`/api/shopping-cart-items/${itemId}`, {
+//         method: 'DELETE'
+//     })
 
-    const data = await res.json()
+//     const data = await res.json()
 
-    if (data && !data.errors) dispatch(removeShoppingCart(user_id))
+//     if (data && !data.errors) dispatch(removeShoppingCartItem(itemId))
 
-    return res
+//     return res
 
-}
+// }
 
-const initialState = { shoppingCart: {}}
+// const initialState = { shoppingCart: {}}
 
-export const shoppingCartReducer = (state = initialState, action) => {
-    switch (action.type) {
+// export const shoppingCartReducer = (state = initialState, action) => {
+//     switch (action.type) {
 
-        case GET_SHOPPING_CART:
-            return {...state, shoppingCart: action.payload}
+//         // case GET_SHOPPING_CART:
+//         //     return {...state, shoppingCart: action.payload}
 
-        case CREATE_SHOPPING_CART:
-            return {...state, shoppingCart: action.payload}
+//         // case CREATE_SHOPPING_CART:
+//         //     return {...state, shoppingCart: action.payload}
 
-        // case UPDATE_SHOPPING_CART:
-        //     return {...state, shoppingCart: action.payload}
+//         case ADD_SHOPPING_CART_ITEM:
+//             const item = action.payload
+//             const addShoppingCartState = {...state}
+//             const shoppingCart = {...addShoppingCartState.shoppingCart}
+//             shoppingCart[item.id] = item
+//             return {...addShoppingCartState, shoppingCart: action.payload}
 
-        case DELETE_SHOPPING_CART:
-            const newState = {...state}
-            delete newState.shoppingCart
-            return {...newState}
+//         case DELETE_SHOPPING_CART:
+//             const newState = {...state}
+//             delete newState.shoppingCart
+//             return {...newState}
 
-        default:
-            return state
-    }
-}
+//         default:
+//             return state
+//     }
+// }
