@@ -9,7 +9,7 @@ def seed_restaurants():
             "name": "Chick-fil-A",
             "image": "https://tb-static.uber.com/prod/image-proc/processed_images/14aecf3db7eea1dd2fe67a004a272ae2/97ef7458dde62fa918635bc21265d9f5.jpeg",
             "address": "123 Main St, Anytown, USA",
-            "category": "fast food",
+            "category": "fastFood",
             "description": "Cows being pushy about eating chicken.",
             "user_id": 2,
             "miles_to_user": 3.21
@@ -18,7 +18,7 @@ def seed_restaurants():
             "name": "Burger King",
             "image": "https://example.com/burger-king-image.jpg",
             "address": "456 Elm St, Another City, USA",
-            "category": "fast food",
+            "category": "fastFood",
             "description": "Have it your way!",
             "user_id": 7,
             "miles_to_user": 2.05
@@ -27,7 +27,7 @@ def seed_restaurants():
             "name": "Pizza Palace",
             "image": "https://example.com/pizza-palace-image.jpg",
             "address": "789 Maple Ave, Smallville, USA",
-            "category": "fast food",
+            "category": "fastFood",
             "description": "Serving hot and delicious pizzas.",
             "user_id": 5,
             "miles_to_user": 1.75
@@ -81,7 +81,7 @@ def seed_restaurants():
             "name": "Gourmet Delights",
             "image": "https://example.com/gourmet-delights-image.jpg",
             "address": "666 Olive Ln, Foodville, USA",
-            "category": "specialty foods",
+            "category": "specialtyFoods",
             "description": "Indulge in exquisite flavors.",
             "user_id": 10,
             "miles_to_user": 4.32
@@ -90,7 +90,7 @@ def seed_restaurants():
             "name": "Pet Paradise",
             "image": "https://example.com/pet-paradise-image.jpg",
             "address": "777 Walnut Ct, Petburg, USA",
-            "category": "pet supplies",
+            "category": "petSupplies",
             "description": "For the love of pets.",
             "user_id": 4,
             "miles_to_user": 2.18
@@ -180,7 +180,7 @@ def seed_restaurants():
             "name": "Savory Delights",
             "image": "https://example.com/savory-delights-image.jpg",
             "address": "888 Spice Dr, Flavortown, USA",
-            "category": "specialty foods",
+            "category": "specialtyFoods",
             "description": "A symphony of tastes awaits.",
             "user_id": 9,
             "miles_to_user": 3.19
@@ -189,7 +189,7 @@ def seed_restaurants():
             "name": "Paws & Claws",
             "image": "https://example.com/paws-and-claws-image.jpg",
             "address": "999 Petal St, Petville, USA",
-            "category": "pet supplies",
+            "category": "petSupplies",
             "description": "Catering to your furry friends.",
             "user_id": 5,
             "miles_to_user": 1.34
@@ -279,7 +279,7 @@ def seed_restaurants():
             "name": "Savor Junction",
             "image": "https://example.com/savor-junction-image.jpg",
             "address": "111 Taste Blvd, Flavorville, USA",
-            "category": "specialty foods",
+            "category": "specialtyFoods",
             "description": "Embark on a culinary journey.",
             "user_id": 5,
             "miles_to_user": 4.03
@@ -288,7 +288,7 @@ def seed_restaurants():
             "name": "Furry Friends Emporium",
             "image": "https://example.com/furry-friends-emporium-image.jpg",
             "address": "222 Woof Rd, Petropolis, USA",
-            "category": "pet supplies",
+            "category": "petSupplies",
             "description": "Tail-wagging goodness for pets.",
             "user_id": 8,
             "miles_to_user": 2.22
@@ -378,7 +378,7 @@ def seed_restaurants():
             "name": "Taste Trail",
             "image": "https://example.com/taste-trail-image.jpg",
             "address": "333 Spice St, Flavorville, USA",
-            "category": "specialty foods",
+            "category": "specialtyFoods",
             "description": "Embark on a journey of flavors.",
             "user_id": 8,
             "miles_to_user": 1.78
@@ -387,7 +387,7 @@ def seed_restaurants():
             "name": "Pet Haven",
             "image": "https://example.com/pet-haven-image.jpg",
             "address": "444 Paws Rd, Petopia, USA",
-            "category": "pet supplies",
+            "category": "petSupplies",
             "description": "Where pets are family.",
             "user_id": 5,
             "miles_to_user": 4.32
@@ -518,8 +518,8 @@ def seed_restaurants():
 
 def undo_restaurants():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.restaurants RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.Restaurants RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM restaurants"))
+        db.session.execute(text("DELETE FROM Restaurants"))
 
     db.session.commit()
