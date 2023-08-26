@@ -1,7 +1,6 @@
-# code needs to be tested
 import json
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from flask import Blueprint, jsonify
 from app.models import db, Review
 from app.forms import ReviewForm
 
@@ -34,13 +33,16 @@ def create_review(restaurantId):
     """
     Creates a review based on restaurant id and returns that review in a dictionary
     """
+    data = request.get_json()
     form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         new_review = Review(
-            restaurant_id=restaurantId,
-            description=form.data['body'],
-            rating=form.data['rating']
+            body=form.data['body'],
+            rating=form.data['rating'],
+            user_id=data['userId'],
+            restaurant_id=restaurantId
         )
         db.session.add(new_review)
         db.session.commit()
@@ -63,9 +65,10 @@ def update_review(id):
         return jsonify({'message': 'Review not found'}), 404
 
     form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        review.description = form.data['description']
+        review.body = form.data['body']
         review.rating = form.data['rating']
 
         db.session.commit()
@@ -82,6 +85,10 @@ def delete_review(id):
     Deletes a review based on review id
     """
     review = Review.query.get(id)
+
+    if not review:
+        return json.dumps({'message': 'Review not found'}), 404
+
     if review:
         db.session.delete(review)
         db.session.commit()

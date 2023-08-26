@@ -14,7 +14,7 @@ class Restaurant(db.Model):
     category = db.Column(db.Enum(RestaurantType))
     description = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("Users.id"))
-    miles_to_user = db.Column(db.Float, nullable=False)
+    miles_to_user = db.Column(db.Float)
 
     #relationships
     # ONE restaurant to many reviews
