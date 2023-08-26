@@ -43,10 +43,11 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         shopping_cart = ShoppingCartItem.query.filter_by(user_id=user.id).all()
+        cart_res = [{column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns} for cart_item in shopping_cart]
 
         login_user(user)
 
-        return {'User': user.to_dict(), 'Shopping cart': shopping_cart}
+        return {'User': user.to_dict(), 'Shopping cart': cart_res}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
