@@ -40,15 +40,24 @@ def login():
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # Add the user to the session, we are logged in!
+    # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         shopping_cart = ShoppingCartItem.query.filter_by(user_id=user.id).all()
         cart_res = [{column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns} for cart_item in shopping_cart]
 
         login_user(user)
 
-        return {'User': user.to_dict(), 'Shopping cart': cart_res}
+        user_data = user.to_dict()  # Convert user to dict
+        user_data['shopping_cart'] = cart_res  # Add shopping cart to user data
+
+        return {'User': user_data}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
+
+
+
 
 
 @auth_routes.route('/logout')
