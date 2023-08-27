@@ -26,7 +26,11 @@ def authenticate():
     Authenticates a user
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        shopping_cart = ShoppingCartItem.query.filter_by(user_id=current_user.id).all()
+        cart_res = [{column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns} for cart_item in shopping_cart]
+        user_data = current_user.to_dict()
+        user_data['shopping_cart'] = cart_res
+        return user_data
     return {'errors': ['Unauthorized']}
 
 
