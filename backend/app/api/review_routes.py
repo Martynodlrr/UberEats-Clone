@@ -1,7 +1,7 @@
 import json
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import db, Review
+from app.models import db, Review,User
 from app.forms import ReviewForm
 
 review_routes = Blueprint('reviews', __name__)
@@ -14,17 +14,26 @@ def reviews():
     """
     reviews = Review.query.all()
 
+
     return json.dumps({'reviews': [review.to_dict() for review in reviews]})
 
 
 @review_routes.route('/restaurants/<int:restaurantId>')
 def reviews_by_restaurant_id(restaurantId):
     reviews = Review.query.filter_by(restaurant_id=restaurantId).all()
+    data = []
+
+    for review in reviews:
+        user = User.query.get(review.user_id)
+        if user:
+            review_data = review.to_dict()
+            review_data['username'] = user.username  # Add username as an attribute
+            data.append(review_data)
 
     if not reviews:
         return json.dumps({'message': 'Restaurant has no reviews'}), 404
 
-    return json.dumps({'reviews': [review.to_dict() for review in reviews]})
+    return json.dumps({'reviews': data})
 
 
 @review_routes.route('/restaurants/<int:restaurantId>', methods=['POST'])
