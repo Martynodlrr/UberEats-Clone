@@ -21,7 +21,7 @@ restaurant_types=[
 
 class RestaurantForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=50)])
-    image_url = StringField('Image_Url', validators=[DataRequired(), URL(), Length(max=255)])
+    image = StringField('Image_Url', validators=[DataRequired(), URL(), Length(max=255)])
     address = StringField('Address', validators=[DataRequired(), Length(max=255)])
     category = SelectField('Category',choices=restaurant_types, validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])

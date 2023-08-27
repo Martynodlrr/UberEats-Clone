@@ -1,79 +1,83 @@
-# # code needs to be tested
-# # **  W.I.P.  **
-# import json
-# from flask_login import login_required
-# from flask import Blueprint, jsonify
-# from app.forms import MenuItemForm
-# from app.models import db, MenuItem
+# code needs to be tested
+# **  W.I.P.  **
+import json
+from flask_login import login_required
+from flask import Blueprint, jsonify,request
+from app.forms import MenuItemForm
+from app.models import db, MenuItem
 
-# menu_items_routes = Blueprint('menu-items', __name__)
-
-
-# @menu_items_routes.route('/')
-# def reviews_by_restaurant_id():
-#     reviews = MenuItem.query.all()
-
-#     return json.dumps({'reviews': [review.to_dict() for review in reviews]})
+menu_items_routes = Blueprint('menu-items', __name__)
 
 
-# @menu_items_routes.route('/restaurants/<int:restaurantId>')
-# def reviews_by_restaurant_id(restaurantId):
-#     menu_item = MenuItem.query.filter_by(restaurant_id=restaurantId).all()
+@menu_items_routes.route('/')
+def menu_items():
+    menu_items = MenuItem.query.all()
 
-#     if not reviews:
-#         return jsonify({'message': 'Restaurant has no reviews'}), 404
+    return json.dumps({'menuItems': [menu_item.to_dict() for menu_item in menu_items]})
 
-#     return json.dumps({'reviews': [review.to_dict() for review in reviews]})
+#get all the menu items for each restaurant
+@menu_items_routes.route('/restaurants/<int:restaurantId>')
+def menu_items_by_restaurant_id(restaurantId):
+    menu_items = MenuItem.query.filter_by(restaurant_id=restaurantId).all()
+
+    if not menu_items:
+        return jsonify({'message': 'Restaurant has no menu items'}), 404
+
+    return json.dumps({'menuItems': [menu_item.to_dict() for menu_item in menu_items]})
+
+#create new menu item
+@menu_items_routes.route('/restaurants/<int:restaurantId>', methods=['POST'])
+@login_required
+def create_meun_item(restaurantId):
+    form = MenuItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_menu_item = MenuItem(
+            restaurant_id=restaurantId,
+            name=form.data['name'],
+            price=form.data['price'],
+            image=form.data['image'],
+            calories=form.data['calories']
+        )
+        db.session.add(new_menu_item)
+        db.session.commit()
+
+        return json.dumps({'menuItem': new_menu_item.to_dict()}), 201
+
+    if form.errors:
+        return form.errors
+
+#update route
+@menu_items_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_menu_item(id):
+    menu_item = MenuItem.query.get(id)
+
+    if not menu_item:
+        return json.dumps({'message': 'Menu Item not found'}), 404
+
+    form = MenuItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        menu_item.name=form.data['name']
+        menu_item.price=form.data['price']
+        menu_item.image=form.data['image']
+        menu_item.calories=form.data['calories']
+
+        db.session.commit()
+        return json.dumps({'menuItem': menu_item.to_dict()})
+
+    if form.errors:
+        return form.errors
 
 
-# @menu_items_routes.route('/restaurants/<int:restaurantId>', methods=['POST'])
-# @login_required
-# def create_review(restaurantId):
-#     form = MenuItemForm()
+@menu_items_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_review(id):
+    menu_item = MenuItem.query.get(id)
+    if menu_item:
+        db.session.delete(menu_item)
+        db.session.commit()
+        return json.dumps({'message': 'Menu Item deleted successfully'}), 200
 
-#     if form.validate_on_submit():
-#         menu_item = MenuItem(
-#             restaurant_id=restaurantId,
-#             description=form.data['body'],
-#             rating=form.data['rating']
-#         )
-#         db.session.add(new_review)
-#         db.session.commit()
-
-#         return json.dumps({'review': new_review.to_dict()}), 201
-
-#     if form.errors:
-#         return form.errors
-
-
-# @menu_items_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
-# def update_review(id):
-#     menu_item = MenuItem.query.get(id)
-
-#     if not menu_item:
-#         return json.dumps({'message': 'Review not found'}), 404
-
-#     form = MenuItemForm()
-
-#     if form.validate_on_submit():
-#         review.description = form.data['description']
-#         review.rating = form.data['rating']
-
-#         db.session.commit()
-#         return json.dumps({'review': review.to_dict()})
-
-#     if form.errors:
-#         return form.errors
-
-
-# @menu_items_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
-# def delete_review(id):
-#     menu_item = MenuItem.query.get(id)
-#     if menu_item:
-#         db.session.delete(menu_item)
-#         db.session.commit()
-#         return json.dumps({'message': 'Menu Item deleted successfully'}), 200
-
-#     return json.dumps({'message': 'Menu Item not found'}), 404
+    return json.dumps({'message': 'Menu Item not found'}), 404
