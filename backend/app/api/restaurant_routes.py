@@ -1,10 +1,9 @@
-# code needs to be tested
-
-import json
 from flask_login import login_required
+from flask import Blueprint, request
 from decimal import Decimal
-from flask import Blueprint
 from enum import Enum
+import random
+import json
 from app.models import db, Restaurant
 from app.forms import RestaurantForm
 
@@ -28,7 +27,7 @@ def restaurants():
     restaurants = Restaurant.query.all()
 
     if not restaurants:
-        return json.dumps({'message': 'Restaurant not found'}), 404
+        return json.dumps({'message': 'No restaurants available'}), 404
 
     res = {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
     return json.dumps(res, cls=EnumEncoder)
@@ -40,6 +39,10 @@ def restaurant(id):
     Query for a restaurant by id and returns that restaurant in a dictionary
     """
     restaurant = Restaurant.query.get(id)
+
+    if not restaurant:
+        return json.dumps({'message': 'Restaurant not found'}), 404
+
     res = {'restaurant': [restaurant.to_dict()]}
     return json.dumps(res, cls=EnumEncoder)
 
@@ -50,7 +53,9 @@ def create_restaurant():
     """
     Creates a restaurant and returns that restaurant in a dictionary
     """
+    data = request.get_json()
     form = RestaurantForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         new_restaurant = Restaurant(
@@ -58,7 +63,9 @@ def create_restaurant():
             category=form.data['category'],
             address=form.data['address'],
             image=form.data['image'],
-            name=form.data['name']
+            name=form.data['name'],
+            user_id=data['userId'],
+            miles_to_user=random.uniform(0.01, 5)
         )
         db.session.add(new_restaurant)
         db.session.commit()
@@ -80,6 +87,7 @@ def update_restaurant(id):
         return json.dumps({'message': 'Restaurant not found'}), 404
 
     form = RestaurantForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         restaurant.description = form.data['description']
