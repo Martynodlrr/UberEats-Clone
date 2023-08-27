@@ -4,6 +4,14 @@ const REMOVE_USER = "session/REMOVE_USER";
 const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
 const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
+const flatten = (arr) => {
+    const obj = {}
+    for (let el of arr) {
+        obj[el.id] = el
+    }
+    return obj
+}
+
 const setUser = (user) => {
 	return {
 		type: SET_USER,
@@ -31,14 +39,14 @@ const removeShoppingCartItem = (shoppingCartId) => {
 
 const initialState = { user: null };
 
-export const addShoppingCartItem = (shoppingCart) => async (dispatch) => {
-
-	const res = await fetch(`/api/shopping-cart-items`, {
-		method: 'POST',
-		body: JSON.stringify(shoppingCart)
+export const addShoppingCartItem = (item, userId) => async (dispatch) => {
+	console.log(item)
+	const res = await fetch(`/api/shopping-carts/${userId}`, {
+		method: 'PUT',
+		body: JSON.stringify(item)
 	})
-
 	const data = await res.json()
+	console.log('yooooooo',data)
 
 	if (data && !data.errors) dispatch(setAddShoppingCartItem(data))
 
@@ -144,17 +152,15 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-
-			return { ...state, user: action.payload};
+			const user = action.payload
+			const userShoppingCart = user.shopping_cart
+			delete user.shopping_cart
+			return { ...state, user: user, shoppingCart: flatten(userShoppingCart)};
 		case REMOVE_USER:
 			return { user: null };
 		case ADD_SHOPPING_CART_ITEM:
-			const item = action.payload
-			const addShoppingCartState = { ...state }
-			const addUserState = {...addShoppingCartState.user}
-			const shoppingCart = { ...addUserState.shoppingCart }
-			shoppingCart[item.id] = item
-			return { ...addShoppingCartState, user: {...addUserState, shoppingCart: {...shoppingCart}} }
+			console.log(action.payload)
+			return { ...state, shoppingCart: flatten(action.payload['Shopping cart']) }
 
 		case DELETE_SHOPPING_CART:
 			const id = action.payload

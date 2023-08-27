@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import * as restaurantActions from '../../store/restaurant'
 import * as reviewActions from '../../store/review'
+import * as menuItemActions from '../../store/menuItems'
+import * as cartActions from '../../store/session'
 import './index.css'
 import { useEffect } from 'react'
 
@@ -15,25 +17,57 @@ export default function RestaurantDetails() {
 
     const restaurant = useSelector(state => state.restaurants.restaurant)
 
-    const reviews = (useSelector(state => state.reviews.reviews))
+    const user = useSelector(state => state.session.user)
+
+    const reviews = useSelector(state => state.reviews.reviews)
+
+    const items = useSelector(state => state.menuItems.menuItems)
 
 
     useEffect(() => {
         dispatch(restaurantActions.oneRestaurant(id))
-    }, [dispatch])
-    useEffect(() => {
-        console.log('yoooo')
         dispatch(reviewActions.allReviewsbyRestaurant(id))
+        dispatch(menuItemActions.allMenuItems(id))
     }, [dispatch])
 
-    console.log(reviews)
+    let nestedArrays = [];
+
+    if (Object.values(items)) {
+
+        for (let i = 0; i < Object.values(items).length; i += 4) {
+          let nestedArray = Object.values(items).slice(i, i + 4);
+          nestedArrays.push(nestedArray);
+        }
+
+        console.log(nestedArrays)
+    }
+
+
 
     return (
         <div id='restaurant-details'>
-            <img id='restaurant-banner' src='https://d1ralsognjng37.cloudfront.net/8ea36bfe-f70b-4d70-bc1b-a5123a39771b.jpeg'/>
+            <img id='restaurant-banner' src={restaurant && restaurant.image} />
             <div>
-                <p>{restaurant && restaurant.name}</p>
+                <h1>{restaurant && restaurant.name}</h1>
                 <p>Ratings - See all reviews</p>
+            </div>
+            <div>
+                {
+                    nestedArrays.map((arr) => {
+                        return <div className='item-row'>
+                            {
+                                arr.map((item) => {
+                                    return <div className='item-card'>
+                                        <img className='add-item' src='/images/add-item.png' onClick={() => dispatch(cartActions.addShoppingCartItem({itemId: item.id}, user.id))}/>
+                                        <img className='item-image' src={item.image} />
+                                        <p className='item-name'>{item.name}</p>
+                                        <p className='item-price'>${item.price}</p>
+                                    </div>
+                                })
+                            }
+                        </div>
+                    })
+                }
             </div>
         </div>
     )

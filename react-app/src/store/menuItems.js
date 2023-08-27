@@ -3,6 +3,15 @@ const UPDATE_MENU_ITEM = 'menuItems/update'
 const CREATE_MENU_ITEM = 'menuItems/create'
 const DELETE_MENU_ITEM = 'menuItems/delete'
 
+const flatten = (arr) => {
+    const obj = {}
+    for (let el of arr) {
+        obj[el.id] = el
+    }
+    return obj
+}
+
+
 const setMenuItems = (data) => {
     return {
         type: GET_MENU_ITEMS,
@@ -33,18 +42,20 @@ const removeMenuItems = (data) => {
 
 export const allMenuItems = (restaurantId) => async (dispatch) => {
 
-    const res = await fetch(`/api/restaurants/${restaurantId}/menu-items`)
+    const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`)
 
     const data = await res.json()
 
-    if (data && !data.errors) dispatch(setMenuItems(data))
+    console.log(data)
+
+    if (data && !data.errors) dispatch(setMenuItems(flatten(data.menuItems)))
 
     return res
 }
 
 export const createMenuItem = (menutItem) => async (dispatch) => {
 
-    const res = await fetch(`/api/restaurants/${restaurantId}/menu-items`, {
+    const res = await fetch(`/api/restaurants/${menutItem.restaurant_id}/menu-items`, {
         method: 'POST',
         body: JSON.stringify(menutItem)
     })

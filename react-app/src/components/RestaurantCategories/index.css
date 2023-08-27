@@ -29,6 +29,7 @@
 .category-restaurant {
     width: 100%;
     height: 200px;
+    cursor: pointer;
 }
 
 .category-restaurant > p {

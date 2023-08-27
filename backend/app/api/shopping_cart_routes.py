@@ -53,7 +53,7 @@ def delete_shopping_cart_item(userId, itemId):
         db.session.delete(cart_item)
     db.session.commit()
 
-    return json.dumps([{"message": "Item deleted successfully"}])
+    return json.dumps({"message": "Item deleted successfully"})
 
 @shopping_cart_routes.route("/<int:userId>", methods=["DELETE"])
 @login_required
@@ -71,4 +71,4 @@ def clear_shopping_cart(userId):
 
     db.session.commit()
 
-    return json.dumps([{"message": "Cart cleared successfully"}])
+    return json.dumps({"message": "Cart cleared successfully"})

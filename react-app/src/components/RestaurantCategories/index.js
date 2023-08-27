@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import * as restaurantActions from '../../store/restaurant'
 import './index.css'
 
 export default function RestaurantCategories() {
 
+    const history = useHistory()
 
     const dispatch = useDispatch()
 
@@ -49,7 +51,7 @@ export default function RestaurantCategories() {
                         <h1 className='category-name'>{category}</h1>
                         <div className='restaurant-category-list'>
                             {Object.values(categories[originalCat]).map((restaurant) => {
-                                return <div className='category-restaurant category-restaurant-margin'>
+                                return <div className='category-restaurant category-restaurant-margin' onClick={() => history.push(`/restaurant/${restaurant.id}`)}>
                                 <img className='restaurant-category-image' src={restaurant.image} />
                                 <p className='category-restaurant-name'>{restaurant.name}</p>
                                 <p>$100 Delivery Fee</p>

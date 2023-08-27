@@ -11,6 +11,7 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
+	const cart = useSelector(state => state.session.shoppingCart);
 
 
 	console.log(sessionUser)
@@ -21,7 +22,7 @@ function Navigation({ isLoaded }){
 				<a href="/" id='logo'><p id='logo-hello'>Hello</p><p id='logo-eats'>Eats</p></a>
 
 				<button id='current-address'>Current Address</button>
-				<button id='cart-button'>Cart · {sessionUser.shoppingCart}</button>
+				<button id='cart-button'>Cart · {cart && Object.values(cart).length}</button>
 
 			{isLoaded && !Object.values(sessionUser).length && (
 				<div id='login-signup-buttons-container'>
