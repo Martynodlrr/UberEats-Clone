@@ -4,10 +4,12 @@ const REMOVE_USER = "session/REMOVE_USER";
 const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
 const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
-const setUser = (user) => ({
-	type: SET_USER,
-	payload: user,
-});
+const setUser = (user) => {
+	return {
+		type: SET_USER,
+		payload: user,
+	}
+};
 
 const removeUser = () => ({
 	type: REMOVE_USER,
@@ -142,16 +144,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			let user ={}
-			let userShoppingCart = {}
-			if (action.payload.length) {
-				console.log(action.payload)
-			user = action.payload[0].User
-			userShoppingCart = action.payload[1].ShoppingCart
-			console.log(user, userShoppingCart)
-			}
 
-			return { user: user, shoppingCart: {}};
+			return { ...state, user: action.payload};
 		case REMOVE_USER:
 			return { user: null };
 		case ADD_SHOPPING_CART_ITEM:
