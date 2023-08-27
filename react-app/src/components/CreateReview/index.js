@@ -4,11 +4,11 @@ import { useModal } from "../../context/Modal";
 import * as reviewActions from '../../store/review';
 import './CreateReview.css';
 
-export default function CreateReview({ spotId }) {
+export default function CreateReview({ review, formType }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    const [review, setReview] = useState('');
-    const [stars, setStars] = useState(0);
+    const [review, setReview] = useState(formType === 'Update Review' ? review.review : '');
+    const [stars, setStars] = useState(formType === 'Update Review' ? review.stars : 0);
     const [hover, setHover] = useState(null);
     const [errors, setErrors] = useState({});
 
@@ -18,22 +18,36 @@ export default function CreateReview({ spotId }) {
             review,
             stars
         };
-        const returnFromThunk = reviewActions.createReview(newReview, spotId);
-        return dispatch(returnFromThunk).then(() => {
-            dispatch(reviewActions.allReviews(spotId));
-            closeModal();
-        }).catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) {
-                setErrors(data.errors)
-            }
-        });
-    };
+
+        if (formType === 'Update Review') {
+            const returnFromThunk = reviewActions.updateReview(review, newReview);
+            const dbReview = await dispatch(returnFromThunk).catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            });
+            if (dbReview) {
+                history.push(`/reviews/${dbReview.id}`);
+            };
+        } else {
+            const returnFromThunk = reviewActions.createReview(newReview, spotId);
+            return dispatch(returnFromThunk).then(() => {
+                dispatch(reviewActions.allReviews(spotId));
+                closeModal();
+            }).catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors)
+                }
+            });
+        };
+    }
 
     return (
         <>
             <div className='reviewModal'>
-                <h1>How was your meal?</h1>
+                {formType === 'Update Spot' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
                 <form onSubmit={handleSubmit}>
                     {errors.message && <p>{errors.message}</p>}
                     <textarea
