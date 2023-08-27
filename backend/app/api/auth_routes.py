@@ -85,11 +85,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-<<<<<<< HEAD
-        return json.dumps([{'User': user.to_dict()}, {'Shopping cart': []}])
-=======
         return {'User': user.to_dict(), 'Shopping cart': []}
->>>>>>> remotes/origin/dev
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
