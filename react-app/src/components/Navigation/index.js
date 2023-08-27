@@ -11,6 +11,9 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
+	const cart = 
+
+	console.log(sessionUser)
 
 	return (
 		<ul id='navigation'>
@@ -18,10 +21,10 @@ function Navigation({ isLoaded }){
 				<a href="/" id='logo'><p id='logo-hello'>Hello</p><p id='logo-eats'>Eats</p></a>
 
 				<button id='current-address'>Current Address</button>
+				<button id='cart-button'>Cart · #</button>
 
-			{isLoaded && (
+			{isLoaded && !Object.values(sessionUser).length && (
 				<div id='login-signup-buttons-container'>
-					<button id='cart-button'>Cart · #</button>
 					<OpenModalButton
               buttonText="Log In"
 			  className='login-signup'

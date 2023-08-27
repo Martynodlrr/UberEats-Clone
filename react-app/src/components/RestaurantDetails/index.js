@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import * as restaurantActions from '../../store/restaurant'
+import * as reviewActions from '../../store/review'
 import './index.css'
 import { useEffect } from 'react'
 
@@ -14,45 +15,18 @@ export default function RestaurantDetails() {
 
     const restaurant = useSelector(state => state.restaurants.restaurant)
 
-    const elements = document.getElementsByClassName('bz hl')[0].children[0].children
+    const reviews = (useSelector(state => state.reviews.reviews))
 
-    const obj = {}
-    console.log(elements)
-
-    for (let el of elements) {
-        const ul = el.getElementsByTagName('ul')[0]
-        console.log(ul.children)
-
-
-            for (let dat of ul.children) {
-                console.log(dat)
-                if (dat.children[0].children[0].children[0].children[0].children[0].children[0].children[0]) {
-                    if (dat.children[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]) {
-                        const image = dat.children[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0].srcset
-                const name = dat.children[0].children[0].children[0].children[1].children[0].children[0].innerText
-                const price = dat.children[0].children[0].children[0].children[1].children[1].innerText
-
-                console.log(price)
-
-                obj[name] = {name, price, image}
-                    }
-
-                }
-
-
-            }
-
-
-
-    }
-
-    console.log(obj)
 
     useEffect(() => {
         dispatch(restaurantActions.oneRestaurant(id))
     }, [dispatch])
+    useEffect(() => {
+        console.log('yoooo')
+        dispatch(reviewActions.allReviewsbyRestaurant(id))
+    }, [dispatch])
 
-    console.log(restaurant)
+    console.log(reviews)
 
     return (
         <div id='restaurant-details'>
