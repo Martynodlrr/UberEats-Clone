@@ -23,7 +23,7 @@ export default function CreateReview({ userId, review, formType }) {
         };
 
         if (formType === 'Update Review') {
-            const returnFromThunk = reviewActions.updateReview(newReview);
+            const returnFromThunk = reviewActions.updateReview(newReview, review.id);
             return dispatch(returnFromThunk).then(() => {
                 dispatch(reviewActions.allReviewsbyRestaurant(restaurantId));
                 closeModal();

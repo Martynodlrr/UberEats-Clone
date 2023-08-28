@@ -68,9 +68,9 @@ export const createReview = (review) => async (dispatch) => {
 
 }
 
-export const updateReview = (review) => async (dispatch) => {
+export const updateReview = (review, reviewId) => async (dispatch) => {
 
-    const res = await fetch(`/api/reviews/${review.id}`, {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(review)
