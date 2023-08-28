@@ -94,3 +94,18 @@
 #logout:hover {
   background-color: rgb(177, 175, 175);
 }
+
+#cart-dropdown {
+  position: absolute;
+  margin-left: 838px;
+  top: 75px;
+  border-radius: 10px;
+  width: 300px;
+  background-color: rgb(165, 162, 162);
+  list-style-type: none;
+  padding: 10px;
+}
+
+.cart-list {
+  border-bottom: solid 1px;
+}

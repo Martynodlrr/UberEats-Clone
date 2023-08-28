@@ -34,9 +34,9 @@
 }
 
 .add-item {
-    position: relative;
-    right: -390px;
-    top: 65px;
+    position: absolute;
+    margin-left:0px;
+    margin-top: 0px;
     border-radius: 40px;
     background-color: white;
     cursor: pointer;

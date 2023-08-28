@@ -61,8 +61,10 @@ export default function RestaurantDetails() {
                             {
                                 arr.map((item) => {
                                     return <div className='item-card'>
-                                        <img className='add-item' src='/images/add-item.png' onClick={() => dispatch(cartActions.addShoppingCartItem({itemId: item.id}, user.id))}/>
-                                        <img className='item-image' src={item.image} />
+                                        <div>
+                                            <img className='add-item' src='/images/add-item.png' onClick={() => dispatch(cartActions.addShoppingCartItem({itemId: item.id}, user.id))}/>
+                                            <img className='item-image' src={item.image} />
+                                        </div>
                                         <p className='item-name'>{item.name}</p>
                                         <p className='item-price'>${item.price}</p>
                                     </div>
