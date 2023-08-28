@@ -23,7 +23,7 @@ def get_shopping_cart(userId):
 def update_shopping_cart(userId):
 
     data = request.get_json(force=True)
-    item = MenuItem.query.filter(MenuItem.id == data['itemId']).first()
+    item = MenuItem.query.filter(MenuItem.id == data['menu_item_id']).first()
 
     if not item:
         return {"error": "Item not found"}, 404
@@ -32,10 +32,17 @@ def update_shopping_cart(userId):
     db.session.add(new_cart_item)
     db.session.commit()
 
-    shopping_cart = ShoppingCartItem.query.filter(ShoppingCartItem.user_id==userId).all()
-    cart_res = [{column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns} for cart_item in shopping_cart]
+    shopping_cart = ShoppingCartItem.query.filter(ShoppingCartItem.user_id == userId).all()
+    cart_res = []
+
+    for cart_item in shopping_cart:
+        item_dict = cart_item.to_dict()
+        item_dict['name'] = cart_item.menu_item.name
+        item_dict['price'] = cart_item.menu_item.price
+        cart_res.append(item_dict)
 
     return {"Shopping cart": cart_res}
+
 
 
 @shopping_cart_routes.route("/<int:userId>/item/<int:itemId>", methods=["DELETE"])
