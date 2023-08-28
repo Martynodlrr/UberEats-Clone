@@ -55,7 +55,7 @@ function LoginFormModal() {
           <button type="submit" className="loginSubmit">Log In</button>
         </form>
         <p id="orTag">or</p>
-        <button className="otherLoginButtons" onClick={() => dispatch(login("demo@aa.io", "password"))}>Demo Login</button>
+        <button className="otherLoginButtons" onClick={() => dispatch(login("demo@aa.io", "password")).then(() => closeModal())}>Demo Login</button>
         <button className="otherLoginButtons">Continue with Google</button>
         <button className="otherLoginButtons">Continue with Apple</button>
         <button className="otherLoginButtons">Continue with Facebook</button>
