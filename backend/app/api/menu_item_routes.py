@@ -1,5 +1,3 @@
-# code needs to be tested
-# **  W.I.P.  **
 import json
 from flask_login import login_required
 from flask import Blueprint, jsonify,request
