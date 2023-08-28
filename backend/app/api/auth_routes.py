@@ -27,11 +27,20 @@ def authenticate():
     """
     if current_user.is_authenticated:
         shopping_cart = ShoppingCartItem.query.filter_by(user_id=current_user.id).all()
-        cart_res = [{column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns} for cart_item in shopping_cart]
+        cart_res = []
+
+        for cart_item in shopping_cart:
+            item_dict = {column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns}
+            item_dict['name'] = cart_item.menu_item.name
+            item_dict['price'] = cart_item.menu_item.price
+            cart_res.append(item_dict)
+
         user_data = current_user.to_dict()
         user_data['shopping_cart'] = cart_res
         return user_data
+
     return {'errors': ['Unauthorized']}
+
 
 
 @auth_routes.route('/login', methods=['POST'])
@@ -44,10 +53,16 @@ def login():
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-    # Add the user to the session, we are logged in!
+        # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         shopping_cart = ShoppingCartItem.query.filter_by(user_id=user.id).all()
-        cart_res = [{column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns} for cart_item in shopping_cart]
+        cart_res = []
+
+        for cart_item in shopping_cart:
+            item_dict = {column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns}
+            item_dict['name'] = cart_item.menu_item.name
+            item_dict['price'] = cart_item.menu_item.price
+            cart_res.append(item_dict)
 
         login_user(user)
 
@@ -56,12 +71,6 @@ def login():
 
         return {'User': user_data}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-
-
-
-
-
 
 
 @auth_routes.route('/logout')
