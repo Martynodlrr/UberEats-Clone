@@ -15,7 +15,7 @@ def seed_users():
     amanda = User(
         username='amorrow',email='amanda@aa.io', password = 'password')
     martyn = User(
-        username='yayadinero',email='martyn@aa.io', password = 'password')
+        username='martyn',email='martyn@aa.io', password = 'password')
     hunter = User(
         username='hunter12756',email='hunter@aa.io', password = 'password')
     brad = User(
