@@ -3,6 +3,7 @@ from flask_login import login_required
 from flask import Blueprint, jsonify,request
 from app.forms import MenuItemForm
 from app.models import db, MenuItem
+from app.api import (upload_file_to_s3, get_unique_filename)
 
 menu_items_routes = Blueprint('menu-items', __name__)
 
@@ -29,14 +30,20 @@ def menu_items_by_restaurant_id(restaurantId):
 def create_meun_item(restaurantId):
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    upload = upload_file_to_s3(form.data['image'])
+
+    if 'url' not in upload:
+        return upload
+
     if form.validate_on_submit():
         new_menu_item = MenuItem(
             restaurant_id=restaurantId,
             name=form.data['name'],
             price=form.data['price'],
-            image=form.data['image'],
+            image=upload["url"],
             calories=form.data['calories']
         )
+
         db.session.add(new_menu_item)
         db.session.commit()
 
@@ -56,6 +63,15 @@ def update_menu_item(id):
 
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.data['image']:
+        upload = upload_file_to_s3(form.data['image'])
+
+        if 'url' not in upload:
+            return upload
+        else:
+            menu_item.image=upload["url"]
+
     if form.validate_on_submit():
         menu_item.name=form.data['name']
         menu_item.price=form.data['price']
