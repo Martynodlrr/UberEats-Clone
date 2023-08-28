@@ -20,7 +20,7 @@ export default function CreateReview({ reviewId, review, formType }) {
         };
 
         if (formType === 'Update Review') {
-            const returnFromThunk = reviewActions.updateReview(reviewId, newReview);
+            const returnFromThunk = reviewActions.updateReview(newReview);
             const dbReview = await dispatch(returnFromThunk).catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -31,9 +31,9 @@ export default function CreateReview({ reviewId, review, formType }) {
                 history.push(`/reviews/${dbReview.id}`);
             };
         } else {
-            const returnFromThunk = reviewActions.createReview(newReview, reviewId);
+            const returnFromThunk = reviewActions.createReview(newReview);
             return dispatch(returnFromThunk).then(() => {
-                dispatch(reviewActions.allReviews(spotId));
+                dispatch(reviewActions.allReviews(reviewId));
                 closeModal();
             }).catch(async (res) => {
                 const data = await res.json();
