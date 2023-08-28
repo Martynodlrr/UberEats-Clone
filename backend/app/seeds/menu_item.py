@@ -10,10 +10,14 @@ from .menu_item_data import menu_data
 def generate_price():
     random_value = randint(1, 10)
     decision = random.choice([True, False])
+    second_decision = random.choice([True, False])
     if decision:
-        return random_value
+        if second_decision:
+            return random_value - 0.5
+        else:
+            return random_value - 0.01
     else:
-        return random_value - 0.01
+        return random_value
 
 def seed_menu_items():
     menu_items=[]
