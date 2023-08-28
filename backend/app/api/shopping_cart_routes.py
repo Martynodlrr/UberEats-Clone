@@ -29,7 +29,10 @@ def update_shopping_cart(userId):
         return {"error": "Item not found"}, 404
 
     new_cart_item = ShoppingCartItem(user_id=userId, menu_item_id=item.id)
-    db.session.add(new_cart_item)
+    new_cart_item_dict = new_cart_item.to_dict()
+    new_cart_item_dict['name']=item.name
+    new_cart_item_dict['price']=item.price
+    db.session.add(new_cart_item_dict)
     db.session.commit()
 
     shopping_cart = ShoppingCartItem.query.filter(ShoppingCartItem.user_id==userId).all()
