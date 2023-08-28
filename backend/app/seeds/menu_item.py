@@ -12,11 +12,11 @@ def generate_price():
 
     random_threshold = random.random()  # generates a float between 0 and 1
 
-    if random_threshold < 0.002:  # 0.2% chance
+    if random_threshold < 0.2:  # 20% chance
         return random_value - 0.5
-    elif 0.002 <= random_threshold < 0.202:  # 20% chance (0.2 - 0.002)
+    elif random_threshold < .6:  # 40% chance
         return random_value - 0.01
-    else:  # 79.8% chance
+    else:  # 40% chance
         return random_value
 
 def seed_menu_items():
