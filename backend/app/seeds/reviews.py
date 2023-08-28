@@ -9,9 +9,9 @@ def seed_reviews():
     fake = Faker()
     reviews = []
     for i in range(1,45):
-        for j in range (1,10):
+        for j in range (2,11):
             review_data = {
-                "user_id": randint(2,5),
+                "user_id": j,
                 "restaurant_id": i,
                 "body":fake.paragraph(),
                 "rating":randint(1,5)
