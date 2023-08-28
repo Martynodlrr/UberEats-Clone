@@ -64,7 +64,7 @@ export const oneRestaurant = (restaurantId) => async (dispatch) => {
 export const allRestaurants = () => async (dispatch) => {
 
     const res = await fetch('/api/restaurants')
-console.log(res)
+    // console.log(res)
     const data = await res.json()
 
     if (data && !data.errors) dispatch(setAllRestaurants(data))
@@ -115,36 +115,36 @@ export const deleteRestaurant = (restaurantId) => async (dispatch) => {
 
 }
 
-const initialState = { restaurants: {}}
+const initialState = { restaurants: {} }
 
 export const restaurantReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_ALL_RESTAURANTS:
             const restaurants = flatten(action.payload.restaurants)
-            return {...state, restaurants: restaurants}
+            return { ...state, restaurants: restaurants }
 
         case CREATE_RESTAURANT:
             const restaurant = action.payload
-            const newState = {...state}
-            const allRestaurants = {...newState.restaurants}
+            const newState = { ...state }
+            const allRestaurants = { ...newState.restaurants }
             allRestaurants[restaurant.id] = restaurant
-            return {...newState, restaurants: {...allRestaurants}}
+            return { ...newState, restaurants: { ...allRestaurants } }
 
         case UPDATE_RESTAURANT:
             const updatedRestaurant = action.payload
-            const updatedState = {...state}
-            const updatedRestaurants = {...updatedState.restaurants}
+            const updatedState = { ...state }
+            const updatedRestaurants = { ...updatedState.restaurants }
             updatedRestaurants[updatedRestaurant.id] = updatedRestaurant
-            return {...updatedState, restaurants: updatedRestaurants}
+            return { ...updatedState, restaurants: updatedRestaurants }
         case DELETE_RESTAURANT:
             const restaurantId = action.payload
-            const finalState = {...state}
-            const finalRestaurants = {...finalState.restaurants}
+            const finalState = { ...state }
+            const finalRestaurants = { ...finalState.restaurants }
             delete finalRestaurants[restaurantId]
-            return {...finalState, restaurants: finalRestaurants}
+            return { ...finalState, restaurants: finalRestaurants }
         case GET_ONE_RESTAURANT:
-            return {...state, restaurant: {...action.payload.restaurant[0]}}
+            return { ...state, restaurant: { ...action.payload.restaurant[0] } }
         default:
             return state
     }

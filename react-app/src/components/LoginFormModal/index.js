@@ -13,7 +13,7 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password)
+    // console.log(email, password)
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);

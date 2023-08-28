@@ -31,18 +31,18 @@ export default function RestaurantDetails() {
         dispatch(menuItemActions.allMenuItems(id))
     }, [dispatch])
 
-    console.log(reviews)
+    // console.log(reviews)
 
     let nestedArrays = [];
 
     if (Object.values(items)) {
 
         for (let i = 0; i < Object.values(items).length; i += 4) {
-          let nestedArray = Object.values(items).slice(i, i + 4);
-          nestedArrays.push(nestedArray);
+            let nestedArray = Object.values(items).slice(i, i + 4);
+            nestedArrays.push(nestedArray);
         }
 
-        console.log(nestedArrays)
+        // console.log(nestedArrays)
     }
 
 
@@ -61,7 +61,7 @@ export default function RestaurantDetails() {
                             {
                                 arr.map((item) => {
                                     return <div className='item-card'>
-                                        <img className='add-item' src='/images/add-item.png' onClick={() => dispatch(cartActions.addShoppingCartItem({itemId: item.id}, user.id))}/>
+                                        <img className='add-item' src='/images/add-item.png' onClick={() => dispatch(cartActions.addShoppingCartItem({ itemId: item.id }, user.id))} />
                                         <img className='item-image' src={item.image} />
                                         <p className='item-name'>{item.name}</p>
                                         <p className='item-price'>${item.price}</p>
@@ -74,7 +74,7 @@ export default function RestaurantDetails() {
             </div>
             <div id='review-container'>
                 <h1>Reviews</h1>
-                <Reviews reviews={Object.values(reviews)} userId={user ? user.id : 0}/>
+                <Reviews reviews={Object.values(reviews)} userId={user ? user.id : 0} />
             </div>
         </div>
     )

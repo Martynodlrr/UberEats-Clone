@@ -9,14 +9,14 @@ import SignupFormModal from "../SignupFormModal";
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
 
 	const dispatch = useDispatch()
 	const sessionUser = useSelector(state => state.session.user);
 	const cart = useSelector(state => state.session.shoppingCart);
 
 
-	console.log(sessionUser)
+	// console.log(sessionUser)
 
 	const handleLogout = () => {
 		dispatch(logout())
@@ -25,27 +25,27 @@ function Navigation({ isLoaded }){
 	return (
 		<ul id='navigation'>
 
-				<a href="/" id='logo'><p id='logo-hello'>Hello</p><p id='logo-eats'>Eats</p></a>
+			<a href="/" id='logo'><p id='logo-hello'>Hello</p><p id='logo-eats'>Eats</p></a>
 
-				<button id='current-address'>Current Address</button>
-				<button id='cart-button'><img id='cart-icon' src='/images/cart.png'/>Cart · {cart && Object.values(cart).length}</button>
-				{
-					sessionUser && <button id='logout' onClick={handleLogout}>Logout ;( </button>
-				}
+			<button id='current-address'>Current Address</button>
+			<button id='cart-button'><img id='cart-icon' src='/images/cart.png' />Cart · {cart && Object.values(cart).length}</button>
+			{
+				sessionUser && <button id='logout' onClick={handleLogout}>Logout ;( </button>
+			}
 
 			{isLoaded && !sessionUser && (
 				<div id='login-signup-buttons-container'>
 					<OpenModalButton
-              buttonText="Log In"
-			  className='login-signup'
-              modalComponent={<LoginFormModal />}
-            />
+						buttonText="Log In"
+						className='login-signup'
+						modalComponent={<LoginFormModal />}
+					/>
 
-            <OpenModalButton
-              buttonText="Sign Up"
-			  className='login-signup'
-              modalComponent={<SignupFormModal />}
-            />
+					<OpenModalButton
+						buttonText="Sign Up"
+						className='login-signup'
+						modalComponent={<SignupFormModal />}
+					/>
 				</div>
 			)}
 		</ul>
