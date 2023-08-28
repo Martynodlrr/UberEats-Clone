@@ -1,53 +1,55 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { useHistory } from "react-router-dom";
 import * as reviewActions from '../../store/review';
 import './index.css';
 
-export default function CreateReview({ currentReview, formType }) {
+export default function CreateReview({ reviewId, currentReview, formType }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [review, setReview] = useState(formType === 'Update Review' ? currentReview.review : '');
     const [stars, setStars] = useState(formType === 'Update Review' ? currentReview.stars : 0);
     const [hover, setHover] = useState(null);
     const [errors, setErrors] = useState({});
+    const history = useHistory()
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const newReview = {
-    //         review,
-    //         stars
-    //     };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newReview = {
+            review,
+            stars
+        };
 
-    //     if (formType === 'Update Review') {
-    //         const returnFromThunk = reviewActions.updateReview(review, newReview);
-    //         const dbReview = await dispatch(returnFromThunk).catch(async (res) => {
-    //             const data = await res.json();
-    //             if (data && data.errors) {
-    //                 setErrors(data.errors);
-    //             }
-    //         });
-    //         if (dbReview) {
-    //             history.push(`/reviews/${dbReview.id}`);
-    //         };
-    //     } else {
-    //         const returnFromThunk = reviewActions.createReview(newReview, spotId);
-    //         return dispatch(returnFromThunk).then(() => {
-    //             dispatch(reviewActions.allReviews(spotId));
-    //             closeModal();
-    //         }).catch(async (res) => {
-    //             const data = await res.json();
-    //             if (data && data.errors) {
-    //                 setErrors(data.errors)
-    //             }
-    //         });
-    //     };
-    // }
+        if (formType === 'Update Review') {
+            const returnFromThunk = reviewActions.updateReview(newReview);
+            const dbReview = await dispatch(returnFromThunk).catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            });
+            if (dbReview) {
+                history.push(`/reviews/${dbReview.id}`);
+            };
+        } else {
+            const returnFromThunk = reviewActions.createReview(newReview);
+            return dispatch(returnFromThunk).then(() => {
+                //dispatch(reviewActions.allReviews(reviewId));
+                closeModal();
+            }).catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors)
+                }
+            });
+        };
+    }
 
     return (
         <>
-            {/* <div className='reviewModal'>
-                {formType === 'Update Spot' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
+            <div className='reviewModal'>
+                {formType === 'Update Review' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
                 <form onSubmit={handleSubmit}>
                     {errors.message && <p>{errors.message}</p>}
                     <textarea
