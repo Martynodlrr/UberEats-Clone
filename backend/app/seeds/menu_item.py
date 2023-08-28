@@ -1,10 +1,19 @@
 
 from sqlalchemy.sql import text
+import random
 from random import randint
 from faker import Faker
 from app.models import db, environment, SCHEMA
 from app.models import MenuItem
 from .menu_item_data import menu_data
+
+def generate_price():
+    random_value = randint(1, 10)
+    decision = random.choice([True, False])
+    if decision:
+        return random_value
+    else:
+        return random_value - 0.01
 
 def seed_menu_items():
     menu_items=[]
@@ -13,7 +22,7 @@ def seed_menu_items():
             item_data = {
                 "restaurant_id": i,
                 "name": item_name,
-                "price": randint(1, 10),
+                "price": generate_price(),
                 "image": menu_data[i][1][menu_data[i][0].index(item_name)],  # Use index to get corresponding image
                 "calories": randint(300, 1000)
             }
