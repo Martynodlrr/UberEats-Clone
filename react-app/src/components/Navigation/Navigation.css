@@ -25,8 +25,8 @@
   margin: 0px;
   flex-direction: row;
   justify-content: space-between;
-  padding: 30px 20px 30px 20px;
-  margin: 0px 80px 0px 80px;
+  padding: 30px 0px 30px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 #login-signup-buttons-container {
@@ -58,13 +58,39 @@
   background-color: black;
   border-radius: 20px;
   height: 40px;
-  width: 100px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+#cart-button:hover {
+  background-color: rgb(177, 175, 175);
 }
 
 #current-address {
   border-radius: 20px;
-  height: 40px;
+  height: 50px;
   border: none;
   font-weight: 700;
   width: 150px;
+}
+
+#cart-icon {
+  height: 30px
+}
+
+#logout {
+  background-color: rgb(235, 234, 234);
+    border-radius: 15px;
+    font-weight: 700;
+    width: 100px;
+    height: 45px;
+    border: none;
+    cursor: pointer;
+}
+
+#logout:hover {
+  background-color: rgb(177, 175, 175);
 }

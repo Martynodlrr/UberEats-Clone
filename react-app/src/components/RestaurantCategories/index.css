@@ -1,0 +1,47 @@
+#restaurant-categories {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-self: flex-end;
+    align-self: flex-end;
+    width: 75%;
+}
+
+.restaurant-category {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.restaurant-category-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.restaurant-category-image {
+    width: 100%;
+    height: 80%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.category-restaurant {
+    width: 100%;
+    height: 200px;
+    cursor: pointer;
+}
+
+.category-restaurant > p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.category-restaurant-margin {
+    margin-right: 20px;
+}
+
+.category-restaurant-name {
+    font-weight: 700;
+    font-size: 20px;
+}

@@ -1,17 +1,74 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
+const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
-const setUser = (user) => ({
-	type: SET_USER,
-	payload: user,
-});
+const flatten = (arr) => {
+	if (!arr.length) return {}
+    const obj = {}
+    for (let el of arr) {
+        obj[el.id] = el
+    }
+    return obj
+}
 
-const removeUser = () => ({
-	type: REMOVE_USER,
-});
+const setUser = (user) => {
+	return {
+		type: SET_USER,
+		payload: user,
+	}
+};
+
+const removeUser = () => {
+	return {
+		type: REMOVE_USER,
+	}
+};
+
+const setAddShoppingCartItem = (data) => {
+	return {
+		type: ADD_SHOPPING_CART_ITEM,
+		payload: data
+	}
+}
+
+const removeShoppingCartItem = (shoppingCartId) => {
+	return {
+		type: DELETE_SHOPPING_CART,
+		payload: shoppingCartId
+	}
+}
 
 const initialState = { user: null };
+
+export const addShoppingCartItem = (item, userId) => async (dispatch) => {
+	console.log(item)
+	const res = await fetch(`/api/shopping-carts/${userId}`, {
+		method: 'PUT',
+		body: JSON.stringify(item)
+	})
+	const data = await res.json()
+	console.log('yooooooo',data)
+
+	if (data && !data.errors) dispatch(setAddShoppingCartItem(data))
+
+	return res
+}
+
+export const deleteShoppingCartItem = (itemId) => async (dispatch) => {
+
+	const res = await fetch(`/api/shopping-cart-items/${itemId}`, {
+		method: 'DELETE'
+	})
+
+	const data = await res.json()
+
+	if (data && !data.errors) dispatch(removeShoppingCartItem(itemId))
+
+	return res
+
+}
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -24,7 +81,7 @@ export const authenticate = () => async (dispatch) => {
 		if (data.errors) {
 			return;
 		}
-
+		console.log(data)
 		dispatch(setUser(data));
 	}
 };
@@ -40,6 +97,7 @@ export const login = (email, password) => async (dispatch) => {
 			password,
 		}),
 	});
+
 
 	if (response.ok) {
 		const data = await response.json();
@@ -97,9 +155,23 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			const user = action.payload
+			const userShoppingCart = user.shopping_cart
+			delete user.shopping_cart
+			return { ...state, user: user, shoppingCart: flatten(userShoppingCart)};
 		case REMOVE_USER:
 			return { user: null };
+		case ADD_SHOPPING_CART_ITEM:
+			console.log(action.payload)
+			return { ...state, shoppingCart: flatten(action.payload['Shopping cart']) }
+
+		case DELETE_SHOPPING_CART:
+			const id = action.payload
+			const deleteShoppingCartState = { ...state }
+			const deleteUserState = {...deleteShoppingCartState.user}
+			const newShoppingCart = { ...deleteUserState.shoppingCart }
+			delete newShoppingCart[id]
+			return { ...deleteShoppingCartState, user: {...deleteUserState, shoppingCart: {...newShoppingCart}} }
 		default:
 			return state;
 	}

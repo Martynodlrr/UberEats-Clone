@@ -3,6 +3,15 @@ const UPDATE_REVIEW = 'reviews/update'
 const CREATE_REVIEW = 'reviews/create'
 const DELETE_REVIEW = 'reviews/delete'
 
+const flatten = (arr) => {
+    const obj = {}
+    for (let el of arr) {
+        obj[el.id] = el
+    }
+    return obj
+}
+
+
 const setAllReviews = (data) => {
     return {
         type: GET_RESTAURANT_REVIEWS,
@@ -31,20 +40,21 @@ const removeReview = (reviewId) => {
     }
 }
 
-export const allReviews = () => async (dispatch) => {
+export const allReviewsbyRestaurant = (restaurantId) => async (dispatch) => {
 
-    const res = await fetch('/api/reviews')
+    const res = await fetch(`/api/reviews/restaurants/${restaurantId}`)
 
     const data = await res.json()
-
+    console.log("data")
     if (data && !data.errors) dispatch(setAllReviews(data))
 
     return res
 }
 
 export const createReview = (review) => async (dispatch) => {
+    const { restaurant_id } = review
 
-    const res = await fetch(`/api/restaurants/${review.restaurant_id}/reviews`, {
+    const res = await fetch(`/api/reviews/restaurants/${restaurant_id}`, {
         method: 'POST',
         body: JSON.stringify(review)
     })
@@ -73,7 +83,7 @@ export const updateReview = (review) => async (dispatch) => {
 
 export const deleteReview = (reviewId) => async (dispatch) => {
 
-    const res = await fetch(`/api/review/${reviewId}`, {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
 
@@ -85,33 +95,33 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 
 }
 
-const initialState = {}
+const initialState = { reviews: {}}
 
 export const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_RESTAURANT_REVIEWS:
-            return {...state, allReviews: action.payload}
+            return {...state, reviews: flatten(action.payload.reviews)}
 
         case CREATE_REVIEW:
             const review = action.payload
             const newState = {...state}
-            const allReviews = {...newState.allReviews}
+            const allReviews = {...newState.reviews}
             allReviews[review.id] = review
-            return {...newState, allReviews: {...allReviews}}
+            return {...newState, reviews: {...allReviews}}
 
         case UPDATE_REVIEW:
             const updatedReview = action.payload
             const updatedState = {...state}
-            const updatedReviews = {...updatedState.allReviews}
+            const updatedReviews = {...updatedState.reviews}
             updatedReviews[updatedReview.id] = updatedReview
-            return {...updatedState, allReviews: updatedReviews}
+            return {...updatedState, reviews: updatedReviews}
         case DELETE_REVIEW:
             const reviewId = action.payload
             const finalState = {...state}
-            const finalReviews = {...finalState.finalReviews}
+            const finalReviews = {...finalState.reviews}
             delete finalReviews[reviewId]
-            return {...finalState, allReviews: finalReviews}
+            return {...finalState, reviews: finalReviews}
         default:
             return state
     }
