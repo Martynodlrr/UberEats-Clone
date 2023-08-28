@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA,add_prefix_for_prod
 
 
 class ShoppingCartItem(db.Model):
@@ -8,8 +8,8 @@ class ShoppingCartItem(db.Model):
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    menu_item_id = db.Column(db.Integer, db.ForeignKey("MenuItems.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("Users.id"))
+    menu_item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("MenuItems.id")))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("Users.id")))
 
     # relations
     # ONE Shopping cart item to Many menu item

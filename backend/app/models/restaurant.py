@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .restaurant_enum import RestaurantType
 
 class Restaurant(db.Model):
@@ -13,7 +13,7 @@ class Restaurant(db.Model):
     address = db.Column(db.String(255), nullable=False)
     category = db.Column(db.Enum(RestaurantType))
     description = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("Users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("Users.id")))
     miles_to_user = db.Column(db.Float)
 
     #relationships
