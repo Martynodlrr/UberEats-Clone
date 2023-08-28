@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import * as reviewActions from '../../store/review';
 import './CreateReview.css';
 
-export default function CreateReview({ review, formType }) {
+export default function CreateReview({ reviewId, review, formType }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [review, setReview] = useState(formType === 'Update Review' ? review.review : '');
@@ -20,7 +20,7 @@ export default function CreateReview({ review, formType }) {
         };
 
         if (formType === 'Update Review') {
-            const returnFromThunk = reviewActions.updateReview(review, newReview);
+            const returnFromThunk = reviewActions.updateReview(reviewId, newReview);
             const dbReview = await dispatch(returnFromThunk).catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -31,7 +31,7 @@ export default function CreateReview({ review, formType }) {
                 history.push(`/reviews/${dbReview.id}`);
             };
         } else {
-            const returnFromThunk = reviewActions.createReview(newReview, spotId);
+            const returnFromThunk = reviewActions.createReview(newReview, reviewId);
             return dispatch(returnFromThunk).then(() => {
                 dispatch(reviewActions.allReviews(spotId));
                 closeModal();
@@ -47,7 +47,7 @@ export default function CreateReview({ review, formType }) {
     return (
         <>
             <div className='reviewModal'>
-                {formType === 'Update Spot' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
+                {formType === 'Update Review' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
                 <form onSubmit={handleSubmit}>
                     {errors.message && <p>{errors.message}</p>}
                     <textarea
