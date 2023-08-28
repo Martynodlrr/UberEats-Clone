@@ -64,7 +64,7 @@ def create_restaurant():
             address=form.data['address'],
             image=form.data['image'],
             name=form.data['name'],
-            user_id=data['userId'],
+            user_id=data['user_id'],
             miles_to_user=random.uniform(0.01, 5)
         )
         db.session.add(new_restaurant)
