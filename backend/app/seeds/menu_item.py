@@ -8,12 +8,16 @@ from app.models import MenuItem
 from .menu_item_data import menu_data
 
 def generate_price():
-    random_value = randint(1, 10)
-    decision = random.choice([True, False])
-    if decision:
-        return random_value
-    else:
+    random_value = random.randint(1, 10)
+
+    random_threshold = random.random()  # generates a float between 0 and 1
+
+    if random_threshold < 0.2:  # 20% chance
+        return random_value - 0.5
+    elif random_threshold < .6:  # 40% chance
         return random_value - 0.01
+    else:  # 40% chance
+        return random_value
 
 def seed_menu_items():
     menu_items=[]
