@@ -13,6 +13,7 @@ function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const cart = useSelector(state => state.session.shoppingCart);
 	const [showCart, setShowCart] = useState(false)
+	const [cartTotal, setCartTotal] = useState(0)
 
 
 	console.log(sessionUser)
@@ -20,6 +21,7 @@ function Navigation({ isLoaded }) {
 	const handleLogout = () => {
 		dispatch(logout())
 	}
+	let total = 0
 
 	return (
 		<ul id='navigation'>
@@ -32,11 +34,13 @@ function Navigation({ isLoaded }) {
 				showCart && <div id='cart-dropdown'>
 					{
 						cart && Object.values(cart).map((item) => {
+							total += item.price
 							return <li className='cart-list'>
-								<p>something</p>
+								<h4>{item.name}</h4> <p>${item.price}</p>
 							</li>
 						})
 					}
+					<h4 id='total'>Total:{total}</h4>
 				</div>
 			}
 
