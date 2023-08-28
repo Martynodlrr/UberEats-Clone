@@ -31,7 +31,6 @@ export default function RestaurantDetails() {
         dispatch(menuItemActions.allMenuItems(id))
     }, [dispatch])
 
-    console.log(reviews)
 
     let nestedArrays = [];
 
@@ -42,7 +41,6 @@ export default function RestaurantDetails() {
           nestedArrays.push(nestedArray);
         }
 
-        console.log(nestedArrays)
     }
 
 
