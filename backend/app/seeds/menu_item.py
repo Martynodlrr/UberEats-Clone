@@ -8,7 +8,7 @@ from .menu_item_data import menu_data
 
 def seed_menu_items():
     menu_items=[]
-    for i in range(1, 45):
+    for i in range(1, 46):
         for item_name in menu_data[i][0]:
             item_data = {
                 "restaurant_id": i,
