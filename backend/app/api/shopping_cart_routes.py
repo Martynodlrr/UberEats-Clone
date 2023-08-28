@@ -44,7 +44,7 @@ def update_shopping_cart(userId):
         item_dict['name'] = cart_item.menu_item.name
         item_dict['price'] = cart_item.menu_item.price
         cart_res.append(item_dict)
-
+    print(cart_res)
     return {"Shopping cart": cart_res}
 
 

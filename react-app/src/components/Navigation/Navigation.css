@@ -94,3 +94,35 @@
 #logout:hover {
   background-color: rgb(177, 175, 175);
 }
+
+#cart-dropdown {
+  position: absolute;
+  margin-left: 1070px;
+  top: 75px;
+  border-radius: 10px;
+  width: 300px;
+  background-color: white;
+  border: solid ;
+  list-style-type: none;
+  padding: 10px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-list {
+  border-bottom: solid 1px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-list > * {
+  padding: 10px 0px 10px 0px;
+  margin: 0px;
+}
+
+#total {
+  align-self: flex-end;
+  margin: 20px 0px 0px 0px;
+  padding: 0px;
+}
