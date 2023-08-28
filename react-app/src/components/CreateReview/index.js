@@ -80,7 +80,7 @@ export default function CreateReview({ reviewId, currentReview, formType }) {
                     </div>
                     <button type='submit' className='signupSubmit' disabled={review.length < 10 || stars === 0}>Submit Your Review</button>
                 </form>
-            </div> */}
+            </div> 
         </>
     )
 }
