@@ -4,32 +4,23 @@ from random import randint
 from faker import Faker
 from app.models import db, environment, SCHEMA
 from app.models import MenuItem
-
+from .menu_item_data import menu_data
 
 def seed_menu_items():
-    fake = Faker()
-    menu_items = []
-    item_dict = {
-        1:
-            [
-                
-            ],
-
-    }
+    menu_items=[]
     for i in range(1, 45):
-        for menu_item in len(item_dict[i][0]):
+        for item_name in menu_data[i][0]:
             item_data = {
                 "restaurant_id": i,
-                # item_dict[name][0][item]
-                "name": "test_menu_item_name",
+                "name": item_name,
                 "price": randint(1, 10),
-                # item_dict[name][1][item] for image
-                "image": "https://i.imgur.com/1ZoHOCG.jpeg",
+                "image": menu_data[i][1][menu_data[i][0].index(item_name)],  # Use index to get corresponding image
                 "calories": randint(300, 1000)
             }
             menu_items.append(item_data)
     [db.session.add(MenuItem(**item)) for item in menu_items]
     db.session.commit()
+
 
 
 def undo_menu_items():
