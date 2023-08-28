@@ -41,3 +41,16 @@
     background-color: white;
     cursor: pointer;
 }
+
+.add-item:hover {
+    background-color: gray;
+}
+
+.add-item:active {
+    background-color: rgb(173, 173, 173);
+}
+
+#review-container {
+    display: flex;
+    flex-direction: row;
+}

@@ -5,6 +5,7 @@ const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
 const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
 const flatten = (arr) => {
+	if (!arr.length) return {}
     const obj = {}
     for (let el of arr) {
         obj[el.id] = el
@@ -19,9 +20,11 @@ const setUser = (user) => {
 	}
 };
 
-const removeUser = () => ({
-	type: REMOVE_USER,
-});
+const removeUser = () => {
+	return {
+		type: REMOVE_USER,
+	}
+};
 
 const setAddShoppingCartItem = (data) => {
 	return {

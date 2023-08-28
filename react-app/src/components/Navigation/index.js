@@ -10,11 +10,17 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
+
+	const dispatch = useDispatch()
 	const sessionUser = useSelector(state => state.session.user);
 	const cart = useSelector(state => state.session.shoppingCart);
 
 
 	console.log(sessionUser)
+
+	const handleLogout = () => {
+		dispatch(logout())
+	}
 
 	return (
 		<ul id='navigation'>
@@ -22,9 +28,12 @@ function Navigation({ isLoaded }){
 				<a href="/" id='logo'><p id='logo-hello'>Hello</p><p id='logo-eats'>Eats</p></a>
 
 				<button id='current-address'>Current Address</button>
-				<button id='cart-button'>Cart · {cart && Object.values(cart).length}</button>
+				<button id='cart-button'><img id='cart-icon' src='/images/cart.png'/>Cart · {cart && Object.values(cart).length}</button>
+				{
+					sessionUser && <button id='logout' onClick={handleLogout}>Logout ;( </button>
+				}
 
-			{isLoaded && !Object.values(sessionUser).length && (
+			{isLoaded && !sessionUser && (
 				<div id='login-signup-buttons-container'>
 					<OpenModalButton
               buttonText="Log In"

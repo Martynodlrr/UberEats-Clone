@@ -3,10 +3,10 @@ import { useModal } from "../../context/Modal";
 import * as spotReviews from '../../store/review';
 import './DeleteReview.css';
 
-export default function DeleteReview(props) {
+export default function DeleteReview({reviewId}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    const reviewId = props.props;
+    // const reviewId = props.props;
 
     const reviewDelete = (e, reviewId) => {
         e.preventDefault();

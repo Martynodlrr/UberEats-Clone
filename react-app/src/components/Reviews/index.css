@@ -1,0 +1,8 @@
+.review {
+    border-bottom: solid 1px gray;
+    padding-bottom: 40px;
+}
+
+.review > * {
+    margin-left: 40px;
+}

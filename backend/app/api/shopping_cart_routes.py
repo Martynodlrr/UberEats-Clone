@@ -22,7 +22,7 @@ def get_shopping_cart(userId):
 @login_required
 def update_shopping_cart(userId):
 
-    data = request.get_json()
+    data = request.get_json(force=True)
     item = MenuItem.query.filter(MenuItem.id == data['itemId']).first()
 
     if not item:

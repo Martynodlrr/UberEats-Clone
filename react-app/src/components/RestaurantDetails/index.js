@@ -4,8 +4,9 @@ import * as restaurantActions from '../../store/restaurant'
 import * as reviewActions from '../../store/review'
 import * as menuItemActions from '../../store/menuItems'
 import * as cartActions from '../../store/session'
-import './index.css'
 import { useEffect } from 'react'
+import Reviews from '../Reviews'
+import './index.css'
 
 export default function RestaurantDetails() {
 
@@ -29,6 +30,8 @@ export default function RestaurantDetails() {
         dispatch(reviewActions.allReviewsbyRestaurant(id))
         dispatch(menuItemActions.allMenuItems(id))
     }, [dispatch])
+
+    console.log(reviews)
 
     let nestedArrays = [];
 
@@ -68,6 +71,10 @@ export default function RestaurantDetails() {
                         </div>
                     })
                 }
+            </div>
+            <div id='review-container'>
+                <h1>Reviews</h1>
+                <Reviews reviews={Object.values(reviews)} userId={user ? user.id : 0}/>
             </div>
         </div>
     )

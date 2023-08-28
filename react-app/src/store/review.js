@@ -3,6 +3,15 @@ const UPDATE_REVIEW = 'reviews/update'
 const CREATE_REVIEW = 'reviews/create'
 const DELETE_REVIEW = 'reviews/delete'
 
+const flatten = (arr) => {
+    const obj = {}
+    for (let el of arr) {
+        obj[el.id] = el
+    }
+    return obj
+}
+
+
 const setAllReviews = (data) => {
     return {
         type: GET_RESTAURANT_REVIEWS,
@@ -92,7 +101,7 @@ export const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_RESTAURANT_REVIEWS:
-            return {...state, reviews: action.payload}
+            return {...state, reviews: flatten(action.payload.reviews)}
 
         case CREATE_REVIEW:
             const review = action.payload
