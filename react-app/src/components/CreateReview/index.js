@@ -9,8 +9,8 @@ export default function CreateReview({ userId, review, formType }) {
     const dispatch = useDispatch();
     const restaurantId = useSelector((state) => state.restaurants.restaurant.id)
     const { closeModal } = useModal();
-    const [body, setBody] = useState(formType === 'Update Review' ? review && review.body : '');
-    const [rating, setRating] = useState(formType === 'Update Review' ? review && review.rating : null);
+    const [body, setBody] = useState(formType === 'Update Review' ? review.body : '');
+    const [rating, setRating] = useState(formType === 'Update Review' ? review.rating : null);
     const [hover, setHover] = useState(null);
 
     const handleSubmit = async (e) => {

@@ -52,7 +52,7 @@ export default function RestaurantDetails() {
             <img id='restaurant-banner' src={restaurant && restaurant.image} />
             <div>
                 <h1>{restaurant && restaurant.name}</h1>
-                <p>Ratings - See all reviews</p>
+                <p>Ratings - <a href="#review-container">See all reviews</a></p>
             </div>
             <div>
                 {
