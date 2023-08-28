@@ -6,3 +6,40 @@
 .review > * {
     margin-left: 40px;
 }
+
+.delete-review {
+    background-color: rgb(235, 234, 234);
+    border-radius: 15px;
+    font-weight: 700;
+    width: 70px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-review:hover {
+    background-color: red;
+    color: white;
+}
+
+.review-rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.review-rating > h4 {
+    margin-top: 25px;
+}
+
+.review-rating > img {
+    height: 20px;
+}
+
+.review-username {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
