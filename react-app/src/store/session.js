@@ -5,11 +5,14 @@ const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
 const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
 const flatten = (arr) => {
-	if (!arr.length) return {}
-    const obj = {}
-    for (let el of arr) {
-        obj[el.id] = el
-    }
+	const obj = {}
+	if (arr) {
+		if (!arr.length) return {}
+		for (let el of arr) {
+			obj[el.id] = el
+		}
+	}
+
     return obj
 }
 

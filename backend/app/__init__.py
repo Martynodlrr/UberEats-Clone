@@ -6,7 +6,6 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 from app.models import db, User
 from app.api import shopping_cart_routes, restaurant_routes, review_routes, user_routes, auth_routes, menu_items_routes
-# from .api import menu_items_routes
 from app.seeds import seed_commands
 from app.config import Config
 
