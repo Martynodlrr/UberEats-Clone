@@ -6,11 +6,11 @@ import './index.css'
 export default function Reviews({ reviews, userId }) {
     return (
         <div className='reviews'>
-            {/* <OpenModalButton
+            <OpenModalButton
                 buttonText="Write a Review"
                 className='delete-review'
                 modalComponent={<CreateReview userId={userId} />}
-            /> */}
+            />
             {
                 reviews.map((review) => {
                     return <div className='review'>
