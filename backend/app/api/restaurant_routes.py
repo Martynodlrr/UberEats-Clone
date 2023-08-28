@@ -6,6 +6,7 @@ import random
 import json
 from app.models import db, Restaurant
 from app.forms import RestaurantForm
+from app.api import (upload_file_to_s3, get_unique_filename)
 
 restaurant_routes = Blueprint('restaurants', __name__)
 
@@ -56,21 +57,28 @@ def create_restaurant():
     data = request.get_json()
     form = RestaurantForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    upload = upload_file_to_s3(form.data['image'])
+
+    if 'url' not in upload:
+        return upload
 
     if form.validate_on_submit():
         new_restaurant = Restaurant(
             description=form.data['description'],
             category=form.data['category'],
             address=form.data['address'],
-            image=form.data['image'],
+            image=upload["url"],
             name=form.data['name'],
             user_id=data['userId'],
             miles_to_user=random.uniform(0.01, 5)
         )
+
         db.session.add(new_restaurant)
         db.session.commit()
+
         res = {'restaurant': [new_restaurant.to_dict()]}
         return json.dumps(res, cls=EnumEncoder), 201
+
     if form.errors:
         return form.errors
 
@@ -89,12 +97,19 @@ def update_restaurant(id):
     form = RestaurantForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    if form.data['image']:
+        upload = upload_file_to_s3(form.data['image'])
+
+        if 'url' not in upload:
+            return upload
+        else:
+            restaurant.image=upload["url"]
+
     if form.validate_on_submit():
-        restaurant.description = form.data['description']
-        restaurant.category = form.data['category']
-        restaurant.address = form.data['address']
-        restaurant.image = form.data['image']
-        restaurant.name = form.data['name']
+        restaurant.description=form.data['description']
+        restaurant.category=form.data['category']
+        restaurant.address=form.data['address']
+        restaurant.name=form.data['name']
 
         db.session.commit()
         res = {'restaurant': [restaurant.to_dict()]}
