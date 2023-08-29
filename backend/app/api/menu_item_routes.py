@@ -3,7 +3,7 @@ from flask_login import login_required
 from flask import Blueprint, jsonify,request
 from app.forms import MenuItemForm
 from app.models import db, MenuItem
-from app.api import (upload_file_to_s3, get_unique_filename)
+from app.api.aws import (upload_file_to_s3, get_unique_filename)
 
 menu_items_routes = Blueprint('menu-items', __name__)
 

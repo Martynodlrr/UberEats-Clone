@@ -6,7 +6,7 @@ import random
 import json
 from app.models import db, Restaurant
 from app.forms import RestaurantForm
-from app.api import (upload_file_to_s3, get_unique_filename)
+from app.api.aws import (upload_file_to_s3, get_unique_filename)
 
 restaurant_routes = Blueprint('restaurants', __name__)
 
