@@ -1,18 +1,16 @@
 """empty message
 
-Revision ID: a792aae8d72d
-Revises:
-Create Date: 2023-08-28 12:05:50.404090
+Revision ID: 58145998da8d
+Revises: 
+Create Date: 2023-08-29 12:08:06.586945
 
 """
 from alembic import op
 import sqlalchemy as sa
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
+
 
 # revision identifiers, used by Alembic.
-revision = 'a792aae8d72d'
+revision = '58145998da8d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,9 +27,6 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
-    if environment == 'production':
-        op.execute(f'ALTER TABLE Users SET SCHEMA {SCHEMA}')
-
     op.create_table('Restaurants',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
@@ -45,9 +40,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    if environment == 'production':
-        op.execute(f'ALTER TABLE Restaurants SET SCHEMA {SCHEMA}')
-
     op.create_table('MenuItems',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('restaurant_id', sa.Integer(), nullable=True),
@@ -58,9 +50,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['restaurant_id'], ['Restaurants.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == 'production':
-        op.execute(f'ALTER TABLE MenuItems SET SCHEMA {SCHEMA}')
-
     op.create_table('Reviews',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -71,9 +60,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == 'production':
-        op.execute(f'ALTER TABLE Reviews SET SCHEMA {SCHEMA}')
-
     op.create_table('ShoppingCartItems',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('menu_item_id', sa.Integer(), nullable=True),
@@ -82,9 +68,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['Users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == 'production':
-        op.execute(f'ALTER TABLE ShoppingCartItems SET SCHEMA {SCHEMA}')
-
     # ### end Alembic commands ###
 
 
