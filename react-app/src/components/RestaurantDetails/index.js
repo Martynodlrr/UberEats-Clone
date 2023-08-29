@@ -31,8 +31,6 @@ export default function RestaurantDetails() {
         dispatch(menuItemActions.allMenuItems(id))
     }, [dispatch])
 
-    // console.log(reviews)
-
     let nestedArrays = [];
 
     if (Object.values(items)) {
@@ -41,11 +39,7 @@ export default function RestaurantDetails() {
             let nestedArray = Object.values(items).slice(i, i + 4);
             nestedArrays.push(nestedArray);
         }
-
-        // console.log(nestedArrays)
     }
-
-
 
     return (
         <div id='restaurant-details'>

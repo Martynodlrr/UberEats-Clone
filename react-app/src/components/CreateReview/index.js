@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { FaStar } from 'react-icons/fa'
+import { FaStar } from 'react-icons/fa';
 import * as reviewActions from '../../store/review';
 import './index.css';
 

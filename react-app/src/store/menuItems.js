@@ -46,8 +46,6 @@ export const allMenuItems = (restaurantId) => async (dispatch) => {
 
     const data = await res.json()
 
-    // console.log(data)
-
     if (data && !data.errors) dispatch(setMenuItems(flatten(data.menuItems)))
 
     return res

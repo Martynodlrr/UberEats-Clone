@@ -46,13 +46,11 @@ const removeShoppingCartItem = (shoppingCartId) => {
 const initialState = { user: null };
 
 export const addShoppingCartItem = (item, userId) => async (dispatch) => {
-	// console.log(item)
 	const res = await fetch(`/api/shopping-carts/${userId}`, {
 		method: 'PUT',
 		body: JSON.stringify(item)
 	})
 	const data = await res.json()
-	// console.log('yooooooo',data)
 
 	if (data && !data.errors) dispatch(setAddShoppingCartItem(data))
 
@@ -84,7 +82,6 @@ export const authenticate = () => async (dispatch) => {
 		if (data.errors) {
 			return;
 		}
-		// console.log(data)
 		dispatch(setUser(data));
 	}
 };
@@ -165,7 +162,6 @@ export default function reducer(state = initialState, action) {
 		case REMOVE_USER:
 			return { user: null };
 		case ADD_SHOPPING_CART_ITEM:
-			// console.log(action.payload)
 			return { ...state, shoppingCart: flatten(action.payload['Shopping cart']) }
 
 		case DELETE_SHOPPING_CART:

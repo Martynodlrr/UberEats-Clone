@@ -15,9 +15,6 @@ function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const cart = useSelector(state => state.session.shoppingCart);
 
-
-	// console.log(sessionUser)
-
 	const handleLogout = () => {
 		dispatch(logout())
 	}

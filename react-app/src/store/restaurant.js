@@ -64,7 +64,6 @@ export const oneRestaurant = (restaurantId) => async (dispatch) => {
 export const allRestaurants = () => async (dispatch) => {
 
     const res = await fetch('/api/restaurants')
-    // console.log(res)
     const data = await res.json()
 
     if (data && !data.errors) dispatch(setAllRestaurants(data))

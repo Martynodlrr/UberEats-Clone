@@ -45,7 +45,6 @@ export const allReviewsbyRestaurant = (restaurantId) => async (dispatch) => {
     const res = await fetch(`/api/reviews/restaurants/${restaurantId}`)
 
     const data = await res.json()
-    // console.log("data")
     if (data && !data.errors) dispatch(setAllReviews(data))
 
     return res
