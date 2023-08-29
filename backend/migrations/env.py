@@ -1,4 +1,5 @@
 from __future__ import with_statement
+from sqlalchemy import create_engine
 
 import logging
 from logging.config import fileConfig
@@ -19,6 +20,17 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
+
+ # Create a schema (only in production)
+if environment == "production":
+    engine = create_engine(os.environ.get('DATABASE_URL'))
+    with engine.connect() as connection:
+        connection.execute(f"CREATE SCHEMA IF NOT EXISTS {SCHEMA}")
+        # Set search path to your schema (only in production)
+    with context.begin_transaction():
+        if environment == "production":
+            context.execute(f"SET search_path TO {SCHEMA}")
+            context.run_migrations()
 
 
 def get_engine():
