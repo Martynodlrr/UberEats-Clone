@@ -85,7 +85,9 @@ def react_root(path):
     or index.html requests
     """
     if path == 'favicon.ico':
-        return app.send_static_file('../../react-app/public', 'favicon.ico')
+        return app.send_static_file('favicon.ico')
+    if path == 'manifest.json':
+        return app.send_static_file('manifest.json')
     return app.send_static_file('index.html')
 
 
