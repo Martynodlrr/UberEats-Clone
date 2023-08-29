@@ -155,6 +155,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
+			console.log(action.payload)
 			const user = action.payload
 			const userShoppingCart = user.shopping_cart
 			delete user.shopping_cart

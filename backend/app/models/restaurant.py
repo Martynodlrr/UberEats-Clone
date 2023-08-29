@@ -2,18 +2,18 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .restaurant_enum import RestaurantType
 
 class Restaurant(db.Model):
-    __tablename__ = 'Restaurants'
+    __tablename__ = 'restaurants'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
-    image = db.Column(db.String(255), nullable=False)
+    image = db.Column(db.String(2000), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     category = db.Column(db.Enum(RestaurantType))
     description = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("Users.id")))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     miles_to_user = db.Column(db.Float)
 
     #relationships

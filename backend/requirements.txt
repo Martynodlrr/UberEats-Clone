@@ -15,6 +15,7 @@ flask-migrate==4.0.2
 flask-sqlalchemy==3.0.2
 flask-wtf==1.1.1
 greenlet==2.0.1
+eventlet==0.30.2
 gunicorn==20.1.0
 itsdangerous==2.1.2
 jinja2==3.1.2
@@ -27,3 +28,5 @@ six==1.16.0
 sqlalchemy==1.4.46
 werkzeug==2.2.2
 wtforms==3.0.1
+boto3==1.28.36
+faker==5.0.0
