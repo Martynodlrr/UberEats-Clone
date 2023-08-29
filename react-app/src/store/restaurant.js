@@ -6,9 +6,12 @@ const GET_ONE_RESTAURANT = 'restaurant/one'
 
 const flatten = (arr) => {
     const obj = {}
-    for (let el of arr) {
-        obj[el.id] = el
-    }
+    if (arr) {
+		if (!arr.length) return {}
+		for (let el of arr) {
+			obj[el.id] = el
+		}
+	}
     return obj
 }
 
