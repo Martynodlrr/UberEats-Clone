@@ -3,15 +3,21 @@ import DeleteReview from '../DeleteReview'
 import CreateReview from '../CreateReview'
 import UpdateReview from '../UpdateReview';
 import './index.css'
+import { useSelector } from 'react-redux';
 
 export default function Reviews({ reviews, userId }) {
+    const sessionUser = useSelector((state) => state.session.user);
+
     return (
         <div className='reviews'>
-            <OpenModalButton
-                buttonText="Write a Review"
-                className='delete-review'
-                modalComponent={<CreateReview userId={userId} />}
-            />
+            {sessionUser ?
+                <OpenModalButton
+                    buttonText="Write a Review"
+                    className='delete-review'
+                    modalComponent={<CreateReview userId={userId} />}
+                />
+                : ''
+            }
             {
                 reviews.map((review) => {
                     return <div className='review'>
