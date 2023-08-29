@@ -1,106 +1,85 @@
-# code needs to be tested
 import json
 from flask_login import login_required
-from flask import Blueprint
-from app.forms import RestaurantForm
-from app.models import Restaurant
-from models import db
+from flask import Blueprint, request
+from app.models import db, ShoppingCartItem, MenuItem
 
-shopping_cart_routes = Blueprint('shopping-carts', __name__)
+shopping_cart_routes = Blueprint("shopping-carts", __name__)
 
 
-@shopping_cart_routes.route('/')
+@shopping_cart_routes.route('/<int:userId>')
 @login_required
-def restaurants():
+def get_shopping_cart(userId):
     """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
+    Query for a shopping cart by userId and return that shopping cart in a dictionary
     """
-    restaurants = Restaurant.query.all()
+    shopping_cart = ShoppingCartItem.query.filter(ShoppingCartItem.user_id==userId).all()
+    cart_res = []
+    for cart_item in shopping_cart:
+        item_dict = cart_item.to_dict()
+        item_dict['name'] = cart_item.menu_item.name
+        item_dict['price'] = cart_item.menu_item.price
+        cart_res.append(item_dict)
+    return {'Shopping cart': cart_res}
 
-    if not restaurant:
-        return json.dumps({'message': 'Restaurant not found'}), 404
 
-    res = {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
-    return json.dumps(res, cls=EnumEncoder)
-
-
-@shopping_cart_routes.route('/<int:id>')
+@shopping_cart_routes.route("/<int:userId>", methods=["PUT"])
 @login_required
-def restaurant(id):
-    """
-    Query for a restaurant by id and returns that restaurant in a dictionary
-    """
-    restaurant = Restaurant.query.get(id)
-    res = {'restaurant': [restaurant.to_dict()]}
-    return json.dumps(res, cls=EnumEncoder)
+def update_shopping_cart(userId):
+
+    data = request.get_json(force=True)
+    item = MenuItem.query.filter(MenuItem.id == data['menu_item_id']).first()
+
+    if not item:
+        return {"error": "Item not found"}, 404
+
+    new_cart_item = ShoppingCartItem(user_id=userId, menu_item_id=item.id)
+    db.session.add(new_cart_item)
+    db.session.commit()
+
+    shopping_cart = ShoppingCartItem.query.filter(ShoppingCartItem.user_id == userId).all()
+    cart_res = []
+
+    for cart_item in shopping_cart:
+        item_dict = cart_item.to_dict()
+        item_dict['name'] = cart_item.menu_item.name
+        item_dict['price'] = cart_item.menu_item.price
+        cart_res.append(item_dict)
+    print(cart_res)
+    return {"Shopping cart": cart_res}
 
 
-@shopping_cart_routes.route('/', methods=['POST'])
+
+@shopping_cart_routes.route("/<int:userId>/item/<int:itemId>", methods=["DELETE"])
 @login_required
-def create_restaurant():
+def delete_shopping_cart_item(userId, itemId):
     """
-    Creates a restaurant and returns that restaurant in a dictionary
+    Deletes a single item from the shopping cart
     """
-    form = RestaurantForm()
+    cart_items = ShoppingCartItem.query.filter_by(user_id=userId, menu_item_id=itemId).all()
 
-    if form.validate_on_submit():
-        new_restaurant = Restaurant(
-            description=form.data['description'],
-            category=form.data['category'],
-            address=form.data['address'],
-            image=form.data['image'],
-            name=form.data['name']
-        )
-        db.session.add(new_restaurant)
-        db.session.commit()
-        res = {'restaurant': [new_restaurant.to_dict()]}
-        return json.dumps(res, cls=EnumEncoder), 201
-    else:
-        errors = []
-        for field, error_list in form.errors.items():
-            errors.extend([f"{field}: {error}" for error in error_list])
+    if not cart_items:
+        return json.dumps({"message": "Item not found in shopping cart"}), 404
 
-        return ', '.join(errors)
+    for cart_item in cart_items:
+        db.session.delete(cart_item)
+    db.session.commit()
 
+    return json.dumps({"message": "Item deleted successfully"})
 
-@shopping_cart_routes.route('/<int:id>', methods=['PUT'])
+@shopping_cart_routes.route("/<int:userId>", methods=["DELETE"])
 @login_required
-def update_restaurant(id):
+def clear_shopping_cart(userId):
     """
-    Updates a restaurant and returns that updated restaurant in a dictionary
+    Clears the entire shopping cart
     """
-    restaurant = Restaurant.query.get(id)
+    shopping_cart = ShoppingCartItem.query.filter_by(user_id=userId).all()
 
-    if not restaurant:
-        return json.dumps({'message': 'Restaurant not found'}), 404
+    if not shopping_cart:
+        return json.dumps({"message": "Shopping cart is already empty"}), 404
 
-    form = RestaurantForm()
+    for cart_item in shopping_cart:
+        db.session.delete(cart_item)
 
-    if form.validate_on_submit():
-        restaurant.description = form.data['description']
-        restaurant.category = form.data['category']
-        restaurant.address = form.data['address']
-        restaurant.image = form.data['image']
-        restaurant.name = form.data['name']
+    db.session.commit()
 
-        db.session.commit()
-        res = {'restaurant': [restaurant.to_dict()]}
-        return json.dumps(res, cls=EnumEncoder)
-    else:
-        errors = []
-        for field, error_list in form.errors.items():
-            errors.extend([f"{field}: {error}" for error in error_list])
-
-        return ', '.join(errors)
-
-
-@shopping_cart_routes.route('/<int:id>', methods=['DELETE'])
-@login_required
-def delete_restaurant(id):
-    restaurant = Restaurant.query.get(id)
-    if restaurant:
-        db.session.delete(restaurant)
-        db.session.commit()
-        return json.dumps({'message': 'Restaurant deleted successfully'}), 200
-    else:
-        return json.dumps({'message': 'Restaurant not found'}), 404
+    return json.dumps({"message": "Cart cleared successfully"})

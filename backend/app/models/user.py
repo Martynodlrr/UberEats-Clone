@@ -1,13 +1,14 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .shopping_cart import shopping_cart
+from .shopping_cart_item import ShoppingCartItem
+
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "Users"
 
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+        __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -15,15 +16,13 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     #! Potentially broken
-    #relations 1 to many
-    reviews_user = db.relationship("Review", back_populates='user_review')
-    restaurants_user = db.relationship("Restaurant", back_populates='user_restaurant')
+    # relations 1 to many
+    reviews_user = db.relationship("Review", back_populates="user_review")
+    restaurant_user = db.relationship("Restaurant", back_populates="user_restaurant")
 
-    #join table stuff
-    user_cart = db.relationship(
-        "ShoppingCartItem",
-        secondary=shopping_cart,
-        back_populates='item_cart'
+    # one user to ONE cart
+    cart_user = db.relationship(
+        "ShoppingCartItem", uselist=False, back_populates="user_cart"
     )
 
     @property
@@ -39,7 +38,7 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
+            "id": self.id,
+            "username": self.username,
+            "email": self.email
         }

@@ -10,10 +10,34 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password')
+    romeo = User(
+        username='romeogalvan',email='romeogalvan@aa.io', password = 'password')
+    amanda = User(
+        username='amorrow',email='amanda@aa.io', password = 'password')
+    martyn = User(
+        username='martyn',email='martyn@aa.io', password = 'password')
+    hunter = User(
+        username='hunter12756',email='hunter@aa.io', password = 'password')
+    brad = User(
+        username='bradDaGoat',email='brad@aa.io', password = 'password')
+    david = User(
+        username='davidN',email='david@aa.io', password = 'password')
+    keegan = User(
+        username='pmMe@2ampls',email='keegan@aa.io', password = 'password')
+    andrew = User(
+        username='andrewww',email='andrew@aa.io', password = 'password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(romeo)
+    db.session.add(amanda)
+    db.session.add(martyn)
+    db.session.add(hunter)
+    db.session.add(brad)
+    db.session.add(david)
+    db.session.add(keegan)
+    db.session.add(andrew)
     db.session.commit()
 
 
@@ -25,8 +49,8 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.Users RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM users"))
-        
+        db.session.execute(text("DELETE FROM Users"))
+
     db.session.commit()

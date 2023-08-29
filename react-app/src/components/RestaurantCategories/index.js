@@ -1,36 +1,62 @@
-
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import * as restaurantActions from '../../store/restaurant'
 import './index.css'
+
 export default function RestaurantCategories() {
 
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9,]
+    const history = useHistory()
+
+    const dispatch = useDispatch()
+
+    const restaurants = useSelector(state => state.restaurants.restaurants)
+
+
+
+    useEffect(() => {
+        dispatch(restaurantActions.allRestaurants())
+    }, [dispatch])
+
+    const categories = {}
+
+    for (let rest of Object.values(restaurants)) {
+        if (!categories[rest.category]) {
+            categories[rest.category] = {}
+            categories[rest.category][rest.id] = rest
+        }
+        else {
+            categories[rest.category][rest.id] = rest
+        }
+
+    }
+
+    console.log(categories)
+
 
     return (
         <div id='restaurant-categories'>
             {
-                arr.map(() => {
+                Object.keys(categories).map((category) => {
+                    const originalCat = category
+                    if (category == 'fastFood') category = "Fast Food"
+                    if (category == 'petSupplies') category = "Pet Supplies"
+                    if (category == 'specialtyFoods') category = "Specialty Foods"
+                    else {
+                        category = category.split('')
+                        category[0] = category[0].toUpperCase()
+                        category = category.join('')
+                    }
                     return <div className="restaurant-category">
-                        <h1 className='category-name'>Category Name</h1>
+                        <h1 className='category-name'>{category}</h1>
                         <div className='restaurant-category-list'>
-                            <div className='category-restaurant category-restaurant-margin'>
-                                <img className='restaurant-category-image' src='https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMWI4MDA3NTRhMGE2YjNmY2ViZjI3MDM2MDk3NTM1MmYvODIwODgzYTQ4NTY3NjcwYWNiZDcyMGJjNzYzOTEyOTEuanBlZw==' />
-                                <p className='category-restaurant-name'>Restaurant Name</p>
+                            {Object.values(categories[originalCat]).map((restaurant) => {
+                                return <div className='category-restaurant category-restaurant-margin' onClick={() => history.push(`/restaurant/${restaurant.id}`)}>
+                                <img className='restaurant-category-image' src={restaurant.image} />
+                                <p className='category-restaurant-name'>{restaurant.name}</p>
                                 <p>$100 Delivery Fee</p>
                             </div>
-                            <div className='category-restaurant category-restaurant-margin'>
-                                <img className='restaurant-category-image' src='https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMWI4MDA3NTRhMGE2YjNmY2ViZjI3MDM2MDk3NTM1MmYvODIwODgzYTQ4NTY3NjcwYWNiZDcyMGJjNzYzOTEyOTEuanBlZw==' />
-                                <p className='category-restaurant-name'>Restaurant Name</p>
-                                <p>$100 Delivery Fee</p>
-                            </div>
-                            <div className='category-restaurant category-restaurant-margin'>
-                                <img className='restaurant-category-image' src='https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMWI4MDA3NTRhMGE2YjNmY2ViZjI3MDM2MDk3NTM1MmYvODIwODgzYTQ4NTY3NjcwYWNiZDcyMGJjNzYzOTEyOTEuanBlZw==' />
-                                <p className='category-restaurant-name'>Restaurant Name</p>
-                                <p>$100 Delivery Fee</p>
-                            </div>
-                            <div className='category-restaurant'>
-                                <img className='restaurant-category-image' src='https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMWI4MDA3NTRhMGE2YjNmY2ViZjI3MDM2MDk3NTM1MmYvODIwODgzYTQ4NTY3NjcwYWNiZDcyMGJjNzYzOTEyOTEuanBlZw==' />
-                                <p className='category-restaurant-name'>Restaurant Name</p>
-                                <p>$100 Delivery Fee</p>
-                            </div>
+                            })}
                         </div>
 
                     </div>

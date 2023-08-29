@@ -1,0 +1,28 @@
+.signupForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-area: content;
+}
+
+.signupLabel {
+    height: 45px;
+    border-radius: 8px;
+    background-color: rgb(235, 234, 234);
+    border: none;
+    width: 315px;
+    margin: 7px;
+}
+
+.signupSubmit {
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    height: 45px;
+    cursor: pointer;
+    width: 319px;
+    margin-top: 7px;
+    margin-bottom: 25px;
+    margin-left: 7px;
+}

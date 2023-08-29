@@ -2,6 +2,22 @@ const GET_ALL_RESTAURANTS = 'restaurants/all'
 const UPDATE_RESTAURANT = 'restaurant/update'
 const CREATE_RESTAURANT = 'restaurant/create'
 const DELETE_RESTAURANT = 'restaurant/delete'
+const GET_ONE_RESTAURANT = 'restaurant/one'
+
+const flatten = (arr) => {
+    const obj = {}
+    for (let el of arr) {
+        obj[el.id] = el
+    }
+    return obj
+}
+
+const setOneRestaurant = (data) => {
+    return {
+        type: GET_ONE_RESTAURANT,
+        payload: data
+    }
+}
 
 const setAllRestaurants = (data) => {
     return {
@@ -31,10 +47,24 @@ const removeRestaurant = (data) => {
     }
 }
 
+export const oneRestaurant = (restaurantId) => async (dispatch) => {
+
+    const res = await fetch(`/api/restaurants/${restaurantId}`)
+
+    const data = await res.json()
+
+    if (data && !data.errors) {
+        dispatch(setOneRestaurant(data))
+    }
+
+    return res
+
+}
+
 export const allRestaurants = () => async (dispatch) => {
 
     const res = await fetch('/api/restaurants')
-
+console.log(res)
     const data = await res.json()
 
     if (data && !data.errors) dispatch(setAllRestaurants(data))
@@ -85,33 +115,36 @@ export const deleteRestaurant = (restaurantId) => async (dispatch) => {
 
 }
 
-const initialState = {}
+const initialState = { restaurants: {}}
 
 export const restaurantReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_ALL_RESTAURANTS:
-            return {...state, allRestaurants: action.payload}
+            const restaurants = flatten(action.payload.restaurants)
+            return {...state, restaurants: restaurants}
 
         case CREATE_RESTAURANT:
             const restaurant = action.payload
             const newState = {...state}
-            const allRestaurants = {...newState.allRestaurants}
+            const allRestaurants = {...newState.restaurants}
             allRestaurants[restaurant.id] = restaurant
-            return {...newState, allRestaurants: {...allRestaurants}}
+            return {...newState, restaurants: {...allRestaurants}}
 
         case UPDATE_RESTAURANT:
             const updatedRestaurant = action.payload
             const updatedState = {...state}
-            const updatedRestaurants = {...updatedState.allRestaurants}
+            const updatedRestaurants = {...updatedState.restaurants}
             updatedRestaurants[updatedRestaurant.id] = updatedRestaurant
-            return {...updatedState, allRestaurants: updatedRestaurants}
+            return {...updatedState, restaurants: updatedRestaurants}
         case DELETE_RESTAURANT:
             const restaurantId = action.payload
             const finalState = {...state}
-            const finalRestaurants = {...finalState.allRestaurants}
+            const finalRestaurants = {...finalState.restaurants}
             delete finalRestaurants[restaurantId]
-            return {...finalState, allRestaurants: finalRestaurants}
+            return {...finalState, restaurants: finalRestaurants}
+        case GET_ONE_RESTAURANT:
+            return {...state, restaurant: {...action.payload.restaurant[0]}}
         default:
             return state
     }
