@@ -9,7 +9,7 @@ class Restaurant(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
-    image = db.Column(db.String(255), nullable=False)
+    image = db.Column(db.String(2000), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     category = db.Column(db.Enum(RestaurantType))
     description = db.Column(db.String(255), nullable=False)

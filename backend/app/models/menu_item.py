@@ -11,7 +11,7 @@ class MenuItem(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("restaurants.id")))
     name = db.Column(db.String(60), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(255), nullable=False)
+    image = db.Column(db.String(2000), nullable=False)
     calories = db.Column(db.Integer, nullable=False)
 
     # relations
