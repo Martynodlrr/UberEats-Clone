@@ -9,7 +9,7 @@ from app.api import shopping_cart_routes, restaurant_routes, review_routes, user
 from app.seeds import seed_commands
 from app.config import Config
 
-app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
+app = Flask(__name__, static_folder='../../react-app/public', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
@@ -85,7 +85,7 @@ def react_root(path):
     or index.html requests
     """
     if path == 'favicon.ico':
-        return app.send_from_directory('../../react-app/public', 'favicon.ico')
+        return app.send_static_file('../../react-app/public', 'favicon.ico')
     return app.send_static_file('index.html')
 
 
