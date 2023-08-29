@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, TextAreaField, FileField
-from wtforms.validators import DataRequired, Length, FileRequired, FileAllowed
+from wtforms import StringField, SubmitField, SelectField, TextAreaField
+from wtforms.validators import DataRequired, Length
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from enum import Enum
 from app.api import ALLOWED_EXTENSIONS
 

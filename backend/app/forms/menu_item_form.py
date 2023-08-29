@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField, IntegerField, FileField
-from wtforms.validators import DataRequired, Length, FileRequired, FileAllowed
+from wtforms import StringField, SubmitField, FloatField, IntegerField
+from wtforms.validators import DataRequired, Length
+from flask_wtf.file import FileRequired, FileField, FileAllowed
 from app.api import ALLOWED_EXTENSIONS
 
 
