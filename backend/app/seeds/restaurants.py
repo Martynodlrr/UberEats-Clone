@@ -425,10 +425,10 @@ def seed_restaurants():
     "Subway",
     "Sunview Cafe - Lewisville",
     "Taco Bell",
-    "Tom Thumb",
+    "Tom Thumb", #this one is broken need to fix and add into discord
     "Wendy's",
     "Whataburger",
-    "7-11",
+    "7-11",#this one is broken need to fix and add into discord
     "Blu's Barbeque",
     "BoomerJack's Grill & Bar - Lewisville",
     "Buffalo Wild Wings",

@@ -5,12 +5,15 @@ const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
 const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
 const flatten = (arr) => {
-	if (!arr.length) return {}
-    const obj = {}
-    for (let el of arr) {
-        obj[el.id] = el
-    }
-    return obj
+	const obj = {}
+	if (arr) {
+		if (!arr.length) return {}
+		for (let el of arr) {
+			obj[el.id] = el
+		}
+	}
+
+	return obj
 }
 
 const setUser = (user) => {
@@ -43,13 +46,11 @@ const removeShoppingCartItem = (shoppingCartId) => {
 const initialState = { user: null };
 
 export const addShoppingCartItem = (item, userId) => async (dispatch) => {
-	console.log(item)
 	const res = await fetch(`/api/shopping-carts/${userId}`, {
 		method: 'PUT',
 		body: JSON.stringify(item)
 	})
 	const data = await res.json()
-	console.log('yooooooo',data)
 
 	if (data && !data.errors) dispatch(setAddShoppingCartItem(data))
 
@@ -81,7 +82,6 @@ export const authenticate = () => async (dispatch) => {
 		if (data.errors) {
 			return;
 		}
-		console.log(data)
 		dispatch(setUser(data));
 	}
 };
@@ -158,20 +158,19 @@ export default function reducer(state = initialState, action) {
 			const user = action.payload
 			const userShoppingCart = user.shopping_cart
 			delete user.shopping_cart
-			return { ...state, user: user, shoppingCart: flatten(userShoppingCart)};
+			return { ...state, user: user, shoppingCart: flatten(userShoppingCart) };
 		case REMOVE_USER:
 			return { user: null };
 		case ADD_SHOPPING_CART_ITEM:
-			console.log(action.payload)
 			return { ...state, shoppingCart: flatten(action.payload['Shopping cart']) }
 
 		case DELETE_SHOPPING_CART:
 			const id = action.payload
 			const deleteShoppingCartState = { ...state }
-			const deleteUserState = {...deleteShoppingCartState.user}
+			const deleteUserState = { ...deleteShoppingCartState.user }
 			const newShoppingCart = { ...deleteUserState.shoppingCart }
 			delete newShoppingCart[id]
-			return { ...deleteShoppingCartState, user: {...deleteUserState, shoppingCart: {...newShoppingCart}} }
+			return { ...deleteShoppingCartState, user: { ...deleteUserState, shoppingCart: { ...newShoppingCart } } }
 		default:
 			return state;
 	}

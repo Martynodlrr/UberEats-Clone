@@ -1,6 +1,7 @@
 import OpenModalButton from '../OpenModalButton'
 import DeleteReview from '../DeleteReview'
 import CreateReview from '../CreateReview'
+import UpdateReview from '../UpdateReview';
 import './index.css'
 
 export default function Reviews({ reviews, userId }) {
@@ -23,6 +24,12 @@ export default function Reviews({ reviews, userId }) {
                         </div>
 
                         <p className="review-body">{review.body}</p>
+                        {userId === review.user_id && <OpenModalButton
+                            buttonText="Update"
+                            className='delete-review'
+                            modalComponent={<UpdateReview reviewId={review.id} />}
+                        />
+                        }
                         {
                             userId === review.user_id && <OpenModalButton
                                 buttonText="Delete"
@@ -31,7 +38,7 @@ export default function Reviews({ reviews, userId }) {
                             />
                         }
                     </div>
-                })
+                }).reverse()
             }
         </div>
     )

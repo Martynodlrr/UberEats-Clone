@@ -31,9 +31,6 @@ export default function RestaurantCategories() {
 
     }
 
-    console.log(categories)
-
-
     return (
         <div id='restaurant-categories'>
             {
@@ -52,10 +49,10 @@ export default function RestaurantCategories() {
                         <div className='restaurant-category-list'>
                             {Object.values(categories[originalCat]).map((restaurant) => {
                                 return <div className='category-restaurant category-restaurant-margin' onClick={() => history.push(`/restaurant/${restaurant.id}`)}>
-                                <img className='restaurant-category-image' src={restaurant.image} />
-                                <p className='category-restaurant-name'>{restaurant.name}</p>
-                                <p>$100 Delivery Fee</p>
-                            </div>
+                                    <img className='restaurant-category-image' src={restaurant.image} />
+                                    <p className='category-restaurant-name'>{restaurant.name}</p>
+                                    <p>$100 Delivery Fee</p>
+                                </div>
                             })}
                         </div>
 

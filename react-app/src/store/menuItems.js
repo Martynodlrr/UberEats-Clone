@@ -46,8 +46,6 @@ export const allMenuItems = (restaurantId) => async (dispatch) => {
 
     const data = await res.json()
 
-    console.log(data)
-
     if (data && !data.errors) dispatch(setMenuItems(flatten(data.menuItems)))
 
     return res
@@ -96,33 +94,33 @@ export const deleteMenuItem = (menuItem) => async (dispatch) => {
 
 }
 
-const initialState = { menuItems: {}}
+const initialState = { menuItems: {} }
 
 export const menuItemReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_MENU_ITEMS:
-            return {...state, menuItems: action.payload}
+            return { ...state, menuItems: action.payload }
 
         case CREATE_MENU_ITEM:
             const menuItem = action.payload
-            const newState = {...state}
-            const allMenuItems = {...newState.menuItems}
+            const newState = { ...state }
+            const allMenuItems = { ...newState.menuItems }
             allMenuItems[menuItem.id] = menuItem
-            return {...newState, menuItems: {...allMenuItems}}
+            return { ...newState, menuItems: { ...allMenuItems } }
 
         case UPDATE_MENU_ITEM:
             const updatedMenuItem = action.payload
-            const updatedState = {...state}
-            const updatedMenuItems = {...updatedState.menuItems}
+            const updatedState = { ...state }
+            const updatedMenuItems = { ...updatedState.menuItems }
             updatedMenuItems[updatedMenuItem.id] = updatedMenuItem
-            return {...updatedState, menuItems: updatedMenuItems}
+            return { ...updatedState, menuItems: updatedMenuItems }
         case DELETE_MENU_ITEM:
             const menuItemId = action.payload
-            const finalState = {...state}
-            const finalMenuItems = {...finalState.menuItems}
+            const finalState = { ...state }
+            const finalMenuItems = { ...finalState.menuItems }
             delete finalMenuItems[menuItemId]
-            return {...finalState, menuItems: finalMenuItems}
+            return { ...finalState, menuItems: finalMenuItems }
         default:
             return state
     }

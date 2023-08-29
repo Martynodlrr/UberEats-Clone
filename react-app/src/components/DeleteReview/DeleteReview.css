@@ -1,0 +1,22 @@
+.deleteReview {
+    grid-area: content;
+}
+
+#deleteButton {
+    background-color: red;
+    color: white;
+    border-radius: 7px;
+    width: 315px;
+    height: 45px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#dontDeleteButton {
+    background-color: rgb(187, 186, 186);
+    border-radius: 7px;
+    width: 315px;
+    height: 45px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}

@@ -50,7 +50,7 @@ def create_review(restaurantId):
         new_review = Review(
             body=form.data['body'],
             rating=form.data['rating'],
-            user_id=data['userId'],
+            user_id=data['user_id'],
             restaurant_id=restaurantId
         )
         db.session.add(new_review)

@@ -19,7 +19,7 @@ const setAllReviews = (data) => {
     }
 }
 
-const setUpdateReview= (data) => {
+const setUpdateReview = (data) => {
     return {
         type: UPDATE_REVIEW,
         payload: data
@@ -45,7 +45,6 @@ export const allReviewsbyRestaurant = (restaurantId) => async (dispatch) => {
     const res = await fetch(`/api/reviews/restaurants/${restaurantId}`)
 
     const data = await res.json()
-    console.log("data")
     if (data && !data.errors) dispatch(setAllReviews(data))
 
     return res
@@ -56,6 +55,7 @@ export const createReview = (review) => async (dispatch) => {
 
     const res = await fetch(`/api/reviews/restaurants/${restaurant_id}`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(review)
     })
 
@@ -67,10 +67,11 @@ export const createReview = (review) => async (dispatch) => {
 
 }
 
-export const updateReview = (review) => async (dispatch) => {
+export const updateReview = (review, reviewId) => async (dispatch) => {
 
-    const res = await fetch(`/api/reviews/${review.id}`, {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
         method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(review)
     })
 
@@ -95,33 +96,33 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 
 }
 
-const initialState = { reviews: {}}
+const initialState = { reviews: {} }
 
 export const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_RESTAURANT_REVIEWS:
-            return {...state, reviews: flatten(action.payload.reviews)}
+            return { ...state, reviews: flatten(action.payload.reviews) }
 
         case CREATE_REVIEW:
             const review = action.payload
-            const newState = {...state}
-            const allReviews = {...newState.reviews}
+            const newState = { ...state }
+            const allReviews = { ...newState.reviews }
             allReviews[review.id] = review
-            return {...newState, reviews: {...allReviews}}
+            return { ...newState, reviews: { ...allReviews } }
 
         case UPDATE_REVIEW:
             const updatedReview = action.payload
-            const updatedState = {...state}
-            const updatedReviews = {...updatedState.reviews}
+            const updatedState = { ...state }
+            const updatedReviews = { ...updatedState.reviews }
             updatedReviews[updatedReview.id] = updatedReview
-            return {...updatedState, reviews: updatedReviews}
+            return { ...updatedState, reviews: updatedReviews }
         case DELETE_REVIEW:
             const reviewId = action.payload
-            const finalState = {...state}
-            const finalReviews = {...finalState.reviews}
+            const finalState = { ...state }
+            const finalReviews = { ...finalState.reviews }
             delete finalReviews[reviewId]
-            return {...finalState, reviews: finalReviews}
+            return { ...finalState, reviews: finalReviews }
         default:
             return state
     }
