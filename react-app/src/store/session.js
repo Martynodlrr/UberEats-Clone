@@ -32,21 +32,21 @@ const removeUser = () => {
 
 const setAddShoppingCartItem = (data) => {
 	return {
-			type: ADD_SHOPPING_CART_ITEM,
-			payload: data
+		type: ADD_SHOPPING_CART_ITEM,
+		payload: data
 	}
 }
 
 const removeShoppingCartItem = (itemId) => {
 	return {
-			type: DELETE_SHOPPING_CART_ITEM,
-			payload: itemId
+		type: DELETE_SHOPPING_CART_ITEM,
+		payload: itemId
 	}
 }
 
 const removeShoppingCart = () => {
 	return {
-			type: DELETE_SHOPPING_CART
+		type: DELETE_SHOPPING_CART
 	}
 }
 
@@ -187,9 +187,9 @@ export default function reducer(state = initialState, action) {
 
 			delete user.shopping_cart;
 			return {
-					...state,
-					user,
-					shoppingCart: { ...flatten(userShoppingCart), restaurantId: restaurantIdValue }
+				...state,
+				user,
+				shoppingCart: { ...flatten(userShoppingCart), restaurantId: restaurantIdValue }
 			};
 
 =======
