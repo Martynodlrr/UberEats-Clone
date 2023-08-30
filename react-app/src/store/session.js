@@ -180,7 +180,6 @@ const initialState = { user: null };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-<<<<<<< HEAD
 			const user = action.payload;
 			const userShoppingCart = user?.shopping_cart || {};  // Use optional chaining to prevent errors
 			const restaurantIdValue = userShoppingCart.restaurantId || 0;  // Set to 0 if restaurantId doesn't exist
@@ -192,13 +191,6 @@ export default function reducer(state = initialState, action) {
 				shoppingCart: { ...flatten(userShoppingCart), restaurantId: restaurantIdValue }
 			};
 
-=======
-
-			const user = action.payload
-			const userShoppingCart = user.shopping_cart
-			delete user.shopping_cart
-			return { ...state, user: user, shoppingCart: flatten(userShoppingCart)};
->>>>>>> dev
 		case REMOVE_USER:
 			return { user: null };
 
