@@ -94,6 +94,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
                         placeholder='Name'
                     />
                 </label>
+                {formType === 'Update Restaurant' ? <button type='submit' id='createSubmit'>Update your Restaurant</button> : <button type='submit' id='createSubmit'>Create Restaurant</button>}
             </form>
         </>
     )

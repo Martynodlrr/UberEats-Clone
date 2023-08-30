@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
+import { GiHamburgerMenu } from "react-icons/gi";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import OpenModalButton from "../OpenModalButton";
+import CreateRestaurant from "../CreateRestaurant";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const history = useHistory();
+  const sessionUser = user;
 
   const openMenu = () => {
     if (showMenu) return;
@@ -29,46 +34,54 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    closeMenu();
+    history.push('/');
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
+      {sessionUser ? (
+        <>
+          <button onClick={openMenu} className="profileButton">
+            <GiHamburgerMenu />
+          </button>
+          <ul className={ulClassName} ref={ulRef}>
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>
-          </>
-        ) : (
-          <div id='login-signup-buttons-container'>
+            <hr />
             <OpenModalButton
-              buttonText="Log In"
-              className='login-signup'
-              modalComponent={<LoginFormModal />}
+              buttonText="Add your restaurant"
+              className="createRestaurantButton"
+              modalComponent={<CreateRestaurant />}
             />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              className='login-signup'
-              modalComponent={<SignupFormModal />}
-            />
-          </div>
-        )}
-      </ul>
+          </ul >
+        </>
+      ) : (
+        <div id='login-signup-buttons-container'>
+          <OpenModalButton
+            buttonText="Log In"
+            className='login-signup'
+            modalComponent={<LoginFormModal />}
+          />
+          <OpenModalButton
+            buttonText="Sign Up"
+            className='login-signup'
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
+      )}
     </>
-  );
+  )
 }
 
 export default ProfileButton;
