@@ -95,12 +95,24 @@ body.profile-dropdown {
 }
 
 .cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: black;
   color: white;
-  border-radius: 10px;
+  border-radius: 15px;
+  width: 100px;
+  height: 35px;
+  margin: 0px;
+  border: none;
+  outline: none;
 }
 
 .cart-container:hover {
   background-color: rgb(177, 175, 175);
   cursor: pointer;
+}
+
+.cart-button {
+  margin: 0px;
 }
