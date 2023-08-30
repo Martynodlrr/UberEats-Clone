@@ -50,30 +50,13 @@ function Navigation({ isLoaded }) {
 							buttonText={<IoTrashBinSharp />}
 							modalComponent={<ShoppingCartModal
 								state='clearCartButton' />}
-						/> : null }
+						/> : null}
 					</div>
 					<h4 id='total'>Total:{total}</h4>
 				</div>
 			}
-
-			{
-				sessionUser && <button id='logout' onClick={handleLogout}>Logout ;( </button>
-			}
-
-			{isLoaded && !sessionUser && (
-				<div id='login-signup-buttons-container'>
-					<OpenModalButton
-						buttonText="Log In"
-						className='login-signup'
-						modalComponent={<LoginFormModal />}
-					/>
-
-					<OpenModalButton
-						buttonText="Sign Up"
-						className='login-signup'
-						modalComponent={<SignupFormModal />}
-					/>
-				</div>
+			{isLoaded && (
+				<ProfileButton user={sessionUser} />
 			)}
 		</ul>
 	);

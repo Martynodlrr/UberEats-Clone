@@ -41,13 +41,14 @@
   flex-direction: row;
   text-decoration: none;
   font-family: sans-serif;
+  cursor: pointer;
 }
 
 #logo-eats {
   font-weight: 700;
 }
 
-#logo > * {
+#logo>* {
   color: black;
   margin: 0px;
 }
@@ -83,12 +84,12 @@
 
 #logout {
   background-color: rgb(235, 234, 234);
-    border-radius: 15px;
-    font-weight: 700;
-    width: 100px;
-    height: 45px;
-    border: none;
-    cursor: pointer;
+  border-radius: 15px;
+  font-weight: 700;
+  width: 100px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
 }
 
 #logout:hover {
@@ -102,7 +103,7 @@
   border-radius: 10px;
   width: 300px;
   background-color: white;
-  border: solid ;
+  border: solid;
   list-style-type: none;
   padding: 10px;
   z-index: 1;
@@ -116,7 +117,7 @@
   justify-content: space-between;
 }
 
-.cart-list > * {
+.cart-list>* {
   padding: 10px 0px 10px 0px;
   margin: 0px;
 }
