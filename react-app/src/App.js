@@ -10,7 +10,7 @@ import { authenticate } from "./store/session";
 import Deals from "./components/Deals";
 import RestaurantCategories from "./components/RestaurantCategories";
 import RestaurantDetails from "./components/RestaurantDetails";
-import * as reviewActions from '../src/store/review'
+import * as reviewActions from './store/review'
 
 function App() {
   const dispatch = useDispatch();
