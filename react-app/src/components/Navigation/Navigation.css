@@ -25,6 +25,11 @@ body.profile-dropdown {
   background-color: rgb(228, 224, 224);
 }
 
+.manageLink {
+  text-decoration: none;
+  color: black;
+}
+
 .profileButton {
   background-color: white;
   cursor: pointer;

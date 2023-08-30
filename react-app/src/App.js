@@ -9,6 +9,7 @@ import { authenticate } from "./store/session";
 import Deals from "./components/Deals";
 import RestaurantCategories from "./components/RestaurantCategories";
 import RestaurantDetails from "./components/RestaurantDetails";
+import UserRestaurants from "./components/UserRestaurants";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path='/restaurant/:restaurantId'>
             <RestaurantDetails />
+          </Route>
+          <Route exact path="/restaurants/user/:userId">
+            <UserRestaurants />
           </Route>
         </Switch>
       )}
