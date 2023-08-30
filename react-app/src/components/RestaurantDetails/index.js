@@ -28,6 +28,7 @@ export default function RestaurantDetails() {
 
     const items = useSelector(state => state.menuItems.menuItems)
 
+    let nestedArrays = [];
 
     useEffect(() => {
         dispatch(restaurantActions.oneRestaurant(id))
@@ -35,16 +36,11 @@ export default function RestaurantDetails() {
         dispatch(menuItemActions.allMenuItems(id))
     }, [dispatch])
 
-
-    let nestedArrays = [];
-
     if (Object.values(items)) {
-
         for (let i = 0; i < Object.values(items).length; i += 4) {
             let nestedArray = Object.values(items).slice(i, i + 4);
             nestedArrays.push(nestedArray);
         }
-
     }
 
     return (
@@ -62,9 +58,12 @@ export default function RestaurantDetails() {
                                 arr.map((item) => {
                                     return <div className='item-card'>
                                         <div>
-                                            {cart && cart.restaurantId !== restaurant.id && cart.restaurantId !== 0 && Object.values(cart).length >= 1 ?
+                                            {cart && cart.restaurantId !== restaurant.id && Object.values(cart).length >= 2 ?
                                                 <OpenModalButton
-                                                    modalComponent={<ShoppingCartModal state='switchCarts' />}
+                                                    modalComponent={<ShoppingCartModal
+                                                        state='confirmation'
+                                                        item={item}
+                                                        restaurant={restaurant} />}
                                                     buttonText={
                                                         <img className='add-item' src="/images/add-item.png" alt="Add item button" />
                                                     }

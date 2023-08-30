@@ -1,5 +1,11 @@
-.profile-dropdown {
-  position: absolute;
+body.profile-dropdown {
+  margin-left: 0
+}
+
+.createRestaurantButton {
+  border: none;
+  background-color: white;
+  cursor: pointer;
 }
 
 .hidden {
@@ -17,6 +23,21 @@
 
 .login-signup:hover {
   background-color: rgb(228, 224, 224);
+}
+
+.profileButton {
+  background-color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  font-size: 175%;
+  width: 100px;
+  display: flex;
+  justify-content: space-around;
+  top: 0;
+  margin-top: 40px;
+  margin-left: 15px;
+  border: none;
 }
 
 #navigation {
@@ -51,33 +72,12 @@
   margin: 0px;
 }
 
-#cart-button {
-  border: none;
-  color: white;
-  background-color: black;
-  border-radius: 20px;
-  height: 40px;
-  width: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  cursor: pointer;
-}
-
-#cart-button:hover {
-  background-color: rgb(177, 175, 175);
-}
-
 #current-address {
   border-radius: 20px;
   height: 50px;
   border: none;
   font-weight: 700;
   width: 150px;
-}
-
-#cart-icon {
-  height: 30px
 }
 
 #logout {
@@ -94,34 +94,13 @@
   background-color: rgb(177, 175, 175);
 }
 
-#cart-dropdown {
-  position: absolute;
-  margin-left: 1070px;
-  top: 75px;
+.cart-container {
+  background-color: black;
+  color: white;
   border-radius: 10px;
-  width: 300px;
-  background-color: white;
-  border: solid;
-  list-style-type: none;
-  padding: 10px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
 }
 
-.cart-list {
-  border-bottom: solid 1px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.cart-list>* {
-  padding: 10px 0px 10px 0px;
-  margin: 0px;
-}
-
-#total {
-  align-self: flex-end;
-  margin: 20px 0px 0px 0px;
-  padding: 0px;
+.cart-container:hover {
+  background-color: rgb(177, 175, 175);
+  cursor: pointer;
 }

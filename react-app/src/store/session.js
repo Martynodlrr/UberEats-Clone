@@ -18,10 +18,16 @@ const flatten = (arr) => {
 }
 
 const setUser = (user) => {
-	return {
-		type: SET_USER,
-		payload: user,
+	let User;
+
+	if (user.User) {
+			User = user.User;
 	}
+
+	return {
+			type: SET_USER,
+			payload: User || user,
+	};
 };
 
 const removeUser = () => {
@@ -67,7 +73,7 @@ export const addShoppingCartItem = (menuItemIdObj, userId, restaurantId) => asyn
 
 export const deleteShoppingCartItem = (itemId) => async (dispatch) => {
 
-	const res = await fetch(`/api/shopping-carts/${itemId}`, {
+	const res = await fetch(`/api/shopping-carts/item/${itemId}`, {
 		method: 'DELETE'
 	})
 
@@ -198,12 +204,10 @@ export default function reducer(state = initialState, action) {
 			return { ...state, shoppingCart: { ...flatten(action.payload['Shopping cart']), restaurantId: action.payload['restaurantId'] } }
 
 		case DELETE_SHOPPING_CART_ITEM:
-			const id = action.payload
-			const deleteShoppingCartState = { ...state }
-			const deleteUserState = { ...deleteShoppingCartState.user }
-			const newShoppingCart = { ...deleteUserState.shoppingCart }
-			delete newShoppingCart[id]
-			return { ...deleteShoppingCartState, user: { ...deleteUserState, shoppingCart: { ...newShoppingCart } } }
+			const newState = { ...state }
+			const newShoppingCart = { ...newState.shoppingCart }
+			delete newShoppingCart[action.payload]
+			return {...newState, shoppingCart: {...newShoppingCart}};
 
 		case DELETE_SHOPPING_CART:
 			const clearCart = { ...state }
