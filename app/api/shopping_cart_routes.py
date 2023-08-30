@@ -53,19 +53,18 @@ def update_shopping_cart(userId):
 
 
 
-@shopping_cart_routes.route("/<int:userId>/item/<int:itemId>", methods=["DELETE"])
+@shopping_cart_routes.route("/item/<int:itemId>", methods=["DELETE"])
 @login_required
-def delete_shopping_cart_item(userId, itemId):
+def delete_shopping_cart_item(itemId):
     """
     Deletes a single item from the shopping cart
     """
-    cart_items = ShoppingCartItem.query.filter_by(user_id=userId, menu_item_id=itemId).all()
+    cart_item = ShoppingCartItem.query.get(itemId)
 
-    if not cart_items:
+    if not cart_item:
         return json.dumps({"message": "Item not found in shopping cart"}), 404
 
-    for cart_item in cart_items:
-        db.session.delete(cart_item)
+    db.session.delete(cart_item)
     db.session.commit()
 
     return json.dumps({"message": "Item deleted successfully"})
