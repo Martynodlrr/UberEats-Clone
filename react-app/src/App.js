@@ -10,6 +10,7 @@ import { authenticate } from "./store/session";
 import Deals from "./components/Deals";
 import RestaurantCategories from "./components/RestaurantCategories";
 import RestaurantDetails from "./components/RestaurantDetails";
+import Order from "./components/Order";
 import * as reviewActions from './store/review'
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route exact path='/restaurant/:restaurantId'>
             <RestaurantDetails />
+          </Route>
+          <Route exact path='/order'>
+            <Order />
           </Route>
         </Switch>
       )}

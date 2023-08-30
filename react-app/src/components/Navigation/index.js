@@ -31,7 +31,7 @@ function Navigation({ isLoaded }) {
 	return (
 		<ul id='navigation'>
 
-			<a id='logo' onClick={() => handleRedirect()} ><p id='logo-hello'>Hello</p><p id='logo-eats'>Eats</p></a>
+			<img src='/images/brad-eats.png' id='logo' onClick={() => handleRedirect()} />
 			<button id='current-address'>Current Address</button>
 			<button id='cart-button' onClick={() => setShowCart(!showCart)}><img id='cart-icon' src='/images/cart.png' />Cart · {cart ? Object.values(cart).length === 0 ? 0 : Object.values(cart).length - 1 : 0}</button>
 			{
@@ -55,7 +55,7 @@ function Navigation({ isLoaded }) {
 					<h4 id='total'>Total:{total}</h4>
 				</div>
 			}
-			{isLoaded && (
+			{isLoaded && sessionUser && (
 				<ProfileButton user={sessionUser} />
 			)}
 		</ul>
