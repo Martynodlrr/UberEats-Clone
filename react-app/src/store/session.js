@@ -18,10 +18,16 @@ const flatten = (arr) => {
 }
 
 const setUser = (user) => {
-	return {
-		type: SET_USER,
-		payload: user,
+	let User;
+
+	if (user.User) {
+			User = user.User;
 	}
+
+	return {
+			type: SET_USER,
+			payload: User || user,
+	};
 };
 
 const removeUser = () => {
