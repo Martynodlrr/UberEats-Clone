@@ -46,8 +46,8 @@ body.profile-dropdown {
   margin: 0px;
   flex-direction: row;
   justify-content: space-between;
-  padding: 30px 0px 30px 0px;
-  margin: 0px 0px 0px 0px;
+  padding-left: 0px;
+  padding-top: 20px;
 }
 
 #login-signup-buttons-container {
@@ -57,11 +57,9 @@ body.profile-dropdown {
 }
 
 #logo {
-  font-size: 28px;
   display: flex;
   flex-direction: row;
-  text-decoration: none;
-  font-family: sans-serif;
+  height: 110px;
   cursor: pointer;
 }
 
@@ -97,12 +95,24 @@ body.profile-dropdown {
 }
 
 .cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: black;
   color: white;
-  border-radius: 10px;
+  border-radius: 15px;
+  width: 100px;
+  height: 35px;
+  margin: 0px;
+  border: none;
+  outline: none;
 }
 
 .cart-container:hover {
   background-color: rgb(177, 175, 175);
   cursor: pointer;
+}
+
+.cart-button {
+  margin: 0px;
 }

@@ -23,10 +23,8 @@ function Navigation({ isLoaded }) {
 
 	return (
 		<ul id='navigation'>
-			<a id='logo' onClick={handleRedirect}>
-				<p id='logo-hello'>Hello</p>
-				<p id='logo-eats'>Eats</p>
-			</a>
+			<img src='/images/brad-eats.png' id='logo' onClick={() => handleRedirect()} />
+				
 			<button id='current-address'>Current Address</button>
 			<OpenModalButton
 				modalComponent={<ShoppingCartModal />}

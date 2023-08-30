@@ -1,0 +1,36 @@
+#map {
+    height: 400px;
+}
+
+#order-info {
+    height: 250px;
+    border: solid gray 1px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#progress-container {
+    height: 7px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-self: flex-end;
+}
+
+#progress-container > * {
+    width: 100%;
+    margin-left: 5px;
+}
+
+.light-green {
+    background-color: rgb(191, 233, 191);
+}
+
+.gray {
+    background-color: gray;
+}
+
+.green {
+    background-color: green;
+}
