@@ -47,12 +47,14 @@ function ShoppingCartModal({ state, item, restaurant }) {
               total += item.price;
               return (
                 <li key={item.id} className='cart-list'>
-                  <h4>{item.name}</h4>
-                  <p>${item.price}</p>
+                  <h4 >{item.name}</h4>
+                  <p >${item.price}</p>
                   <TiDelete onClick={() => handleSingleItemDelete(item.id)} />
                 </li>
               );
             })}
+            <div className='checkout-container'>
+
           {cart && Object.values(cart).length > 1 && (
             <button
               id='checkout-button'
@@ -60,6 +62,7 @@ function ShoppingCartModal({ state, item, restaurant }) {
             >Checkout</button>
           )}
           <h4 id='total'>Total: ${total.toFixed(2)}</h4>
+            </div>
         </div>
       }
     </>
