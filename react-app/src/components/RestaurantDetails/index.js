@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 import * as restaurantActions from '../../store/restaurant'
 import * as reviewActions from '../../store/review'
 import * as menuItemActions from '../../store/menuItems'
 import * as cartActions from '../../store/session'
-import { useEffect } from 'react'
+import ShoppingCartModal from '../shoppingCartModal'
+import OpenModalButton from "../OpenModalButton";
 import Reviews from '../Reviews'
 import './index.css'
 
@@ -19,6 +21,8 @@ export default function RestaurantDetails() {
     const restaurant = useSelector(state => state.restaurants.restaurant)
 
     const user = useSelector(state => state.session.user)
+
+    const cart = useSelector(state => state.session.shoppingCart)
 
     const reviews = useSelector(state => state.reviews.reviews)
 
@@ -58,11 +62,24 @@ export default function RestaurantDetails() {
                                 arr.map((item) => {
                                     return <div className='item-card'>
                                         <div>
-                                            <img className='add-item' src='/images/add-item.png' onClick={() => {
-                                                if (!user) return
-                                                console.log(user.id)
-                                                dispatch(cartActions.addShoppingCartItem({menu_item_id: item.id}, user.id))}
-                                                }/>
+                                            {cart && cart.restaurantId !== restaurant.id && cart.restaurantId !== 0 && Object.values(cart).length >= 1 ?
+                                                <OpenModalButton
+                                                    modalComponent={<ShoppingCartModal state='switchCarts' />}
+                                                    buttonText={
+                                                        <img className='add-item' src="/images/add-item.png" alt="Add item button" />
+                                                    }
+                                                    className="image-button"
+                                                />
+                                                :
+                                                <button className="image-button" onClick={() => {
+                                                    if (!user) return
+                                                    dispatch(cartActions.addShoppingCartItem({ menu_item_id: item.id }, user.id, restaurant.id))
+                                                }
+                                                }>
+                                                    <img className='add-item' src="/images/add-item.png" alt="Add item button" />
+                                                </button>
+                                            }
+
                                             <img className='item-image' src={item.image} />
                                         </div>
                                         <p className='item-name'>{item.name}</p>

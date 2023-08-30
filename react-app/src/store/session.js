@@ -2,6 +2,7 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
+const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/deleteItem'
 const DELETE_SHOPPING_CART = 'shoppingCart/delete'
 
 const flatten = (arr) => {
@@ -31,26 +32,33 @@ const removeUser = () => {
 
 const setAddShoppingCartItem = (data) => {
 	return {
-		type: ADD_SHOPPING_CART_ITEM,
-		payload: data
+			type: ADD_SHOPPING_CART_ITEM,
+			payload: data
 	}
 }
 
-const removeShoppingCartItem = (shoppingCartId) => {
+const removeShoppingCartItem = (itemId) => {
 	return {
-		type: DELETE_SHOPPING_CART,
-		payload: shoppingCartId
+			type: DELETE_SHOPPING_CART_ITEM,
+			payload: itemId
 	}
 }
 
-const initialState = { user: null };
+const removeShoppingCart = () => {
+	return {
+			type: DELETE_SHOPPING_CART
+	}
+}
 
-export const addShoppingCartItem = (item, userId) => async (dispatch) => {
+
+export const addShoppingCartItem = (menuItemIdObj, userId, restaurantId) => async (dispatch) => {
 	const res = await fetch(`/api/shopping-carts/${userId}`, {
 		method: 'PUT',
-		body: JSON.stringify(item)
+		body: JSON.stringify(menuItemIdObj)
 	})
+
 	const data = await res.json()
+	data['restaurantId'] = restaurantId
 
 	if (data && !data.errors) dispatch(setAddShoppingCartItem(data))
 
@@ -59,13 +67,27 @@ export const addShoppingCartItem = (item, userId) => async (dispatch) => {
 
 export const deleteShoppingCartItem = (itemId) => async (dispatch) => {
 
-	const res = await fetch(`/api/shopping-cart-items/${itemId}`, {
+	const res = await fetch(`/api/shopping-carts/${itemId}`, {
 		method: 'DELETE'
 	})
 
 	const data = await res.json()
 
 	if (data && !data.errors) dispatch(removeShoppingCartItem(itemId))
+
+	return res
+
+}
+
+export const clearShoppingCart = (userId) => async (dispatch) => {
+
+	const res = await fetch(`/api/shopping-carts/${userId}`, {
+		method: 'DELETE'
+	})
+
+	const data = await res.json()
+
+	if (data && !data.errors) dispatch(removeShoppingCart())
 
 	return res
 
@@ -78,7 +100,8 @@ export const authenticate = () => async (dispatch) => {
 		},
 	});
 	if (response.ok) {
-		const data = await response.json();
+		const data = await response.json()
+
 		if (data.errors) {
 			return;
 		}
@@ -152,26 +175,41 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
+const initialState = { user: null };
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			console.log(action.payload)
-			const user = action.payload
-			const userShoppingCart = user.shopping_cart
-			delete user.shopping_cart
-			return { ...state, user: user, shoppingCart: flatten(userShoppingCart) };
+			const user = action.payload;
+			const userShoppingCart = user?.shopping_cart || {};  // Use optional chaining to prevent errors
+			const restaurantIdValue = userShoppingCart.restaurantId || 0;  // Set to 0 if restaurantId doesn't exist
+
+			delete user.shopping_cart;
+			return {
+					...state,
+					user,
+					shoppingCart: { ...flatten(userShoppingCart), restaurantId: restaurantIdValue }
+			};
+
 		case REMOVE_USER:
 			return { user: null };
-		case ADD_SHOPPING_CART_ITEM:
-			return { ...state, shoppingCart: flatten(action.payload['Shopping cart']) }
 
-		case DELETE_SHOPPING_CART:
+		case ADD_SHOPPING_CART_ITEM:
+			return { ...state, shoppingCart: { ...flatten(action.payload['Shopping cart']), restaurantId: action.payload['restaurantId'] } }
+
+		case DELETE_SHOPPING_CART_ITEM:
 			const id = action.payload
 			const deleteShoppingCartState = { ...state }
 			const deleteUserState = { ...deleteShoppingCartState.user }
 			const newShoppingCart = { ...deleteUserState.shoppingCart }
 			delete newShoppingCart[id]
 			return { ...deleteShoppingCartState, user: { ...deleteUserState, shoppingCart: { ...newShoppingCart } } }
+
+		case DELETE_SHOPPING_CART:
+			const clearCart = { ...state }
+			clearCart.shoppingCart = {}
+			return { ...clearCart }
+
 		default:
 			return state;
 	}
