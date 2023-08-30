@@ -1,5 +1,11 @@
-.profile-dropdown {
-  position: absolute;
+body.profile-dropdown {
+  margin-left: 0
+}
+
+.createRestaurantButton {
+  border: none;
+  background-color: white;
+  cursor: pointer;
 }
 
 .hidden {
@@ -17,6 +23,21 @@
 
 .login-signup:hover {
   background-color: rgb(228, 224, 224);
+}
+
+.profileButton {
+  background-color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  font-size: 175%;
+  width: 100px;
+  display: flex;
+  justify-content: space-around;
+  top: 0;
+  margin-top: 40px;
+  margin-left: 15px;
+  border: none;
 }
 
 #navigation {

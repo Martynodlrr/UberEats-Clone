@@ -55,7 +55,20 @@ function Navigation({ isLoaded }) {
 					<h4 id='total'>Total:{total}</h4>
 				</div>
 			}
-			{isLoaded && (
+			{isLoaded && !sessionUser ? (
+				<div id='login-signup-buttons-container'>
+					<OpenModalButton
+						buttonText="Log In"
+						className='login-signup'
+						modalComponent={<LoginFormModal />}
+					/>
+					<OpenModalButton
+						buttonText="Sign Up"
+						className='login-signup'
+						modalComponent={<SignupFormModal />}
+					/>
+				</div>
+			) : (
 				<ProfileButton user={sessionUser} />
 			)}
 		</ul>
