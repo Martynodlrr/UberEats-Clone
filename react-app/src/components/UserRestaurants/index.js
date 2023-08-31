@@ -34,7 +34,7 @@ export default function ManageRestaurants() {
                                 </NavLink>
                                 <OpenModalButton
                                     buttonText='Update'
-                                    modalComponent={<UpdateRestaurant restaurantId={restaurant.id} />}
+                                    modalComponent={<UpdateRestaurant restaurant={restaurant} />}
                                 />
                                 <OpenModalButton
                                     buttonText='Delete'
