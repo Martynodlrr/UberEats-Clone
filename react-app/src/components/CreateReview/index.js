@@ -10,7 +10,7 @@ export default function CreateReview({ userId, review, formType }) {
     const restaurantId = useSelector((state) => state.restaurants.restaurant.id)
     const { closeModal } = useModal();
     const [body, setBody] = useState(formType === 'Update Review' ? review.body : '');
-    const [rating, setRating] = useState(formType === 'Update Review' ? review.rating : null);
+    const [rating, setRating] = useState(formType === 'Update Review' ? review.rating : 0);
     const [hover, setHover] = useState(null);
 
     const handleSubmit = async (e) => {
@@ -40,8 +40,8 @@ export default function CreateReview({ userId, review, formType }) {
     return (
         <>
             <div className='reviewModal'>
-                {formType === 'Update Review' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
-                <form onSubmit={handleSubmit}>
+                {formType === 'Update Review' ? <h1 id="formTitle">Update your Review</h1> : <h1 id="formTitle">Create a New Review</h1>}
+                <form onSubmit={handleSubmit} className="reviewForm">
                     <textarea
                         id='reviewTextarea'
                         type='text'
@@ -69,7 +69,7 @@ export default function CreateReview({ userId, review, formType }) {
                             )
                         })} Stars
                     </div>
-                    <button type='submit' className='signupSubmit' disabled={body && body.length < 10 || rating && rating === 0}>Submit Your Review</button>
+                    <button type='submit' className='reviewSubmit' disabled={body.length < 10 || rating === 0}>Submit Your Review</button>
                 </form>
             </div>
         </>
