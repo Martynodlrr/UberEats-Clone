@@ -45,8 +45,6 @@ export default function CreateRestaurant({ restaurant, formType }) {
                 .catch((e) => {
                     console.error("Error making restaurant: ", e)
                 })
-
-
         }
     }
 

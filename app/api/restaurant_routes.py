@@ -76,7 +76,7 @@ def user_restaurants(userId):
 
 
 @restaurant_routes.route('/', methods=['POST'])
-@login_required
+# @login_required
 def create_restaurant():
     """
     Creates a restaurant and returns that restaurant in a dictionary

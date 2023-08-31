@@ -39,7 +39,7 @@ export default function RestaurantDetails() {
         dispatch(reviewActions.allReviewsbyRestaurant(id))
         dispatch(menuItemActions.allMenuItems(id))
 
-        if (cart.length && cart.restaurantId === 0) dispatch(cartActions.getRestaurantId(cart[1].menu_item_id))
+        if (cart && cart.length && cart.restaurantId === 0) dispatch(cartActions.getRestaurantId(cart[1].menu_item_id))
     }, [dispatch])
 
 
