@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { logout } from "../../store/session";
 import { GiHamburgerMenu } from "react-icons/gi";
 import LoginFormModal from "../LoginFormModal";
@@ -59,11 +59,15 @@ function ProfileButton({ user }) {
               <button onClick={handleLogout}>Log Out</button>
             </li>
             <hr />
-            <OpenModalButton
+            <li><OpenModalButton
               buttonText="Add your restaurant"
               className="createRestaurantButton"
               modalComponent={<CreateRestaurant />}
             />
+            </li>
+            <li>
+              <NavLink to={`/restaurants/user/${sessionUser.id}`} className="manageLink">Manage your restaurants</NavLink>
+            </li>
           </ul >
         </>
       ) : (

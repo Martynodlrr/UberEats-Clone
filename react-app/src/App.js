@@ -9,6 +9,7 @@ import { authenticate } from "./store/session";
 import Deals from "./components/Deals";
 import RestaurantCategories from "./components/RestaurantCategories";
 import RestaurantDetails from "./components/RestaurantDetails";
+import UserRestaurants from "./components/UserRestaurants";
 import Order from "./components/Order";
 import * as reviewActions from './store/review'
 
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route exact path='/order'>
             <Order />
+          </Route>
+          <Route exact path="/restaurants/user/:userId">
+            <UserRestaurants />
           </Route>
         </Switch>
       )}

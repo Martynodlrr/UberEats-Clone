@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useModal } from '../../context/Modal';
 import * as restaurantActions from '../../store/restaurant';
 import './CreateRestaurant.css';
 
 export default function CreateRestaurant({ restaurant, formType }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { closeModal } = useModal();
     const [description, setDescription] = useState(formType === 'Update Restaurant' ? restaurant.description : '');
     const [category, setCategory] = useState(formType === 'Update Restaurant' ? restaurant.category : '');
     const [address, setAddress] = useState(formType === 'Update Restaurant' ? restaurant.address : '');
@@ -27,6 +29,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
             const returnFromThunk = restaurantActions.updateRestaurant(newRestaurant);
             const dbRestaurant = await dispatch(returnFromThunk);
             if (dbRestaurant) {
+                closeModal();
                 history.push(`/restaurants/${dbRestaurant.id}`)
             }
         } else {
@@ -34,7 +37,8 @@ export default function CreateRestaurant({ restaurant, formType }) {
             const dbRestaurant = await dispatch(returnFromThunk);
 
             if (dbRestaurant) {
-                history.push(`/restaurants/${dbRestaurant.id}`)
+                closeModal();
+                // history.push(`/restaurants/${dbRestaurant.id}`)
             }
         }
     };
