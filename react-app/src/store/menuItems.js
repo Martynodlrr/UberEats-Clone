@@ -62,7 +62,7 @@ export const createMenuItem = (menuItem, restaurantId) => async (dispatch) => {
     formData.append("price", menuItem.price);
     formData.append('image', menuItem.image)
     formData.append("name", menuItem.name);
-
+    formData.append('restaurant_id', restaurantId);
     const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`, {
         method: 'POST',
         body: formData
@@ -84,7 +84,7 @@ export const updateMenuItem = (menuItem, menuId) => async (dispatch) => {
     formData.append('image', menuItem.image);
     formData.append("name", menuItem.name);
 
-    const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`, {
+    const res = await fetch(`/api/menu-items/${menuId}`, {
         method: 'POST',
         body: formData
     })

@@ -37,7 +37,7 @@ def menu_items_by_restaurant_id(restaurantId):
 #create new menu item
 @menu_items_routes.route('/restaurants/<int:restaurantId>', methods=['POST'])
 @login_required
-def create_meun_item(restaurantId):
+def create_menu_item(restaurantId):
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     image_file = request.files.get('image')
@@ -80,7 +80,7 @@ def update_menu_item(id):
     name = request.form.get('name')
     price = request.form.get('price')
     calories = request.form.get('calories')
-    image_file = request.files.get['image']
+    image_file = request.files.get('image')
 
     if image_file:
         upload = upload_file_to_s3(image_file)
