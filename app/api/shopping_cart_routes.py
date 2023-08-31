@@ -18,6 +18,7 @@ def get_shopping_cart(userId):
         item_dict = cart_item.to_dict()
         item_dict['name'] = cart_item.menu_item.name
         item_dict['price'] = cart_item.menu_item.price
+        item_dict['restaurant_id']= cart_item.menu_item.restaurant_id
         cart_res.append(item_dict)
     return {'Shopping cart': cart_res}
 
@@ -44,6 +45,7 @@ def update_shopping_cart(userId):
         item_dict = cart_item.to_dict()
         item_dict['name'] = cart_item.menu_item.name
         item_dict['price'] = cart_item.menu_item.price
+        item_dict['restaurant_id']= cart_item.menu_item.restaurant_id
         cart_res.append(item_dict)
 
     return {"Shopping cart": cart_res}

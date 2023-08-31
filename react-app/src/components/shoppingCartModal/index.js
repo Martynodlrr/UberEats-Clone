@@ -9,6 +9,7 @@ import "./index.css";
 function ShoppingCartModal({ state, item, restaurant }) {
   const user = useSelector(state => state.session.user)
   const cart = useSelector(state => state.session.shoppingCart);
+  
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const history = useHistory();

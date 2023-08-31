@@ -13,6 +13,7 @@ import './index.css'
 
 export default function RestaurantDetails() {
 
+
     const params = useParams()
 
     const id = params.restaurantId
@@ -38,6 +39,7 @@ export default function RestaurantDetails() {
 
         if ( cart[1] && cart.restaurantId === 0) dispatch(cartActions.getRestaurantId(cart[1].menu_item_id))
     }, [dispatch])
+
 
     if (Object.values(items)) {
         for (let i = 0; i < Object.values(items).length; i += 4) {
