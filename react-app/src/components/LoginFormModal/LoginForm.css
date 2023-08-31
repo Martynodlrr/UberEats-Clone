@@ -38,4 +38,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: ". content .";
     max-width: 45%;
+    position: absolute;
+    background-color: white;
 }

@@ -84,32 +84,54 @@ export const userRestaurants = (userId) => async (dispatch) => {
 }
 
 export const createRestaurant = (restaurant) => async (dispatch) => {
+    const formData = new FormData();
 
-    const res = await fetch('/api/restaurants', {
+    formData.append("description", restaurant.description);
+    formData.append("category", restaurant.category);
+    formData.append("address", restaurant.address);
+    formData.append("name", restaurant.name);
+    formData.append("user_id", restaurant.userId);
+
+    if (restaurant.image) {
+        formData.append("image", restaurant.image);
+    }
+    const res = await fetch('/api/restaurants/', {
         method: 'POST',
-        body: JSON.stringify(restaurant)
-    })
+        body: formData
+    });
+    const data = await res.json();
 
-    const data = await res.json()
+    if (data && !data.errors) {
+        dispatch(setNewRestaurant(data));
+    }
 
-    if (data && !data.errors) dispatch(setNewRestaurant(data))
-
-    return res
-
+    return res;
 }
 
 export const updateRestaurant = (restaurant) => async (dispatch) => {
+    const formData = new FormData();
+
+    formData.append("description", restaurant.description);
+    formData.append("category", restaurant.category);
+    formData.append("address", restaurant.address);
+    formData.append("name", restaurant.name);
+
+    if (restaurant.image) {
+        formData.append("image", restaurant.image);
+    }
 
     const res = await fetch(`/api/restaurants/${restaurant.id}`, {
         method: 'PUT',
-        body: JSON.stringify(restaurant)
-    })
+        body: formData
+    });
 
-    const data = await res.json()
+    const data = await res.json();
 
-    if (data && !data.errors) dispatch(setUpdateRestaurant(data))
+    if (data && !data.errors) {
+        dispatch(setUpdateRestaurant(data));
+    }
 
-    return res
+    return res;
 }
 
 export const deleteRestaurant = (restaurantId) => async (dispatch) => {
