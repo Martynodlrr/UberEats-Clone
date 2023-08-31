@@ -67,7 +67,7 @@ def create_menu_item(restaurantId):
 
 #update route
 @menu_items_routes.route('/<int:id>', methods=['PUT'])
-@login_required
+# @login_required
 def update_menu_item(id):
     menu_item = MenuItem.query.get(id)
 
