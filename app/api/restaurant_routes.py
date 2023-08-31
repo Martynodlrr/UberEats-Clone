@@ -82,10 +82,7 @@ def create_restaurant():
     Creates a restaurant and returns that restaurant in a dictionary
     """
     form = RestaurantForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
-
-    # Extract file from form data
     image_file = request.files.get('image')
     upload = upload_file_to_s3(image_file)
 

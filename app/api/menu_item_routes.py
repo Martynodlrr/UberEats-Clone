@@ -40,7 +40,7 @@ def menu_items_by_restaurant_id(restaurantId):
 def create_meun_item(restaurantId):
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    image_file = request.files.get['image']
+    image_file = request.files.get('image')
     upload = upload_file_to_s3(image_file)
 
     if 'url' not in upload:

@@ -39,7 +39,7 @@ export default function CreateMenuItem({ menuItem, formType}) {
                 console.error("Error making menu item: ",e)
             })
         } else {
-            dispatch(menuActions.createMenuItem(newItem,restaurantId))
+            dispatch(menuActions.createMenuItem(newItem, restaurantId))
                 .then(()=>{
                     closeModal()
                 })
