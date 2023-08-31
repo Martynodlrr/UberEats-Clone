@@ -17,7 +17,6 @@ export default function CreateMenuItem({ menuItem, formType}) {
     let menuId=null
     if(menuItem){
         menuId = menuItem.id
-
     }
 
     const handleSubmit = async (e) => {
