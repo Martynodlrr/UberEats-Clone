@@ -40,17 +40,14 @@
   padding: 0px;
 }
 
-#modal-content {
-display: flex;
-border-radius: 10px;
-}
-.checkout-container{
+.checkout-container {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
 }
-#checkout-button{
+
+#checkout-button {
   width: fit-content;
   border: none;
   background-color: white;
@@ -61,6 +58,6 @@ border-radius: 10px;
   cursor: pointer;
 }
 
-#modal-background{
+#modal-background {
   background-color: rgba(0, 0, 0, 0.2);
 }
