@@ -22,6 +22,7 @@ export default function CreateMenuItem({ menuItem, formType}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(image)
         const newItem = {
             name,
             price:Number(price),

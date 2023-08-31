@@ -91,7 +91,7 @@ export const createRestaurant = (restaurant) => async (dispatch) => {
     formData.append("address", restaurant.address);
     formData.append("user_id", restaurant.userId);
     formData.append("name", restaurant.name);
-    formData.append('image', menuItem.image)
+    formData.append('image', restaurant.image)
 
     const res = await fetch('/api/restaurants/', {
         method: 'POST',
