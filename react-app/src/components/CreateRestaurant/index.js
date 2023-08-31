@@ -30,20 +30,21 @@ export default function CreateRestaurant({ restaurant, formType }) {
         }
 
         if (formType === 'Update Restaurant') {
-            const returnFromThunk = restaurantActions.updateRestaurant(newRestaurant);
-            const dbRestaurant = await dispatch(returnFromThunk);
-            if (dbRestaurant) {
-                closeModal();
-                history.push(`/restaurants/${dbRestaurant.id}`)
-            }
+            dispatch(restaurantActions.updateRestaurant(newRestaurant))
+            .then((data)=>{
+                history.push(`/restaurant/${data.id}`)
+            })
+            .catch((e)=>{
+                console.error("Error making restaurant: ",e)
+            })
         } else {
-            const returnFromThunk = restaurantActions.createRestaurant(newRestaurant);
-            const dbRestaurant = await dispatch(returnFromThunk);
-
-            if (dbRestaurant) {
-                closeModal();
-                // history.push(`/restaurants/${dbRestaurant.id}`)
-            }
+            dispatch(restaurantActions.createRestaurant(newRestaurant))
+                .then((data)=>{
+                    history.push(`/restaurant/${data.id}`)
+                })
+                .catch((e) => {
+                    console.error("Error making restaurant: ", e)
+                })
         }
     }
 
@@ -62,7 +63,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     />
                 </label>
                 <label>
-                    Please select a category for your restaurant
+                    {formType === 'Update Restaurant' ? <p>Update the category?</p> : <p>Please select a category for your restaurant</p>}
                     <select value={category} onChange={(e) => setCategory(e.target.value)}>
                         <option value='grocery'>Grocery</option>
                         <option value='convenience'>Convenience</option>
@@ -78,7 +79,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     </select>
                 </label>
                 <label>
-                    What is the address for your restaurant?
+                    {formType === 'Update Restaurant' ? <p>Update the address?</p> : <p>What is the address for your restaurant?</p>}
                     <input
                         type='text'
                         onChange={(e) => setAddress(e.target.value)}
@@ -87,17 +88,17 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     />
                 </label>
                 <label>
-                    Please upload an image for your restaurant
+                    {formType === 'Update Restaurant' ? <p>Upload an image if you wish to update the picture</p> : <p>Please upload an image for your restaurant</p>}
                     <input
                         type="file"
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
-                        required={true}
+                        required={formType !== 'Update Restaurant' ? true : false }
                     />
                 </label>
                 {(imageLoading) && <p>Loading...</p>}
                 <label>
-                    What is the name of your restaurant?
+                    {formType === 'Update Restaurant' ? <p>Update the name?</p> : <p>What is the name of your restaurant?</p>}
                     <input
                         type='text'
                         onChange={(e) => setName(e.target.value)}

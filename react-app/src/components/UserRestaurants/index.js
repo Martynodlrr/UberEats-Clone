@@ -27,7 +27,7 @@ export default function ManageRestaurants() {
                     <ul>
                         {Object.values(restaurants).map((restaurant) => (
                             <li key={restaurant.id} className='restaurantList'>
-                                <NavLink to={`/restaurants/${restaurant.id}`}>
+                                <NavLink to={`/restaurant/${restaurant.id}`}>
                                     <img src={restaurant.image} alt='a preview of the restaurant' title={restaurant.name}></img>
                                     <div>{restaurant.name}</div>
                                     <div>{restaurant.address}</div>

@@ -54,11 +54,18 @@ export const allMenuItems = (restaurantId) => async (dispatch) => {
     return res
 }
 
-export const createMenuItem = (menutItem) => async (dispatch) => {
+export const createMenuItem = (menuItem, restaurantId) => async (dispatch) => {
+    const formData = new FormData();
 
-    const res = await fetch(`/api/restaurants/${menutItem.restaurant_id}/menu-items`, {
+    formData.append('restaurant_id', menuItem.restaurantId);
+    formData.append("calories", menuItem.calories);
+    formData.append("price", menuItem.price);
+    formData.append('image', menuItem.image)
+    formData.append("name", menuItem.name);
+    formData.append('restaurant_id', restaurantId);
+    const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`, {
         method: 'POST',
-        body: JSON.stringify(menutItem)
+        body: formData
     })
 
     const data = await res.json()
@@ -66,14 +73,20 @@ export const createMenuItem = (menutItem) => async (dispatch) => {
     if (data && !data.errors) dispatch(setNewMenuItem(data))
 
     return res
-
 }
 
-export const updateMenuItem = (menutItem) => async (dispatch) => {
+export const updateMenuItem = (menuItem, menuId) => async (dispatch) => {
+    const formData = new FormData();
 
-    const res = await fetch(`/api/menuItems/${menutItem.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(menutItem)
+    formData.append('restaurant_id', menuItem.restaurantId);
+    formData.append("calories", menuItem.calories);
+    formData.append("price", menuItem.price);
+    formData.append('image', menuItem.image);
+    formData.append("name", menuItem.name);
+
+    const res = await fetch(`/api/menu-items/${menuId}`, {
+        method: 'POST',
+        body: formData
     })
 
     const data = await res.json()
@@ -83,15 +96,15 @@ export const updateMenuItem = (menutItem) => async (dispatch) => {
     return res
 }
 
-export const deleteMenuItem = (menuItem) => async (dispatch) => {
+export const deleteMenuItem = (menuItemId) => async (dispatch) => {
 
-    const res = await fetch(`/api/menuItems/${menuItem.id}`, {
+    const res = await fetch(`/api/menu-items/${menuItemId}`, {
         method: 'DELETE'
     })
 
     const data = await res.json()
 
-    if (data && !data.errors) dispatch(removeMenuItems(menuItem.id))
+    if (data && !data.errors) dispatch(removeMenuItems(menuItemId))
 
     return res
 

@@ -8,7 +8,9 @@ import * as cartActions from '../../store/session'
 import ShoppingCartModal from '../shoppingCartModal'
 import LoginFormModal from '../LoginFormModal'
 import OpenModalButton from "../OpenModalButton";
+import DeleteMenuItem from '../DeleteMenuItemModal'
 import Reviews from '../Reviews'
+import CreateMenuItem from '../CreateMenuItem'
 import './index.css'
 
 export default function RestaurantDetails() {
@@ -37,7 +39,7 @@ export default function RestaurantDetails() {
         dispatch(reviewActions.allReviewsbyRestaurant(id))
         dispatch(menuItemActions.allMenuItems(id))
 
-        if ( cart[1] && cart.restaurantId === 0) dispatch(cartActions.getRestaurantId(cart[1].menu_item_id))
+        if (cart && cart.length && cart.restaurantId === 0) dispatch(cartActions.getRestaurantId(cart[1].menu_item_id))
     }, [dispatch])
 
 
@@ -59,11 +61,19 @@ export default function RestaurantDetails() {
                 {
                     nestedArrays.map((arr) => {
                         return <div className='item-row'>
+                            <div>
+                                <OpenModalButton
+                                    modalComponent={<CreateMenuItem />}
+                                    className="update-menu-item-button"
+                                    buttonText={"Create new Item"}
+                                />
+                            </div>
                             {
                                 arr.map((item) => {
                                     return <div className='item-card'>
                                         <div>
-                                            {cart && cart.restaurantId !== restaurant.id && Object.values(cart).length >= 2 ?
+
+                                            {Object.values(cart).length && Object.values(cart)[0].restaurant_id !== restaurant.id && Object.values(cart).length >= 2 ?
                                                 <OpenModalButton
                                                     modalComponent={<ShoppingCartModal
                                                         state='confirmation'
@@ -74,6 +84,7 @@ export default function RestaurantDetails() {
                                                     }
                                                     className="image-button"
                                                 />
+
                                                 :
                                                 !user ?
                                                     <OpenModalButton
@@ -84,12 +95,31 @@ export default function RestaurantDetails() {
                                                         }
                                                     />
                                                     :
-                                                    <button className="image-button" onClick={() => {
-                                                        dispatch(cartActions.addShoppingCartItem({ menu_item_id: item.id }, user.id, restaurant.id))
-                                                    }
-                                                    }>
-                                                        <img className='add-item' src="/images/add-item.png" alt="Add item button" />
-                                                    </button>
+                                                    user.id !== restaurant.user_id ?
+                                                        <button className="image-button" onClick={() => {
+                                                            dispatch(cartActions.addShoppingCartItem({ menu_item_id: item.id }, user.id, restaurant.id))
+                                                        }
+                                                        }>
+                                                            <img className='add-item' src="/images/add-item.png" alt="Add item button" />
+                                                        </button>
+                                                        :
+                                                        // ONLY IF USER IS OWNER OF RESTAURANT
+                                                        <div>
+                                                            {/* Delete */}
+                                                            <OpenModalButton
+                                                                modalComponent={<DeleteMenuItem menuItemId={item.id} />}
+                                                                className="delete-menu-item-button"
+                                                                buttonText={
+                                                                    "Delete Item"
+                                                                }
+                                                            />
+                                                            {/* Update */}
+                                                            <OpenModalButton
+                                                                modalComponent={<CreateMenuItem menuItem={item} formType={"Update Menu Item"} />}
+                                                                className="update-menu-item-button"
+                                                                buttonText={"Update Item"}
+                                                            />
+                                                        </div>
                                             }
 
                                             <img className='item-image' src={item.image} />

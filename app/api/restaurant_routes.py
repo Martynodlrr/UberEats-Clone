@@ -76,24 +76,18 @@ def user_restaurants(userId):
 
 
 @restaurant_routes.route('/', methods=['POST'])
-@login_required
+# @login_required
 def create_restaurant():
     """
     Creates a restaurant and returns that restaurant in a dictionary
     """
     form = RestaurantForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
-
-    # Extract file from form data
     image_file = request.files.get('image')
-
-    if not image_file:
-        return {"error": "Image file is required."}, 400
-
     upload = upload_file_to_s3(image_file)
+
     if 'url' not in upload:
-        return upload, 500
+        return upload
 
     # Get other form data
     description = request.form.get('description')
@@ -116,11 +110,11 @@ def create_restaurant():
     db.session.commit()
 
     res = new_restaurant.to_dict()
-    return json.dumps(res, cls=EnumEncoder)
+    return json.dumps(res, cls=EnumEncoder), 201
 
 
 @restaurant_routes.route('/<int:id>', methods=['PUT'])
-@login_required
+# @login_required
 def update_restaurant(id):
     """
     Updates a restaurant and returns the updated restaurant in a dictionary
@@ -133,25 +127,25 @@ def update_restaurant(id):
     form = RestaurantForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.data['image']:
-        upload = upload_file_to_s3(form.data['image'])
 
-        if 'url' not in upload:
-            return upload
-        else:
-            restaurant.image=upload["url"]
+    description = request.form.get('description')
+    category = request.form.get('category')
+    address = request.form.get('address')
+    name = request.form.get('name')
+    image_file = request.files.get['image']
 
-    if form.validate_on_submit():
-        restaurant.description=form.data['description']
-        restaurant.category=form.data['category']
-        restaurant.address=form.data['address']
-        restaurant.name=form.data['name']
+    if image_file:
+        upload = upload_file_to_s3(image_file)
+        restaurant.image=upload['url']
 
-        db.session.commit()
-        res = {'restaurant': [restaurant.to_dict()]}
-        return json.dumps(res, cls=EnumEncoder)
-    if form.errors:
-        return form.errors
+    restaurant.description=description
+    restaurant.category=category
+    restaurant.address=address
+    restaurant.name=name
+    db.session.commit()
+
+    res = restaurant.to_dict()
+    return json.dumps(res, cls=EnumEncoder)
 
 
 @restaurant_routes.route('/<int:id>', methods=['DELETE'])
