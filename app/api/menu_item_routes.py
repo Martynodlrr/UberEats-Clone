@@ -14,6 +14,16 @@ def menu_items():
 
     return json.dumps({'menuItems': [menu_item.to_dict() for menu_item in menu_items]})
 
+
+@menu_items_routes.route('/<int:menuItemId>')
+def get_menu_item(menuItemId):
+    menu_item = MenuItem.query.filter(MenuItem.id == menuItemId).all()
+
+    if not menu_item:
+        return jsonify({'message': 'No menu item with that id'}), 404
+    
+    return jsonify({ 'menuItemId': menu_item[0].to_dict()['restaurant_id'] })
+
 #get all the menu items for each restaurant
 @menu_items_routes.route('/restaurants/<int:restaurantId>')
 def menu_items_by_restaurant_id(restaurantId):

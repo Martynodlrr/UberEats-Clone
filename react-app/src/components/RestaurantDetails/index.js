@@ -6,6 +6,7 @@ import * as reviewActions from '../../store/review'
 import * as menuItemActions from '../../store/menuItems'
 import * as cartActions from '../../store/session'
 import ShoppingCartModal from '../shoppingCartModal'
+import LoginFormModal from '../LoginFormModal'
 import OpenModalButton from "../OpenModalButton";
 import Reviews from '../Reviews'
 import './index.css'
@@ -34,6 +35,8 @@ export default function RestaurantDetails() {
         dispatch(restaurantActions.oneRestaurant(id))
         dispatch(reviewActions.allReviewsbyRestaurant(id))
         dispatch(menuItemActions.allMenuItems(id))
+
+        if ( cart[1] && cart.restaurantId === 0) dispatch(cartActions.getRestaurantId(cart[1].menu_item_id))
     }, [dispatch])
 
     if (Object.values(items)) {
@@ -70,13 +73,21 @@ export default function RestaurantDetails() {
                                                     className="image-button"
                                                 />
                                                 :
-                                                <button className="image-button" onClick={() => {
-                                                    if (!user) return
-                                                    dispatch(cartActions.addShoppingCartItem({ menu_item_id: item.id }, user.id, restaurant.id))
-                                                }
-                                                }>
-                                                    <img className='add-item' src="/images/add-item.png" alt="Add item button" />
-                                                </button>
+                                                !user ?
+                                                    <OpenModalButton
+                                                        modalComponent={<LoginFormModal />}
+                                                        className="image-button"
+                                                        buttonText={
+                                                            <img className='add-item' src="/images/add-item.png" alt="Add item button" />
+                                                        }
+                                                    />
+                                                    :
+                                                    <button className="image-button" onClick={() => {
+                                                        dispatch(cartActions.addShoppingCartItem({ menu_item_id: item.id }, user.id, restaurant.id))
+                                                    }
+                                                    }>
+                                                        <img className='add-item' src="/images/add-item.png" alt="Add item button" />
+                                                    </button>
                                             }
 
                                             <img className='item-image' src={item.image} />

@@ -1,5 +1,6 @@
 // constants
 const SET_USER = "session/SET_USER";
+const GET_RESTAURANT_ID = "session/GET_RESTAURANT_ID";
 const REMOVE_USER = "session/REMOVE_USER";
 const ADD_SHOPPING_CART_ITEM = 'shoppingCart/update'
 const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/deleteItem'
@@ -27,6 +28,13 @@ const setUser = (user) => {
 	return {
 			type: SET_USER,
 			payload: User || user,
+	};
+};
+
+const setRestaurantId = (restaurantId) => {
+	return {
+			type: GET_RESTAURANT_ID,
+			payload: restaurantId,
 	};
 };
 
@@ -70,6 +78,19 @@ export const addShoppingCartItem = (menuItemIdObj, userId, restaurantId) => asyn
 
 	return res
 }
+
+export const getRestaurantId = (menuItemId) => async (dispatch) => {
+	const response = await fetch(`/api/menu-items/${menuItemId}`);
+
+	if (!response.ok) {
+		return 0
+	}
+
+	const data = await response.json();
+	dispatch(setRestaurantId(data.menuItemId))
+
+	return data
+};
 
 export const deleteShoppingCartItem = (itemId) => async (dispatch) => {
 
@@ -196,6 +217,11 @@ export default function reducer(state = initialState, action) {
 				user,
 				shoppingCart: { ...flatten(userShoppingCart), restaurantId: restaurantIdValue }
 			};
+
+		case GET_RESTAURANT_ID:
+			const newSlice = { ...state }
+			const newCart = { ...newSlice.shoppingCart }
+			return {...newSlice, shoppingCart: {...newCart, restaurantId: action.payload}};
 
 		case REMOVE_USER:
 			return { user: null };

@@ -37,7 +37,7 @@ def authenticate():
 
         user_data = current_user.to_dict()
         user_data['shopping_cart'] = cart_res
-        print(cart_res)
+        
         return user_data
 
     return {'errors': ['Unauthorized']}
