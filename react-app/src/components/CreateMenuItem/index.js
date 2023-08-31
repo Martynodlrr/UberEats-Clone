@@ -12,7 +12,8 @@ export default function CreateMenuItem({ menuItem, formType}) {
     const restaurantId = useSelector(state=> state.restaurants.restaurant.id)
     const [name, setName] = useState(formType === 'Update Menu Item' ? menuItem.name : '');
     const [price, setPrice] = useState(formType === 'Update Menu Item' ? menuItem.price : '');
-    const [image, setImage] = useState(formType === 'Update Menu Item' ? menuItem.image : '');
+    const [image, setImage] = useState(null);
+    const [imageLoading, setImageLoading] = useState(false);
     const [calories, setCalories] = useState(formType === 'Update Menu Item' ? menuItem.calories : '');
     let menuId=null
     if(menuItem){
@@ -58,7 +59,7 @@ export default function CreateMenuItem({ menuItem, formType}) {
             {formType === 'Update Menu Item' ? <h1>Update your Menu Item</h1> : <h1>Create a New Menu Item</h1>}
             <form onSubmit={handleSubmit}>
             <label>
-                    What is the name of your Menu Item?
+                    {formType === 'Update Menu Item' ? <p>Update the name?</p> : <p>What is the name of your Menu Item?</p>}
                     <input
                         type='text'
                         onChange={(e) => setName(e.target.value)}
@@ -67,7 +68,7 @@ export default function CreateMenuItem({ menuItem, formType}) {
                     />
                 </label>
                 <label>
-                    Please enter the price of your Menu Item
+                {formType === 'Update Menu Item' ? <p>Update the price?</p> : <p>Please enter the price of your Menu Item</p>}
                     <input
                         type='number'
                         onChange={(e) => setPrice(e.target.value)}
@@ -76,16 +77,17 @@ export default function CreateMenuItem({ menuItem, formType}) {
                     />
                 </label>
                 <label>
-                    Please upload an image for your menu item
+                    {formType === 'Update Menu Item' ? <p>Upload an image if you wish to update the picture</p> : <p>Please upload an image for your item</p>}
                     <input
-                        type='text'
-                        onChange={(e) => setImage(e.target.value)}
-                        value={image}
-                        placeholder='Image URL'
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                        required={true}
                     />
                 </label>
+                {(imageLoading) && <p>Loading...</p>}
                 <label>
-                    How many calories does your menu item have?
+                {formType === 'Update Menu Item' ? <p>Update the calories?</p> : <p>How many calories does your menu item have?</p>}
                     <input
                         type='number'
                         onChange={(e) => setCalories(e.target.value)}
