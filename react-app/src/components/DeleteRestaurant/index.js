@@ -3,10 +3,9 @@ import { useModal } from "../../context/Modal";
 import * as restaurantActions from '../../store/restaurant';
 import './DeleteRestaurant.css';
 
-export default function DeleteRestaurant(props) {
+export default function DeleteRestaurant({ restaurantId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    restaurantId = props;
 
     const restaurantDelete = (e, restaurantId) => {
         e.preventDefault();

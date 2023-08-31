@@ -7,11 +7,11 @@ const GET_ONE_RESTAURANT = 'restaurant/one'
 const flatten = (arr) => {
     const obj = {}
     if (arr) {
-		if (!arr.length) return {}
-		for (let el of arr) {
-			obj[el.id] = el
-		}
-	}
+        if (!arr.length) return {}
+        for (let el of arr) {
+            obj[el.id] = el
+        }
+    }
     return obj
 }
 
@@ -67,6 +67,15 @@ export const oneRestaurant = (restaurantId) => async (dispatch) => {
 export const allRestaurants = () => async (dispatch) => {
 
     const res = await fetch('/api/restaurants')
+    const data = await res.json()
+
+    if (data && !data.errors) dispatch(setAllRestaurants(data))
+
+    return res
+}
+
+export const userRestaurants = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/restaurants/user/${userId}`)
     const data = await res.json()
 
     if (data && !data.errors) dispatch(setAllRestaurants(data))
