@@ -52,26 +52,12 @@ def user_restaurant(userId):
     """
     Query for a restaurant by user id and returns the restaurants in a dictionary
     """
-    restaurant = Restaurant.query.filter(Restaurant.user_id == userId).all()
+    restaurants = Restaurant.query.filter(Restaurant.user_id == userId).all()
 
     if not restaurant:
         return json.dumps({'message': 'User has no restaurant'}), 404
 
-    res = {'restaurant': [restaurant.to_dict()]}
-    return json.dumps(res, cls=EnumEncoder)
-
-
-@restaurant_routes.route('/<int:userId>')
-def user_restaurants(userId):
-    """
-    Query for a restaurant by user id and returns the restaurants in a dictionary
-    """
-    restaurant = Restaurant.query.filter(Restaurant.ownerId == userId).all()
-
-    if not restaurant:
-        return json.dumps({'message': 'User has no restaurant'}), 404
-
-    res = {'restaurant': [restaurant.to_dict()]}
+    res = {'restaurant': [restaurant.to_dict() for restaurant in restaurants]}
     return json.dumps(res, cls=EnumEncoder)
 
 

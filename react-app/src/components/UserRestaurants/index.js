@@ -10,9 +10,8 @@ import './UserRestaurants.css';
 
 export default function ManageRestaurants() {
     const dispatch = useDispatch();
-    const restaurants = useSelector((state) => state.restaurants.restaurants);
+    const restaurants = useSelector((state) => state.restaurants.userRestaurants);
     const { userId } = useParams();
-
 
     useEffect(() => {
         dispatch(restaurantActions.userRestaurants(userId));
