@@ -27,10 +27,7 @@ def get_shopping_cart(userId):
 def update_shopping_cart(userId):
 
     data = request.get_json(force=True)
-    print('teestetsetstettstess')
-    print(type(data))
-    print(data)
-    print('teestetsetstettstess')
+
     item = MenuItem.query.filter(MenuItem.id == data['menu_item_id']).first()
 
     if not item:
@@ -48,7 +45,7 @@ def update_shopping_cart(userId):
         item_dict['name'] = cart_item.menu_item.name
         item_dict['price'] = cart_item.menu_item.price
         cart_res.append(item_dict)
-    print(cart_res)
+
     return {"Shopping cart": cart_res}
 
 
