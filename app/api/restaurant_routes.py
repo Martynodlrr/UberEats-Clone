@@ -132,7 +132,7 @@ def update_restaurant(id):
     category = request.form.get('category')
     address = request.form.get('address')
     name = request.form.get('name')
-    image_file = request.files.get['image']
+    image_file = request.files.get('image')
 
     if image_file:
         upload = upload_file_to_s3(image_file)

@@ -107,7 +107,7 @@ export const createRestaurant = (restaurant) => async (dispatch) => {
     return res;
 }
 
-export const updateRestaurant = (restaurant) => async (dispatch) => {
+export const updateRestaurant = (restaurant, restaurantId) => async (dispatch) => {
     const formData = new FormData();
 
     formData.append("description", restaurant.description);
@@ -119,7 +119,7 @@ export const updateRestaurant = (restaurant) => async (dispatch) => {
         formData.append("image", restaurant.image);
     }
 
-    const res = await fetch(`/api/restaurants/${restaurant.id}`, {
+    const res = await fetch(`/api/restaurants/${restaurantId}`, {
         method: 'PUT',
         body: formData
     });
