@@ -76,7 +76,6 @@ def user_restaurants(userId):
 
 
 @restaurant_routes.route('/', methods=['POST'])
-# @login_required
 def create_restaurant():
     """
     Creates a restaurant and returns that restaurant in a dictionary
@@ -114,7 +113,6 @@ def create_restaurant():
 
 
 @restaurant_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
 def update_restaurant(id):
     """
     Updates a restaurant and returns the updated restaurant in a dictionary

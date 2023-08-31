@@ -22,13 +22,16 @@ export default function CreateMenuItem({ menuItem, formType}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(image)
         const newItem = {
             name,
             price:Number(price),
             image,
             calories:Number(calories),
             restaurant_id: restaurantId
+        }
+
+        if (restaurantId) {
+            newItem.restaurant_id = restaurantId
         }
 
         if (formType === 'Update Menu Item') {
