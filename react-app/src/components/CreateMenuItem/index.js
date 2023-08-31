@@ -82,7 +82,7 @@ export default function CreateMenuItem({ menuItem, formType}) {
                         type="file"
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
-                        required={true}
+                        required={formType !== 'Update Menu Item' ? true : false }
                     />
                 </label>
                 {(imageLoading) && <p>Loading...</p>}
