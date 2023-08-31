@@ -21,7 +21,7 @@ def get_menu_item(menuItemId):
 
     if not menu_item:
         return jsonify({'message': 'No menu item with that id'}), 404
-    
+
     return jsonify({ 'menuItemId': menu_item[0].to_dict()['restaurant_id'] })
 
 #get all the menu items for each restaurant
@@ -40,17 +40,18 @@ def menu_items_by_restaurant_id(restaurantId):
 def create_meun_item(restaurantId):
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    upload = upload_file_to_s3(form.data['image'])
+    # upload = upload_file_to_s3(form.data['image'])
 
-    if 'url' not in upload:
-        return upload
+    # if 'url' not in upload:
+    #     return upload
 
     if form.validate_on_submit():
         new_menu_item = MenuItem(
             restaurant_id=restaurantId,
             name=form.data['name'],
             price=form.data['price'],
-            image=upload["url"],
+            # image=upload["url"],
+            image= form.data['image'],
             calories=form.data['calories']
         )
 
@@ -74,13 +75,13 @@ def update_menu_item(id):
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.data['image']:
-        upload = upload_file_to_s3(form.data['image'])
+    # if form.data['image']:
+    #     upload = upload_file_to_s3(form.data['image'])
 
-        if 'url' not in upload:
-            return upload
-        else:
-            menu_item.image=upload["url"]
+    #     if 'url' not in upload:
+    #         return upload
+    #     else:
+    #         menu_item.image=upload["url"]
 
     if form.validate_on_submit():
         menu_item.name=form.data['name']
@@ -97,7 +98,7 @@ def update_menu_item(id):
 
 @menu_items_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
-def delete_review(id):
+def delete_menu_item(id):
     menu_item = MenuItem.query.get(id)
     if menu_item:
         db.session.delete(menu_item)

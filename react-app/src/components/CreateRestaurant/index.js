@@ -26,20 +26,23 @@ export default function CreateRestaurant({ restaurant, formType }) {
         }
 
         if (formType === 'Update Restaurant') {
-            const returnFromThunk = restaurantActions.updateRestaurant(newRestaurant);
-            const dbRestaurant = await dispatch(returnFromThunk);
-            if (dbRestaurant) {
-                closeModal();
-                history.push(`/restaurants/${dbRestaurant.id}`)
-            }
+            dispatch(restaurantActions.updateRestaurant(newRestaurant))
+            .then((data)=>{
+                history.push(`/restaurant/${data.id}`)
+            })
+            .catch((e)=>{
+                console.error("Error making restaurant: ",e)
+            })
         } else {
-            const returnFromThunk = restaurantActions.createRestaurant(newRestaurant);
-            const dbRestaurant = await dispatch(returnFromThunk);
+            dispatch(restaurantActions.createRestaurant(newRestaurant))
+                .then((data)=>{
+                    history.push(`/restaurant/${data.id}`)
+                })
+                .catch((e) => {
+                    console.error("Error making restaurant: ", e)
+                })
 
-            if (dbRestaurant) {
-                closeModal();
-                // history.push(`/restaurants/${dbRestaurant.id}`)
-            }
+
         }
     };
     return (

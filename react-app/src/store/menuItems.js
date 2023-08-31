@@ -54,11 +54,11 @@ export const allMenuItems = (restaurantId) => async (dispatch) => {
     return res
 }
 
-export const createMenuItem = (menutItem) => async (dispatch) => {
+export const createMenuItem = (menuItem,restaurantId) => async (dispatch) => {
 
-    const res = await fetch(`/api/restaurants/${menutItem.restaurant_id}/menu-items`, {
+    const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`, {
         method: 'POST',
-        body: JSON.stringify(menutItem)
+        body: JSON.stringify(menuItem)
     })
 
     const data = await res.json()
@@ -69,11 +69,11 @@ export const createMenuItem = (menutItem) => async (dispatch) => {
 
 }
 
-export const updateMenuItem = (menutItem) => async (dispatch) => {
+export const updateMenuItem = (menuItem,menuId) => async (dispatch) => {
 
-    const res = await fetch(`/api/menuItems/${menutItem.id}`, {
+    const res = await fetch(`/api/menu-items/${menuId}`, {
         method: 'PUT',
-        body: JSON.stringify(menutItem)
+        body: JSON.stringify(menuItem)
     })
 
     const data = await res.json()
@@ -83,15 +83,15 @@ export const updateMenuItem = (menutItem) => async (dispatch) => {
     return res
 }
 
-export const deleteMenuItem = (menuItem) => async (dispatch) => {
+export const deleteMenuItem = (menuItemId) => async (dispatch) => {
 
-    const res = await fetch(`/api/menuItems/${menuItem.id}`, {
+    const res = await fetch(`/api/menu-items/${menuItemId}`, {
         method: 'DELETE'
     })
 
     const data = await res.json()
 
-    if (data && !data.errors) dispatch(removeMenuItems(menuItem.id))
+    if (data && !data.errors) dispatch(removeMenuItems(menuItemId))
 
     return res
 
