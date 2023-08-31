@@ -54,11 +54,17 @@ export const allMenuItems = (restaurantId) => async (dispatch) => {
     return res
 }
 
-export const createMenuItem = (menuItem,restaurantId) => async (dispatch) => {
+export const createMenuItem = (menuItem, restaurantId) => async (dispatch) => {
+    const formData = new FormData();
+
+    formData.append("calories", menuItem.calories);
+    formData.append("price", menuItem.price);
+    formData.append('image', menuItem.image)
+    formData.append("name", menuItem.name);
 
     const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`, {
         method: 'POST',
-        body: JSON.stringify(menuItem)
+        body: formData
     })
 
     const data = await res.json()
@@ -66,14 +72,19 @@ export const createMenuItem = (menuItem,restaurantId) => async (dispatch) => {
     if (data && !data.errors) dispatch(setNewMenuItem(data))
 
     return res
-
 }
 
 export const updateMenuItem = (menuItem,menuId) => async (dispatch) => {
+    const formData = new FormData();
 
-    const res = await fetch(`/api/menu-items/${menuId}`, {
-        method: 'PUT',
-        body: JSON.stringify(menuItem)
+    formData.append("calories", menuItem.calories);
+    formData.append("price", menuItem.price);
+    formData.append('image', menuItem.image)
+    formData.append("name", menuItem.name);
+
+    const res = await fetch(`/api/menu-items/restaurants/${restaurantId}`, {
+        method: 'POST',
+        body: formData
     })
 
     const data = await res.json()
