@@ -1,16 +1,16 @@
 import OpenModalButton from '../OpenModalButton'
 import DeleteReview from '../DeleteReview'
 import CreateReview from '../CreateReview'
+import UpdateReview from '../UpdateReview';
 import './index.css'
+import { useSelector } from 'react-redux';
 
 export default function Reviews({ reviews, userId }) {
+    const sessionUser = useSelector((state) => state.session.user);
+
     return (
         <div className='reviews'>
-            {/* <OpenModalButton
-                buttonText="Write a Review"
-                className='delete-review'
-                modalComponent={<CreateReview userId={userId} />}
-            /> */}
+
             {
                 reviews.map((review) => {
                     return <div className='review'>
@@ -23,6 +23,12 @@ export default function Reviews({ reviews, userId }) {
                         </div>
 
                         <p className="review-body">{review.body}</p>
+                        {userId === review.user_id && <OpenModalButton
+                            buttonText="Update"
+                            className='update-review'
+                            modalComponent={<UpdateReview reviewId={review.id} />}
+                        />
+                        }
                         {
                             userId === review.user_id && <OpenModalButton
                                 buttonText="Delete"
@@ -31,7 +37,7 @@ export default function Reviews({ reviews, userId }) {
                             />
                         }
                     </div>
-                })
+                }).reverse()
             }
         </div>
     )

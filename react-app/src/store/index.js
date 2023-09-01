@@ -1,7 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { menuItemReducer } from './menuItems';
-import { shoppingCartReducer } from './shoppingCart';
 import { restaurantReducer } from './restaurant';
 import { reviewReducer } from './review';
 import session from './session'

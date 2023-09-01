@@ -33,11 +33,12 @@ def authenticate():
             item_dict = {column.name: getattr(cart_item, column.name) for column in cart_item.__table__.columns}
             item_dict['name'] = cart_item.menu_item.name
             item_dict['price'] = cart_item.menu_item.price
+            item_dict['restaurant_id']= cart_item.menu_item.restaurant_id
             cart_res.append(item_dict)
 
         user_data = current_user.to_dict()
         user_data['shopping_cart'] = cart_res
-        print(cart_res)
+
         return user_data
 
     return {'errors': ['Unauthorized']}

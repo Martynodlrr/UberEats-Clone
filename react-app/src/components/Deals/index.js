@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux'
 import './index.css'
 
 export default function Deals() {
+    const user = useSelector(state => state.session.user)
+
     return (
         <div id='deals'>
             <div className="deal-card">

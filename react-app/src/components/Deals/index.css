@@ -55,6 +55,7 @@
     border: none;
     width: 100px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 #promo-code {

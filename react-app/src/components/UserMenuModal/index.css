@@ -1,0 +1,20 @@
+#user-menu-modal {
+    position: fixed;
+    left: -250px;
+    top: 0px;
+    background-color: white;
+    height: 100%;
+    width: 250px;
+    margin: 0px;
+    padding: 30px;
+    transition: left .4s ease;
+}
+
+#user-menu-modal > * {
+    padding: 10px 0px 10px 0px;
+}
+
+#logout-button {
+    cursor: pointer;
+    color: gray;
+}

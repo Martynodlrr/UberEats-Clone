@@ -1,5 +1,15 @@
-.profile-dropdown {
-  position: absolute;
+body.profile-dropdown {
+  margin-left: 0
+}
+
+.createRestaurantButton {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.createRestaurantButton > svg > path {
+  height: 40px;
 }
 
 .hidden {
@@ -19,14 +29,28 @@
   background-color: rgb(228, 224, 224);
 }
 
+.manageLink {
+  text-decoration: none;
+  color: black;
+}
+
+.profileButton {
+  background-color: white;
+  font-size: 175%;
+  width: 100px;
+  display: flex;
+  justify-content: space-around;
+  border: none;
+}
+
 #navigation {
   display: flex;
   align-items: center;
   margin: 0px;
   flex-direction: row;
   justify-content: space-between;
-  padding: 30px 0px 30px 0px;
-  margin: 0px 0px 0px 0px;
+  padding-left: 0px;
+  padding-top: 20px;
 }
 
 #login-signup-buttons-container {
@@ -36,37 +60,17 @@
 }
 
 #logo {
-  font-size: 28px;
   display: flex;
   flex-direction: row;
-  text-decoration: none;
-  font-family: sans-serif;
-}
-
-#logo-eats {
-  font-weight: 700;
-}
-
-#logo > * {
-  color: black;
-  margin: 0px;
-}
-
-#cart-button {
-  border: none;
-  color: white;
-  background-color: black;
-  border-radius: 20px;
-  height: 40px;
-  width: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  height: 110px;
+  justify-self: flex-start;
   cursor: pointer;
 }
 
-#cart-button:hover {
-  background-color: rgb(177, 175, 175);
+#logo-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #current-address {
@@ -77,52 +81,39 @@
   width: 150px;
 }
 
-#cart-icon {
-  height: 30px
-}
-
 #logout {
   background-color: rgb(235, 234, 234);
-    border-radius: 15px;
-    font-weight: 700;
-    width: 100px;
-    height: 45px;
-    border: none;
-    cursor: pointer;
+  border-radius: 15px;
+  font-weight: 700;
+  width: 100px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
 }
 
 #logout:hover {
   background-color: rgb(177, 175, 175);
 }
 
-#cart-dropdown {
-  position: absolute;
-  margin-left: 1070px;
-  top: 75px;
-  border-radius: 10px;
-  width: 300px;
-  background-color: white;
-  border: solid ;
-  list-style-type: none;
-  padding: 10px;
-  z-index: 1;
+.cart-container {
   display: flex;
-  flex-direction: column;
-}
-
-.cart-list {
-  border-bottom: solid 1px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.cart-list > * {
-  padding: 10px 0px 10px 0px;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+  width: 100px;
+  height: 35px;
   margin: 0px;
+  border: none;
+  outline: none;
 }
 
-#total {
-  align-self: flex-end;
-  margin: 20px 0px 0px 0px;
-  padding: 0px;
+.cart-container:hover {
+  background-color: rgb(177, 175, 175);
+  cursor: pointer;
+}
+
+.cart-button {
+  margin: 0px;
 }

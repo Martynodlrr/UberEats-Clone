@@ -1,47 +1,38 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useHistory } from "react-router-dom";
+import { FaStar } from 'react-icons/fa';
 import * as reviewActions from '../../store/review';
 import './index.css';
 
-export default function CreateReview({ reviewId, currentReview, formType }) {
+export default function CreateReview({ userId, review, formType }) {
     const dispatch = useDispatch();
+    const restaurantId = useSelector((state) => state.restaurants.restaurant.id)
     const { closeModal } = useModal();
-    const [review, setReview] = useState(formType === 'Update Review' ? currentReview.review : '');
-    const [stars, setStars] = useState(formType === 'Update Review' ? currentReview.stars : 0);
+    const [body, setBody] = useState(formType === 'Update Review' ? review.body : '');
+    const [rating, setRating] = useState(formType === 'Update Review' ? review.rating : 0);
     const [hover, setHover] = useState(null);
-    const [errors, setErrors] = useState({});
-    const history = useHistory()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newReview = {
-            review,
-            stars
+            user_id: userId,
+            restaurant_id: restaurantId,
+            body,
+            rating
         };
 
         if (formType === 'Update Review') {
-            const returnFromThunk = reviewActions.updateReview(newReview);
-            const dbReview = await dispatch(returnFromThunk).catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors);
-                }
-            });
-            if (dbReview) {
-                history.push(`/reviews/${dbReview.id}`);
-            };
+            const returnFromThunk = reviewActions.updateReview(newReview, review.id);
+            return dispatch(returnFromThunk).then(() => {
+                dispatch(reviewActions.allReviewsbyRestaurant(restaurantId));
+                closeModal();
+            })
         } else {
             const returnFromThunk = reviewActions.createReview(newReview);
             return dispatch(returnFromThunk).then(() => {
-                //dispatch(reviewActions.allReviews(reviewId));
+                dispatch(reviewActions.allReviewsbyRestaurant(restaurantId));
                 closeModal();
-            }).catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors)
-                }
             });
         };
     }
@@ -49,14 +40,13 @@ export default function CreateReview({ reviewId, currentReview, formType }) {
     return (
         <>
             <div className='reviewModal'>
-                {formType === 'Update Review' ? <h1>Update your Review</h1> : <h1>Create a New Review</h1>}
-                <form onSubmit={handleSubmit}>
-                    {errors.message && <p>{errors.message}</p>}
+                {formType === 'Update Review' ? <h1 id="formTitle">Update your Review</h1> : <h1 id="formTitle">Create a New Review</h1>}
+                <form onSubmit={handleSubmit} className="reviewForm">
                     <textarea
                         id='reviewTextarea'
                         type='text'
-                        value={review}
-                        onChange={(e) => setReview(e.target.value)}
+                        value={body}
+                        onChange={(e) => setBody(e.target.value)}
                         placeholder='Leave your review here...' />
                     <div id='stars'>
                         {[...Array(5)].map((star, index) => {
@@ -67,20 +57,21 @@ export default function CreateReview({ reviewId, currentReview, formType }) {
                                         className='starsRadio'
                                         type='radio'
                                         value={currentRating}
-                                        onClick={(e) => setStars(e.target.value)}
+                                        onClick={(e) => setRating(e.target.value)}
                                     />
-                                    <i class="fa-solid fa-star"
+                                    <FaStar className="reviewStars"
                                         id='starMenu'
-                                        color={currentRating <= (hover || stars) ? '#fefe33' : '#e4e5e9'}
+                                        color={currentRating <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
                                         onMouseEnter={() => setHover(currentRating)}
-                                        onMouseLeave={() => setHover(null)}></i>
+                                        onMouseLeave={() => setHover(null)}
+                                    />
                                 </label>
                             )
                         })} Stars
                     </div>
-                    <button type='submit' className='signupSubmit' disabled={review.length < 10 || stars === 0}>Submit Your Review</button>
+                    <button type='submit' className='reviewSubmit' disabled={body.length < 10 || rating === 0}>Submit Your Review</button>
                 </form>
-            </div> 
+            </div>
         </>
     )
 }

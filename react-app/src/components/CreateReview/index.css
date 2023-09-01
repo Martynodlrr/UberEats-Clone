@@ -1,0 +1,69 @@
+.reviewModal {
+    grid-area: content;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.starsRadio {
+    display: none;
+}
+
+.reviewStars {
+    cursor: pointer;
+}
+
+.reviewSubmit {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 120%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.reviewSubmit:hover {
+    box-shadow: 3px 3px 3px rgb(122, 122, 122);
+}
+
+.reviewSubmit:disabled {
+    background-color: rgba(212, 211, 211, 0.918);
+    color: rgb(122, 122, 122);
+    cursor: not-allowed;
+}
+
+.reviewSubmit:disabled:hover {
+    box-shadow: 3px 3px rgb(122, 122, 122);
+}
+
+#formTitle {
+    grid-area: title;
+}
+
+#reviewTextarea {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    width: 90%;
+    margin: 0px;
+    font-size: larger;
+}
+
+#stars {
+    display: flex;
+    justify-content: center;
+    font-size: 180%;
+    padding: 5px;
+}
+
+.reviewForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

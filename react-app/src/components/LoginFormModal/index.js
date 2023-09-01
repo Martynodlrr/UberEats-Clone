@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "./LoginForm.css";
+import "./index.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password)
+
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
@@ -25,8 +25,8 @@ function LoginFormModal() {
   return (
     <>
       <div className="loginForm">
-        <h1 className="loginForm">Welcome back! Please log in:</h1>
-        <form onSubmit={handleSubmit} className="loginForm" id="formInfo">
+        <h1>Welcome back! Please log in:</h1>
+        <form onSubmit={handleSubmit} id="formInfo">
           <ul>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>
@@ -34,7 +34,7 @@ function LoginFormModal() {
           </ul>
           <label>
             <input
-              className="loginLabel"
+              className="login-label"
               placeholder="Enter email address"
               type="text"
               value={email}
@@ -44,7 +44,7 @@ function LoginFormModal() {
           </label>
           <label>
             <input
-              className="loginLabel"
+              className="login-label"
               placeholder="Enter password"
               type="password"
               value={password}
@@ -54,12 +54,15 @@ function LoginFormModal() {
           </label>
           <button type="submit" className="loginSubmit">Log In</button>
         </form>
+        <div id='other-buttons'>
         <p id="orTag">or</p>
         <button className="otherLoginButtons" onClick={() => dispatch(login("demo@aa.io", "password")).then(() => closeModal())}>Demo Login</button>
         <button className="otherLoginButtons">Continue with Google</button>
         <button className="otherLoginButtons">Continue with Apple</button>
         <button className="otherLoginButtons">Continue with Facebook</button>
         <p>By proceeding, you consent to nothing as this is not a real website. We will not call you or send you emails.</p>
+
+        </div>
       </div>
     </>
   );
