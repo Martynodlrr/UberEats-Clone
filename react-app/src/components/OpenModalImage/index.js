@@ -27,7 +27,7 @@ function OpenModalImage({
 
   return (
     <div onClick={onClick} className={className}>
-    <GiHamburgerMenu />
+    <GiHamburgerMenu id='user-menu-button'/>
         </div>
   );
 }

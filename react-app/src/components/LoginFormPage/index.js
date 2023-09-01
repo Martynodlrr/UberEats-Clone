@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import './LoginForm.css';
+import './index.css';
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function LoginFormPage() {
   };
 
   return (
-    <>
+    <div id='login-form'>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -50,7 +50,7 @@ function LoginFormPage() {
         </label>
         <button type="submit">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

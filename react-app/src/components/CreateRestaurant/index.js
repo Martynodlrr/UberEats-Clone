@@ -62,9 +62,10 @@ export default function CreateRestaurant({ restaurant, formType }) {
                 )}
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="form-group">
-                        <label htmlFor="description">
+                        <label htmlFor="description" className='create-restaurant-label'>
                             Restaurant Description
                             <textarea
+                                className='create-resturant-input'
                                 id="description"
                                 onChange={(e) => setDescription(e.target.value)}
                                 value={description}
@@ -74,11 +75,12 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     </div>
                     <div className="form-group">
                         {formType === 'Update Restaurant' ? (
-                            <label htmlFor="category">Update the Category</label>
+                            <label htmlFor="category" className='create-restaurant-label'>Update the Category</label>
                         ) : (
-                            <label htmlFor="category">Select a Category</label>
+                            <label htmlFor="category" className='create-restaurant-label'>Select a Category</label>
                         )}
                         <select
+                            className='create-resturant-input'
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
@@ -98,12 +100,13 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     </div>
                     <div className="form-group">
                         {formType === 'Update Restaurant' ? (
-                            <label htmlFor="address">Update the Address</label>
+                            <label htmlFor="address" className='create-restaurant-label'>Update the Address</label>
                         ) : (
-                            <label htmlFor="address">Restaurant Address</label>
+                            <label htmlFor="address" className='create-restaurant-label'>Restaurant Address</label>
                         )}
                         <input
                             id="address"
+                            className='create-resturant-input'
                             type="text"
                             onChange={(e) => setAddress(e.target.value)}
                             value={address}
@@ -112,12 +115,13 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     </div>
                     <div className="form-group">
                         {formType === 'Update Restaurant' ? (
-                            <label htmlFor="image">Update the Image</label>
+                            <label htmlFor="image" className='create-restaurant-label'>Update the Image</label>
                         ) : (
-                            <label htmlFor="image">Upload an Image</label>
+                            <label htmlFor="image" className='create-restaurant-label'>Upload an Image</label>
                         )}
                         <input
                             id="image"
+                            className='create-resturant-input'
                             type="file"
                             accept="image/*"
                             onChange={(e) => setImage(e.target.files[0])}
@@ -127,12 +131,13 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     {imageLoading && <p>Loading...</p>}
                     <div className="form-group">
                         {formType === 'Update Restaurant' ? (
-                            <label htmlFor="name">Update the Name</label>
+                            <label htmlFor="name" className='create-restaurant-label'>Update the Name</label>
                         ) : (
-                            <label htmlFor="name">Restaurant Name</label>
+                            <label htmlFor="name" className='create-restaurant-label'>Restaurant Name</label>
                         )}
                         <input
                             id="name"
+                            className='create-resturant-input'
                             type="text"
                             onChange={(e) => setName(e.target.value)}
                             value={name}

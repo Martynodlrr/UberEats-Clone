@@ -1,5 +1,9 @@
 .deleteReview {
     grid-area: content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
 #deleteButton {

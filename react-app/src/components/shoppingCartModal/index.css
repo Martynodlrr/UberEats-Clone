@@ -75,6 +75,56 @@
 
 }
 
-#delete-single-btn{
+.delete-single-btn{
   cursor: pointer;
+  margin-left: 10px;
+}
+
+.price-delete {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item-name {
+  width: 200px;
+}
+
+#confirmModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 400px;
+}
+
+#confirmModal > div {
+  display: flex;
+  width: 95%;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
+
+.delete-cart-button {
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+#confirm-clear-cart {
+  background-color: black;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#confirm-clear-cart:hover {
+  background-color: gray;
+}
+
+#deny-clear-cart:hover {
+  background-color: rgb(179, 177, 177);
 }
