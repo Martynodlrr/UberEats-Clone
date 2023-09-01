@@ -36,7 +36,6 @@ def menu_items_by_restaurant_id(restaurantId):
 
 #create new menu item
 @menu_items_routes.route('/restaurants/<int:restaurantId>', methods=['POST'])
-@login_required
 def create_menu_item(restaurantId):
     form = MenuItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']

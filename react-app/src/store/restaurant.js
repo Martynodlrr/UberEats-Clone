@@ -112,7 +112,7 @@ export const createRestaurant = (restaurant) => async (dispatch) => {
         dispatch(setNewRestaurant(data));
     }
 
-    return res;
+    return data;
 }
 
 export const updateRestaurant = (restaurant, restaurantId) => async (dispatch) => {
