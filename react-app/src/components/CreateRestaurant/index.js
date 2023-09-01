@@ -30,7 +30,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
         }
 
         if (formType === 'Update Restaurant') {
-            dispatch(restaurantActions.updateRestaurant(newRestaurant,restaurant.id))
+            dispatch(restaurantActions.updateRestaurant(newRestaurant, restaurant.id))
                 .then(() => {
                     closeModal()
                     history.push(`/restaurant/${restaurant.id}`)
@@ -43,7 +43,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
             dispatch(restaurantActions.createRestaurant(newRestaurant))
                 .then(() => {
                     closeModal()
-                    history.push(`/restaurant/${restaurant.id}`)
+                    history.push(`/restaurant/${newRestaurant.id}`)
 
                 })
                 .catch((e) => {
