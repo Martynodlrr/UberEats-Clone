@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a9de624c33e9e44fe104fba865b79f3126906bd1997a41db1c37f70fc8fbd8fd"
+            "sha256": "d86504437072ee531810b77b0a9c5b4f4ebf32a3784baa9fa9eb99cfb73cd08b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,19 +26,19 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:4aec1b54ba6cd352abba2cdd7cdc76e631a4d3ce79c55c0719f85f9c9842e4a2",
-                "sha256:709cf438ad3ea48d426e4659538fe1148fc2719469b52179d07a11c5d26abac6"
+                "sha256:3ac38ad8afafc6ed6c8dd6cc58ddd22b6352c6a413b969aef928c6aacf555c56",
+                "sha256:48d1ea0918088df0e59a37a88ce53de7f4500108638c81255f5b1cb8edea28f4"
             ],
             "index": "pypi",
-            "version": "==1.28.37"
+            "version": "==1.28.39"
         },
         "botocore": {
             "hashes": [
-                "sha256:5c92c8bc3c6b49950c95501b30f0ac551fd4952359b53a6fba243094028157de",
-                "sha256:72e10759be3dff39c5eeb29f85c11a227c369c946d044f2caf62c352d6a6fc06"
+                "sha256:61aefac8b44f86a4581d4128cce30806f633357e8d8efc4f73367a8e62009e70",
+                "sha256:8ce716925284c1c0d04c796016a1e0e9c29ca3e196afefacacc16bc4e80c978f"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==1.31.37"
+            "version": "==1.31.39"
         },
         "click": {
             "hashes": [
@@ -55,6 +55,14 @@
             ],
             "markers": "python_version >= '3.8' and python_version < '4.0'",
             "version": "==2.4.2"
+        },
+        "email-validator": {
+            "hashes": [
+                "sha256:1ff6e86044200c56ae23595695c54e9614f4a9551e0e393614f764860b3d7900",
+                "sha256:2466ba57cda361fb7309fd3d5a225723c788ca4bbad32a0ebd5373b99730285c"
+            ],
+            "index": "pypi",
+            "version": "==2.0.0.post2"
         },
         "eventlet": {
             "hashes": [
@@ -193,6 +201,14 @@
             ],
             "index": "pypi",
             "version": "==20.1.0"
+        },
+        "idna": {
+            "hashes": [
+                "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4",
+                "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"
+            ],
+            "markers": "python_version >= '3.5'",
+            "version": "==3.4"
         },
         "importlib-metadata": {
             "hashes": [
