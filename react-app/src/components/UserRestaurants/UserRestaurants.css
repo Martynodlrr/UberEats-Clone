@@ -39,7 +39,7 @@
 
   /* Button styles */
   .action-button {
-    background-color: lightgray;
+    background-color: black;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -49,11 +49,11 @@
   }
 
   .action-button:hover {
-    background-color: black;
+    background-color: lightgray;
   }
 
   #restaurant-name-link {
     text-decoration: none;
     color:black;
-    
+
   }
