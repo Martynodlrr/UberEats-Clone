@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { FaStar } from 'react-icons/fa';
@@ -12,6 +12,18 @@ export default function CreateReview({ userId, review, formType }) {
     const [body, setBody] = useState(formType === 'Update Review' ? review.body : '');
     const [rating, setRating] = useState(formType === 'Update Review' ? review.rating : 0);
     const [hover, setHover] = useState(null);
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const errors = {};
+        if (body.length < 10 || body.length > 255) {
+            errors.body = 'Review must be 10-255 characters long.'
+        }
+        if (rating === 0) {
+            errors.rating = 'Please select a star rating.'
+        }
+        setErrors(errors)
+    }, [body, rating]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,6 +54,7 @@ export default function CreateReview({ userId, review, formType }) {
             <div className='reviewModal'>
                 {formType === 'Update Review' ? <h1 id="formTitle">Update your Review</h1> : <h1 id="formTitle">Create a New Review</h1>}
                 <form onSubmit={handleSubmit} className="reviewForm">
+                    {errors.body && <p className="errors">{errors.body}</p>}
                     <textarea
                         id='reviewTextarea'
                         type='text'
@@ -69,7 +82,8 @@ export default function CreateReview({ userId, review, formType }) {
                             )
                         })} Stars
                     </div>
-                    <button type='submit' className='reviewSubmit' disabled={body.length < 10 || rating === 0}>Submit Your Review</button>
+                    {errors.rating && <p className="errors">{errors.rating}</p>}
+                    <button type='submit' className='reviewSubmit' disabled={body.length < 10 || body.length > 255 || rating === 0}>Submit Your Review</button>
                 </form>
             </div>
         </>
