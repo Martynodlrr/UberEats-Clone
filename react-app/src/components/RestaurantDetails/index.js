@@ -11,6 +11,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteMenuItem from '../DeleteMenuItemModal'
 import Reviews from '../Reviews'
 import CreateMenuItem from '../CreateMenuItem'
+import CreateReview from '../CreateReview'
 import './index.css'
 
 export default function RestaurantDetails() {
@@ -74,7 +75,7 @@ export default function RestaurantDetails() {
                                 arr.map((item) => {
                                     return <div className='item-card'>
                                         <div>
-                                            {Object.values(cart).length && Object.values(cart)[0].restaurant_id !== restaurant.id && Object.values(cart).length >= 2  && user && restaurant && user.id !== restaurant.user_id ?
+                                            {Object.values(cart).length && Object.values(cart)[0].restaurant_id !== restaurant.id && user && restaurant && Object.values(cart).length >= 2 && user.id !== restaurant.user_id ?
                                                 <OpenModalButton
                                                     modalComponent={<ShoppingCartModal
                                                         state='confirmation'
@@ -134,7 +135,16 @@ export default function RestaurantDetails() {
                 }
             </div>
             <div id='review-container'>
+                <div >
+
                 <h1>Reviews</h1>
+                {user &&
+                <OpenModalButton
+                    buttonText="Write a Review"
+                    className='write-review'
+                    modalComponent={<CreateReview userId={user.id} />}
+                />}
+                </div>
                 <Reviews reviews={Object.values(reviews)} userId={user ? user.id : 0} />
             </div>
         </div>

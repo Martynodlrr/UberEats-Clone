@@ -10,14 +10,7 @@ export default function Reviews({ reviews, userId }) {
 
     return (
         <div className='reviews'>
-            {sessionUser ?
-                <OpenModalButton
-                    buttonText="Write a Review"
-                    className='delete-review'
-                    modalComponent={<CreateReview userId={userId} />}
-                />
-                : ''
-            }
+
             {
                 reviews.map((review) => {
                     return <div className='review'>
@@ -32,7 +25,7 @@ export default function Reviews({ reviews, userId }) {
                         <p className="review-body">{review.body}</p>
                         {userId === review.user_id && <OpenModalButton
                             buttonText="Update"
-                            className='delete-review'
+                            className='update-review'
                             modalComponent={<UpdateReview reviewId={review.id} />}
                         />
                         }

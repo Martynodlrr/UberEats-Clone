@@ -4,15 +4,15 @@
     justify-content: center;
     align-items: center;
     grid-area: content;
-    gap: 7px;
+    padding: 20px;
 }
 
-.loginLabel {
+.login-label {
     height: 45px;
     border-radius: 8px;
     background-color: rgb(235, 234, 234);
     border: none;
-    width: 315px;
+    width: 100%;
 }
 
 .loginSubmit {
@@ -29,6 +29,7 @@
     border-radius: 8px;
     width: 100%;
     height: 45px;
+    margin-top: 15px;
     border: none;
     cursor: pointer;
 }
@@ -40,4 +41,26 @@
     max-width: 45%;
     position: absolute;
     background-color: white;
+}
+
+#other-buttons {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.otherLoginButtons:hover {
+    background-color: rgb(175, 174, 174);
+}
+
+#orTag {
+    width: fit-content;
+}
+
+#formInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
 }

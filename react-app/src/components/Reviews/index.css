@@ -7,7 +7,7 @@
     margin-left: 40px;
 }
 
-.delete-review {
+.delete-review, .update-review {
     background-color: rgb(235, 234, 234);
     border-radius: 15px;
     font-weight: 700;
@@ -15,6 +15,10 @@
     height: 35px;
     border: none;
     cursor: pointer;
+}
+
+.update-review:hover {
+    background-color: rgb(184, 182, 182);
 }
 
 .delete-review:hover {
@@ -42,4 +46,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.write-review {
+    border: none;
+    font-size: 17px;
+    font-weight: 700;
+    height: 50px;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.write-review:hover {
+    background-color: rgb(171, 170, 170);
 }

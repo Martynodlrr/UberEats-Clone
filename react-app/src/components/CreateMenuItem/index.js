@@ -69,9 +69,9 @@ export default function CreateMenuItem({ menuItem, formType}) {
   <form onSubmit={handleSubmit} encType="multipart/form-data">
     <div className="form-group">
       {formType === 'Update Menu Item' ? (
-        <label htmlFor="name">Update the Name</label>
+        <label htmlFor="name" className='create-item-form'>Update the Name</label>
       ) : (
-        <label htmlFor="name">Menu Item Name</label>
+        <label htmlFor="name" className='create-item-form'>Menu Item Name</label>
       )}
       <input
         id="name"
@@ -89,6 +89,7 @@ export default function CreateMenuItem({ menuItem, formType}) {
       )}
       <input
         id="price"
+        className='create-item-input'
         type="number"
         onChange={(e) => setPrice(e.target.value)}
         value={price}
@@ -97,12 +98,13 @@ export default function CreateMenuItem({ menuItem, formType}) {
     </div>
     <div className="form-group">
       {formType === 'Update Menu Item' ? (
-        <label htmlFor="image">Update the Image</label>
+        <label htmlFor="image" className='create-item-form'>Update the Image</label>
       ) : (
-        <label htmlFor="image">Upload an Image</label>
+        <label htmlFor="image" className='create-item-form'>Upload an Image</label>
       )}
       <input
         id="image"
+        className='create-item-input'
         type="file"
         accept="image/*"
         onChange={(e) => setImage(e.target.files[0])}
@@ -112,12 +114,13 @@ export default function CreateMenuItem({ menuItem, formType}) {
     {imageLoading && <p>Loading...</p>}
     <div className="form-group">
       {formType === 'Update Menu Item' ? (
-        <label htmlFor="calories">Update the Calories</label>
+        <label htmlFor="calories" className='create-item-form'>Update the Calories</label>
       ) : (
-        <label htmlFor="calories">Menu Item Calories</label>
+        <label htmlFor="calories" className='create-item-form'>Menu Item Calories</label>
       )}
       <input
         id="calories"
+        className='create-item-input'
         type="number"
         onChange={(e) => setCalories(e.target.value)}
         value={calories}

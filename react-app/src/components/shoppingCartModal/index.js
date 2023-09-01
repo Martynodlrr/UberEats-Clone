@@ -34,12 +34,15 @@ function ShoppingCartModal({ state, item, restaurant }) {
   return (
     <>
       {state === 'confirmation' ?
-        <div className="confirmModal">
-          <h1 className="confirmModalTitle">{'Adding items from other restaurants clears your current cart, proceed?'}</h1>
-          <form onSubmit={handleSubmit} className="confirmModalForm" id="formInfo">
-            <button type="submit" className="confirmSubmit" onClick={handleSubmit}>Yes, start a new cart</button>
-            <button type="submit" className="dontConfirmSubmit" onClick={() => closeModal()}>No, keep my current cart</button>
-          </form>
+        <div id="confirmModal">
+          <div>
+
+          <h2 id="confirmModalTitle">Adding items from other restaurants clears your current cart, proceed?</h2>
+          </div>
+
+            <button type="submit" id='confirm-clear-cart' className="delete-cart-button" onClick={handleSubmit}>Yes, start a new cart</button>
+            <button type="submit" id='deny-clear-cart' className="delete-cart-button" onClick={() => closeModal()}>No, keep my current cart</button>
+
         </div> :
         <div id='cart-modal'>
           {cart &&
@@ -48,9 +51,12 @@ function ShoppingCartModal({ state, item, restaurant }) {
               total += item.price;
               return (
                 <li key={item.id} className='cart-list'>
-                  <h4 >{item.name}</h4>
+                  <h4 className='item-name'>{item.name}</h4>
+                  <div className='price-delete'>
                   <p >${item.price}</p>
-                  <TiDelete id='delete-single-btn' onClick={() => handleSingleItemDelete(item.id)} />
+                  <TiDelete className='delete-single-btn' onClick={() => handleSingleItemDelete(item.id)} />
+
+                  </div>
                 </li>
               );
             })}
