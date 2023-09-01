@@ -30,3 +30,4 @@ werkzeug==2.2.2
 wtforms==3.0.1
 boto3==1.28.36
 faker==5.0.0
+email-validator==2.0.0
