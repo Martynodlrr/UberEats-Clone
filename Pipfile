@@ -28,7 +28,7 @@ wtforms = "==3.0.1"
 faker = "*"
 boto3 = "*"
 eventlet = "*"
-email-validator = "*"
+email-validator = "2.0.0"
 
 [dev-packages]
 
