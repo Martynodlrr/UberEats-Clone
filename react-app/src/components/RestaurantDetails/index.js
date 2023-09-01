@@ -75,7 +75,7 @@ export default function RestaurantDetails() {
                                 arr.map((item) => {
                                     return <div className='item-card'>
                                         <div>
-                                            {Object.values(cart).length && Object.values(cart)[0].restaurant_id !== restaurant.id && user && restaurant && Object.values(cart).length >= 2 && user.id !== restaurant.user_id ?
+                                            {cart && Object.values(cart).length && Object.values(cart)[0].restaurant_id !== restaurant.id && user && restaurant && Object.values(cart).length >= 2 && user.id !== restaurant.user_id ?
                                                 <OpenModalButton
                                                     modalComponent={<ShoppingCartModal
                                                         state='confirmation'
