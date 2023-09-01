@@ -39,7 +39,7 @@ function ProfileButton({ user }) {
       {sessionUser && (
         <>
           <OpenModalImage
-              modalId='user-menu-modal'
+              className='user-menu-modal'
               modalComponent={<UserMenuModal user={user}/>}
             />
 

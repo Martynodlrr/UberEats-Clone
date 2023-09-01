@@ -13,16 +13,13 @@
     text-align: left;
   }
 
-  label {
+  .create-restaurant-label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
 
-  textarea,
-  input[type="text"],
-  select,
-  input[type="file"] {
+  .create-resturant-input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
