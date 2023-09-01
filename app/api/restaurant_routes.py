@@ -60,21 +60,6 @@ def user_restaurant(userId):
     res = {'restaurant': [restaurant.to_dict()]}
     return json.dumps(res, cls=EnumEncoder)
 
-
-@restaurant_routes.route('/<int:userId>')
-def user_restaurants(userId):
-    """
-    Query for a restaurant by user id and returns the restaurants in a dictionary
-    """
-    restaurant = Restaurant.query.filter(Restaurant.ownerId == userId).all()
-
-    if not restaurant:
-        return json.dumps({'message': 'User has no restaurant'}), 404
-
-    res = {'restaurant': [restaurant.to_dict()]}
-    return json.dumps(res, cls=EnumEncoder)
-
-
 @restaurant_routes.route('/', methods=['POST'])
 # @login_required
 def create_restaurant():
@@ -132,7 +117,7 @@ def update_restaurant(id):
     category = request.form.get('category')
     address = request.form.get('address')
     name = request.form.get('name')
-    image_file = request.files.get['image']
+    image_file = request.files.get('image')
 
     if image_file:
         upload = upload_file_to_s3(image_file)
