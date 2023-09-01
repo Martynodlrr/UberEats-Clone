@@ -9,7 +9,7 @@ import "./index.css";
 function ShoppingCartModal({ state, item, restaurant }) {
   const user = useSelector(state => state.session.user)
   const cart = useSelector(state => state.session.shoppingCart);
-  
+
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,7 +50,7 @@ function ShoppingCartModal({ state, item, restaurant }) {
                 <li key={item.id} className='cart-list'>
                   <h4 >{item.name}</h4>
                   <p >${item.price}</p>
-                  <TiDelete onClick={() => handleSingleItemDelete(item.id)} />
+                  <TiDelete id='delete-single-btn' onClick={() => handleSingleItemDelete(item.id)} />
                 </li>
               );
             })}

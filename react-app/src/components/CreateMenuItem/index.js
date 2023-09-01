@@ -60,49 +60,82 @@ export default function CreateMenuItem({ menuItem, formType}) {
 
     return (
         <>
-            {formType === 'Update Menu Item' ? <h1>Update your Menu Item</h1> : <h1>Create a New Menu Item</h1>}
-            <form onSubmit={handleSubmit}>
-            <label>
-                    {formType === 'Update Menu Item' ? <p>Update the name?</p> : <p>What is the name of your Menu Item?</p>}
-                    <input
-                        type='text'
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        placeholder='Name'
-                    />
-                </label>
-                <label>
-                {formType === 'Update Menu Item' ? <p>Update the price?</p> : <p>Please enter the price of your Menu Item</p>}
-                    <input
-                        type='number'
-                        onChange={(e) => setPrice(e.target.value)}
-                        value={price}
-                        placeholder='Price'
-                    />
-                </label>
-                <label>
-                    {formType === 'Update Menu Item' ? <p>Upload an image if you wish to update the picture</p> : <p>Please upload an image for your item</p>}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                        required={formType !== 'Update Menu Item' ? true : false }
-                    />
-                </label>
-                {(imageLoading) && <p>Loading...</p>}
-                <label>
-                {formType === 'Update Menu Item' ? <p>Update the calories?</p> : <p>How many calories does your menu item have?</p>}
-                    <input
-                        type='number'
-                        onChange={(e) => setCalories(e.target.value)}
-                        value={calories}
-                        placeholder='Calories'
-                    />
-                </label>
+            <div className="menu-item-form-container">
+  {formType === 'Update Menu Item' ? (
+    <h1 className="form-heading">Update your Menu Item</h1>
+  ) : (
+    <h1 className="form-heading">Create a New Menu Item</h1>
+  )}
+  <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div className="form-group">
+      {formType === 'Update Menu Item' ? (
+        <label htmlFor="name">Update the Name</label>
+      ) : (
+        <label htmlFor="name">Menu Item Name</label>
+      )}
+      <input
+        id="name"
+        type="text"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        placeholder="Name"
+      />
+    </div>
+    <div className="form-group">
+      {formType === 'Update Menu Item' ? (
+        <label htmlFor="price">Update the Price</label>
+      ) : (
+        <label htmlFor="price">Enter the Price</label>
+      )}
+      <input
+        id="price"
+        type="number"
+        onChange={(e) => setPrice(e.target.value)}
+        value={price}
+        placeholder="Price"
+      />
+    </div>
+    <div className="form-group">
+      {formType === 'Update Menu Item' ? (
+        <label htmlFor="image">Update the Image</label>
+      ) : (
+        <label htmlFor="image">Upload an Image</label>
+      )}
+      <input
+        id="image"
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImage(e.target.files[0])}
+        required={!formType === 'Update Menu Item'}
+      />
+    </div>
+    {imageLoading && <p>Loading...</p>}
+    <div className="form-group">
+      {formType === 'Update Menu Item' ? (
+        <label htmlFor="calories">Update the Calories</label>
+      ) : (
+        <label htmlFor="calories">Menu Item Calories</label>
+      )}
+      <input
+        id="calories"
+        type="number"
+        onChange={(e) => setCalories(e.target.value)}
+        value={calories}
+        placeholder="Calories"
+      />
+    </div>
+    {formType === 'Update Menu Item' ? (
+      <button type="submit" className="form-submit" id="updateSubmit">
+        Update your Menu Item
+      </button>
+    ) : (
+      <button type="submit" className="form-submit" id="createSubmit">
+        Create Menu Item
+      </button>
+    )}
+  </form>
+</div>
 
-
-                {formType === 'Update Menu Item' ? <button type='submit' id='createSubmit'>Update your Menu Item</button> : <button type='submit' id='createSubmit'>Create Menu Item</button>}
-            </form>
         </>
     )
 };
