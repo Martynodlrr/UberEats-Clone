@@ -43,7 +43,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
             dispatch(restaurantActions.createRestaurant(newRestaurant))
                 .then(() => {
                     closeModal()
-                    history.push(`/restaurant/${data.id}`)
+                    history.push(`/restaurant/${restaurant.id}`)
 
                 })
                 .catch((e) => {
