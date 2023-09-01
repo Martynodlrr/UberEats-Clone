@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
@@ -16,6 +16,25 @@ export default function CreateRestaurant({ restaurant, formType }) {
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
     const [name, setName] = useState(formType === 'Update Restaurant' ? restaurant.name : '');
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const errors = {};
+
+        if (description.length < 10 || description.length > 255) {
+            errors.description = 'Description must be between 10 and 255 characters.'
+        };
+        if (name.length < 10 || name.length > 50) {
+            errors.name = 'Name must be between 10 and 50 characters.'
+        };
+        if (address.length < 5 || address.length > 255) {
+            errors.address = 'Address must be between 5 and 255 characters.'
+        };
+        if (image === null) {
+            errors.image = 'Please select an image to upload.'
+        }
+        setErrors(errors)
+    }, [description, name, address, image]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,8 +81,23 @@ export default function CreateRestaurant({ restaurant, formType }) {
                 )}
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="form-group">
+                        {formType === 'Update Restaurant' ? (
+                            <label htmlFor="name" className='create-restaurant-label'>Update the Name {errors.name && <p className="errors">{errors.name}</p>}</label>
+                        ) : (
+                            <label htmlFor="name" className='create-restaurant-label'>Restaurant Name {errors.name && <p className="errors">{errors.name}</p>}</label>
+                        )}
+                        <input
+                            id="name"
+                            className='create-resturant-input'
+                            type="text"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            placeholder="Name"
+                        />
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="description" className='create-restaurant-label'>
-                            Restaurant Description
+                            Restaurant Description {errors.description && <p className="errors">{errors.description}</p>}
                             <textarea
                                 className='create-resturant-input'
                                 id="description"
@@ -100,9 +134,9 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     </div>
                     <div className="form-group">
                         {formType === 'Update Restaurant' ? (
-                            <label htmlFor="address" className='create-restaurant-label'>Update the Address</label>
+                            <label htmlFor="address" className='create-restaurant-label'>Update the Address {errors.address && <p className="errors">{errors.address}</p>}</label>
                         ) : (
-                            <label htmlFor="address" className='create-restaurant-label'>Restaurant Address</label>
+                            <label htmlFor="address" className='create-restaurant-label'>Restaurant Address {errors.address && <p className="errors">{errors.address}</p>}</label>
                         )}
                         <input
                             id="address"
@@ -115,9 +149,9 @@ export default function CreateRestaurant({ restaurant, formType }) {
                     </div>
                     <div className="form-group">
                         {formType === 'Update Restaurant' ? (
-                            <label htmlFor="image" className='create-restaurant-label'>Update the Image</label>
+                            <label htmlFor="image" className='create-restaurant-label'>Update the Image {errors.image && <p className="errors">{errors.image}</p>}</label>
                         ) : (
-                            <label htmlFor="image" className='create-restaurant-label'>Upload an Image</label>
+                            <label htmlFor="image" className='create-restaurant-label'>Upload an Image {errors.image && <p className="errors">{errors.image}</p>}</label>
                         )}
                         <input
                             id="image"
@@ -129,27 +163,12 @@ export default function CreateRestaurant({ restaurant, formType }) {
                         />
                     </div>
                     {imageLoading && <p>Loading...</p>}
-                    <div className="form-group">
-                        {formType === 'Update Restaurant' ? (
-                            <label htmlFor="name" className='create-restaurant-label'>Update the Name</label>
-                        ) : (
-                            <label htmlFor="name" className='create-restaurant-label'>Restaurant Name</label>
-                        )}
-                        <input
-                            id="name"
-                            className='create-resturant-input'
-                            type="text"
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            placeholder="Name"
-                        />
-                    </div>
                     {formType === 'Update Restaurant' ? (
-                        <button type="submit" className="form-submit" id="updateSubmit">
+                        <button type="submit" className="form-submit" id="updateSubmit" disabled={description.length < 10 || description.length > 255 || name.length < 10 || name.length > 50 || address.length < 5 || address.length > 255 || image === null}>
                             Update your Restaurant
                         </button>
                     ) : (
-                        <button type="submit" className="form-submit" id="createSubmit">
+                        <button type="submit" className="form-submit" id="createSubmit" disabled={description.length < 10 || description.length > 255 || name.length < 10 || name.length > 50 || address.length < 5 || address.length > 255 || image === null}>
                             Create Restaurant
                         </button>
                     )}
