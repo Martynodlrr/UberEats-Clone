@@ -138,7 +138,7 @@ export const updateRestaurant = (restaurant, restaurantId) => async (dispatch) =
         dispatch(setUpdateRestaurant(data));
     }
 
-    return res;
+    return data;
 }
 
 export const deleteRestaurant = (restaurantId) => async (dispatch) => {
