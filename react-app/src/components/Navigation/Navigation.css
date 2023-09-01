@@ -6,9 +6,10 @@ body.profile-dropdown {
   border: none;
   background-color: white;
   cursor: pointer;
+  font-size: large;
 }
 
-.createRestaurantButton > svg > path {
+.createRestaurantButton>svg>path {
   height: 40px;
 }
 
@@ -32,6 +33,7 @@ body.profile-dropdown {
 .manageLink {
   text-decoration: none;
   color: black;
+  font-size: large;
 }
 
 .profileButton {
