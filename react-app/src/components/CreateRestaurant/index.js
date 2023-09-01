@@ -30,17 +30,18 @@ export default function CreateRestaurant({ restaurant, formType }) {
         }
 
         if (formType === 'Update Restaurant') {
-            dispatch(restaurantActions.updateRestaurant(newRestaurant))
-            .then((data)=>{
-                history.push(`/restaurant/${data.id}`)
-            })
-            .catch((e)=>{
-                console.error("Error making restaurant: ",e)
-            })
+            dispatch(restaurantActions.updateRestaurant(newRestaurant, restaurant.id))
+                .then(() => {
+                    closeModal();
+                    history.push(`/restaurant/${restaurant.id}`)
+                })
+                .catch((e) => {
+                    console.error("Error making restaurant: ", e)
+                })
         } else {
             dispatch(restaurantActions.createRestaurant(newRestaurant))
-                .then((data)=>{
-                    history.push(`/restaurant/${data.id}`)
+                .then(() => {
+                    history.push(`/restaurant/${restaurant.id}`)
                 })
                 .catch((e) => {
                     console.error("Error making restaurant: ", e)
@@ -93,7 +94,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
                         type="file"
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
-                        required={formType !== 'Update Restaurant' ? true : false }
+                        required={formType !== 'Update Restaurant' ? true : false}
                     />
                 </label>
                 {(imageLoading) && <p>Loading...</p>}

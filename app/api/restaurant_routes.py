@@ -52,16 +52,16 @@ def user_restaurant(userId):
     """
     Query for a restaurant by user id and returns the restaurants in a dictionary
     """
-    restaurant = Restaurant.query.filter(Restaurant.user_id == userId).all()
+    restaurants = Restaurant.query.filter(Restaurant.user_id == userId).all()
 
     if not restaurant:
         return json.dumps({'message': 'User has no restaurant'}), 404
 
-    res = {'restaurant': [restaurant.to_dict()]}
+    res = {'restaurant': [restaurant.to_dict() for restaurant in restaurants]}
     return json.dumps(res, cls=EnumEncoder)
 
+
 @restaurant_routes.route('/', methods=['POST'])
-# @login_required
 def create_restaurant():
     """
     Creates a restaurant and returns that restaurant in a dictionary
@@ -99,7 +99,6 @@ def create_restaurant():
 
 
 @restaurant_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
 def update_restaurant(id):
     """
     Updates a restaurant and returns the updated restaurant in a dictionary

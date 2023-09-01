@@ -3,6 +3,7 @@ const UPDATE_RESTAURANT = 'restaurant/update'
 const CREATE_RESTAURANT = 'restaurant/create'
 const DELETE_RESTAURANT = 'restaurant/delete'
 const GET_ONE_RESTAURANT = 'restaurant/one'
+const GET_ALL_USER_RESTAURANTS = 'restaurant/user'
 
 const flatten = (arr) => {
     const obj = {}
@@ -50,6 +51,13 @@ const removeRestaurant = (data) => {
     }
 }
 
+const setUserRestaurants = (data) => {
+    return {
+        type: GET_ALL_USER_RESTAURANTS,
+        payload: data
+    }
+}
+
 export const oneRestaurant = (restaurantId) => async (dispatch) => {
 
     const res = await fetch(`/api/restaurants/${restaurantId}`)
@@ -78,7 +86,7 @@ export const userRestaurants = (userId) => async (dispatch) => {
     const res = await fetch(`/api/restaurants/user/${userId}`)
     const data = await res.json()
 
-    if (data && !data.errors) dispatch(setAllRestaurants(data))
+    if (data && !data.errors) dispatch(setUserRestaurants(data))
 
     return res
 }
@@ -107,7 +115,7 @@ export const createRestaurant = (restaurant) => async (dispatch) => {
     return res;
 }
 
-export const updateRestaurant = (restaurant) => async (dispatch) => {
+export const updateRestaurant = (restaurant, restaurantId) => async (dispatch) => {
     const formData = new FormData();
 
     formData.append("description", restaurant.description);
@@ -119,7 +127,7 @@ export const updateRestaurant = (restaurant) => async (dispatch) => {
         formData.append("image", restaurant.image);
     }
 
-    const res = await fetch(`/api/restaurants/${restaurant.id}`, {
+    const res = await fetch(`/api/restaurants/${restaurantId}`, {
         method: 'PUT',
         body: formData
     });
@@ -156,6 +164,10 @@ export const restaurantReducer = (state = initialState, action) => {
             const restaurants = flatten(action.payload.restaurants)
             return { ...state, restaurants: restaurants }
 
+        case GET_ALL_USER_RESTAURANTS:
+            const userRestaurants = flatten(action.payload.restaurant)
+            return { ...state, userRestaurants: userRestaurants }
+
         case CREATE_RESTAURANT:
             const restaurant = action.payload
             const newState = { ...state }
@@ -166,15 +178,17 @@ export const restaurantReducer = (state = initialState, action) => {
         case UPDATE_RESTAURANT:
             const updatedRestaurant = action.payload
             const updatedState = { ...state }
-            const updatedRestaurants = { ...updatedState.restaurants }
+            const updatedRestaurants = { ...updatedState.userRestaurants }
             updatedRestaurants[updatedRestaurant.id] = updatedRestaurant
             return { ...updatedState, restaurants: updatedRestaurants }
         case DELETE_RESTAURANT:
             const restaurantId = action.payload
             const finalState = { ...state }
             const finalRestaurants = { ...finalState.restaurants }
-            delete finalRestaurants[restaurantId]
-            return { ...finalState, restaurants: finalRestaurants }
+            const finalUserRestaurants = { ...finalState.userRestaurants }
+            // delete finalRestaurants[restaurantId]
+            delete finalUserRestaurants[restaurantId]
+            return { ...finalState, restaurants: finalRestaurants, userRestaurants: finalUserRestaurants }
         case GET_ONE_RESTAURANT:
             return { ...state, restaurant: { ...action.payload.restaurant[0] } }
         default:

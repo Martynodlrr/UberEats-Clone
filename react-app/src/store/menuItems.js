@@ -85,7 +85,7 @@ export const updateMenuItem = (menuItem, menuId) => async (dispatch) => {
     formData.append("name", menuItem.name);
 
     const res = await fetch(`/api/menu-items/${menuId}`, {
-        method: 'POST',
+        method: 'Put',
         body: formData
     })
 
