@@ -65,7 +65,7 @@ export default function RestaurantDetails() {
                         buttonText={"Create new Item"}
                     />
                 </div>
-                : null
+                : <></>
             }
             <div>
                 {
@@ -142,7 +142,7 @@ export default function RestaurantDetails() {
                 <OpenModalButton
                     buttonText="Write a Review"
                     className='write-review'
-                    modalComponent={<CreateReview userId={user.id} />}
+                    modalComponent={<CreateReview userId={user.id} restaurantId={id}/>}
                 />}
                 </div>
                 <Reviews reviews={Object.values(reviews)} userId={user ? user.id : 0} />

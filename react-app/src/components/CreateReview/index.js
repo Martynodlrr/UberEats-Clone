@@ -2,16 +2,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { FaStar } from 'react-icons/fa';
+import { useHistory } from "react-router-dom";
 import * as reviewActions from '../../store/review';
 import './index.css';
 
-export default function CreateReview({ userId, review, formType }) {
+export default function CreateReview({ userId, review, formType, restaurantId, redirect }) {
     const dispatch = useDispatch();
-    const restaurantId = useSelector((state) => state.restaurants.restaurant.id)
     const { closeModal } = useModal();
     const [body, setBody] = useState(formType === 'Update Review' ? review.body : '');
     const [rating, setRating] = useState(formType === 'Update Review' ? review.rating : 0);
     const [hover, setHover] = useState(null);
+    const history = useHistory()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,6 +33,11 @@ export default function CreateReview({ userId, review, formType }) {
             const returnFromThunk = reviewActions.createReview(newReview);
             return dispatch(returnFromThunk).then(() => {
                 dispatch(reviewActions.allReviewsbyRestaurant(restaurantId));
+
+                if (redirect) {
+                    history.push(`/restaurant/${restaurantId}`)
+                }
+
                 closeModal();
             });
         };
