@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import CreateRestaurant from "../CreateRestaurant";
-import { NavLink } from "react-router-dom";
+import { NavLink ,useHistory} from "react-router-dom";
 import { useModal } from '../../context/Modal';
 import './index.css'
 import { useEffect } from "react";
@@ -10,13 +10,16 @@ import { useEffect } from "react";
 export default function UserMenuModal({user}) {
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const { closeModal } = useModal()
 
     const handleLogout = (e) => {
         e.preventDefault();
         dispatch(logout());
+
         closeModal()
+        history.push("/")
         // const menu = document.getElementById('user-menu-modal')
         // menu.style.left = '-250px'
       };

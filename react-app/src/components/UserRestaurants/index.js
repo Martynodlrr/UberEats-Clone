@@ -20,38 +20,46 @@ export default function ManageRestaurants() {
     if (restaurants === undefined) return null;
     return (
         <>
-            <h1>Manage Restaurants</h1>
-            {Object.keys(restaurants).length > 0 ? (
-                <>
-                    <ul>
-                        {Object.values(restaurants).map((restaurant) => (
-                            <li key={restaurant.id} className='restaurantList'>
-                                <NavLink to={`/restaurant/${restaurant.id}`}>
-                                    <img src={restaurant.image} alt='a preview of the restaurant' title={restaurant.name}></img>
-                                    <div>{restaurant.name}</div>
-                                    <div>{restaurant.address}</div>
-                                </NavLink>
-                                <OpenModalButton
-                                    buttonText='Update'
-                                    modalComponent={<UpdateRestaurant restaurant={restaurant} />}
-                                />
-                                <OpenModalButton
-                                    buttonText='Delete'
-                                    modalComponent={<DeleteRestaurant restaurantId={restaurant.id} />}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                </>
-            ) : (
-                <>
-                    <div>Looks like you don't have any restaurants! Create one here:</div>
-                    <OpenModalButton
-                        buttonText='Create a new restaurant'
-                        modalComponent={<CreateRestaurant />}
-                    />
-                </>
-            )}
+           <div className="manage-restaurants-container">
+  <h1>Manage Restaurants</h1>
+  {Object.keys(restaurants).length > 0 ? (
+    <ul className="restaurant-list">
+      {Object.values(restaurants).map((restaurant) => (
+        <li key={restaurant.id}>
+          <NavLink id='restaurant-name-link'to={`/restaurant/${restaurant.id}`}>
+            <img src={restaurant.image} alt="Preview of the restaurant" title={restaurant.name} />
+            <div className="restaurant-details">
+              <div>{restaurant.name}</div>
+              <div>{restaurant.address}</div>
+            </div>
+          </NavLink>
+          <div>
+            <OpenModalButton
+              buttonText="Update"
+              modalComponent={<UpdateRestaurant restaurant={restaurant} />}
+              className="action-button"
+            />
+            <OpenModalButton
+              buttonText="Delete"
+              modalComponent={<DeleteRestaurant restaurantId={restaurant.id} />}
+              className="action-button"
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div>
+      <p>Looks like you don't have any restaurants! Create one here:</p>
+      <OpenModalButton
+        buttonText="Create a new restaurant"
+        modalComponent={<CreateRestaurant />}
+        className="action-button"
+      />
+    </div>
+  )}
+</div>
+
         </>
     )
 }

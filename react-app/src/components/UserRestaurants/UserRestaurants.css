@@ -1,0 +1,59 @@
+/* Container styles for the Manage Restaurants section */
+.manage-restaurants-container {
+    text-align: center;
+    padding: 20px;
+  }
+
+  /* Heading styles */
+  .manage-restaurants-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* List styles for restaurants */
+  .restaurant-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .restaurant-list li {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .restaurant-list img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+
+  .restaurant-details {
+    flex-grow: 1;
+  }
+
+  /* Button styles */
+  .action-button {
+    background-color: lightgray;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .action-button:hover {
+    background-color: black;
+  }
+
+  #restaurant-name-link {
+    text-decoration: none;
+    color:black;
+    
+  }
