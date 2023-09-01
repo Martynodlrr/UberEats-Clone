@@ -30,9 +30,10 @@ export default function CreateRestaurant({ restaurant, formType }) {
         }
 
         if (formType === 'Update Restaurant') {
-            dispatch(restaurantActions.updateRestaurant(newRestaurant))
-                .then((data) => {
-                    history.push(`/restaurant/${data.id}`)
+            dispatch(restaurantActions.updateRestaurant(newRestaurant,restaurant.id))
+                .then(() => {
+                    closeModal()
+                    history.push(`/restaurant/${restaurant.id}`)
 
                 })
                 .catch((e) => {
@@ -40,9 +41,10 @@ export default function CreateRestaurant({ restaurant, formType }) {
                 })
         } else {
             dispatch(restaurantActions.createRestaurant(newRestaurant))
-                .then((data) => {
+                .then(() => {
+                    closeModal()
                     history.push(`/restaurant/${data.id}`)
-                    
+
                 })
                 .catch((e) => {
                     console.error("Error making restaurant: ", e)

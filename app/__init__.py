@@ -9,7 +9,10 @@ from app.api import shopping_cart_routes, restaurant_routes, review_routes, user
 from app.seeds import seed_commands
 from app.config import Config
 
-app = Flask(__name__, static_folder='../react-app/public', static_url_path='/')
+if os.environ.get('FLASK_ENV') == 'production':
+    app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
+else:
+    app = Flask(__name__, static_folder='../react-app/public', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
