@@ -29,12 +29,10 @@
   border-bottom: solid 1px;
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
 }
 
-.cart-list>* {
-  padding: 10px 0px 10px 0px;
-  margin: 0px;
-}
 
 #total {
   align-self: flex-end;
@@ -42,10 +40,24 @@
   padding: 0px;
 }
 
-#modal-content {
-display: flex;
+.checkout-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
 }
 
-#checkout-button{
-  width: fit-content
+#checkout-button {
+  width: fit-content;
+  border: none;
+  background-color: white;
+  color: black;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+#modal-background {
+  background-color: rgba(0, 0, 0, 0.2);
 }
