@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import * as restaurantActions from '../../store/restaurant'
 import * as shoppingCartActions from '../../store/session.js'
+import { useModal } from '../../context/Modal';
+import ReviewOrderModal from '../ReviewOrderModal';
 import './index.css'
 
 
@@ -13,11 +15,13 @@ export default function Order() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
     const cart = useSelector(state => state.session.shoppingCart);
+    const { setModalContent, closeModal } = useModal()
     // all items in the cart SHOULD be from the same restaurant so any item will have
     // the correct restaurantId here
     let cart_items = Object.values(cart)
-    let restaurantId = cart_items[0].restaurant_id;
+    let restaurantId;
     const restaurant = useSelector(state => state.restaurants.restaurant);
+    if (restaurant) restaurantId = restaurant.id
 
     const [position, setPostition] = useState({
         lat: 32.790603,
@@ -56,9 +60,8 @@ export default function Order() {
 
             if (progress === 6) {
                 clearInterval(interval)
-                history.push(`/restaurant/${restaurantId}`)
-                alert("Would you like to write a review?")
-                dispatch(shoppingCartActions.clearShoppingCart(user.id));
+                setModalContent(<ReviewOrderModal restaurantId={restaurantId} userId={user.id} closeModal={closeModal}/>)
+                return dispatch(shoppingCartActions.clearShoppingCart(user.id));
             }
             const progText = document.getElementById(`progress-text`)
             if (progress <= 5) {
@@ -162,7 +165,7 @@ export default function Order() {
 
 
                                 scrollwheel: false,
-                                //draggable: false,
+                                draggable: false,
                                 mapTypeControlOptions: {
                                     style: window.google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
                                     position: window.google.maps.ControlPosition.LEFT_TOP,
@@ -173,8 +176,6 @@ export default function Order() {
                             }
                             }
                             heading={100}
-                        //onClick={(e) => handleMapClick(e)}
-                        //onLoad={(map) => mapRef.current = map
 
                         //}
                         >

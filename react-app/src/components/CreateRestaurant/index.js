@@ -42,6 +42,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
         } else {
             dispatch(restaurantActions.createRestaurant(newRestaurant))
                 .then((data) => {
+                    console.log(data)
                     closeModal()
                     history.push(`/restaurant/${data.id}`)
 
@@ -124,7 +125,7 @@ export default function CreateRestaurant({ restaurant, formType }) {
                             className='create-resturant-input'
                             type="file"
                             accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
+                            onChange={(e) => {console.log(e.target.files[0]);setImage(e.target.files[0])}}
                             required={!formType === 'Update Restaurant'}
                         />
                     </div>
