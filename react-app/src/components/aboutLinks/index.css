@@ -1,0 +1,23 @@
+#about-links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+#title {
+  border-top: 1px solid black;
+  margin: 55px 0px;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}

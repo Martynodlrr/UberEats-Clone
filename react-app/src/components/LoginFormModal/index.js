@@ -57,9 +57,9 @@ function LoginFormModal() {
         <div id='other-buttons'>
         <p id="orTag">or</p>
         <button className="otherLoginButtons" onClick={() => dispatch(login("demo@aa.io", "password")).then(() => closeModal())}>Demo Login</button>
-        <button className="otherLoginButtons">Continue with Google</button>
+        {/* <button className="otherLoginButtons">Continue with Google</button>
         <button className="otherLoginButtons">Continue with Apple</button>
-        <button className="otherLoginButtons">Continue with Facebook</button>
+        <button className="otherLoginButtons">Continue with Facebook</button> */}
         <p>By proceeding, you consent to nothing as this is not a real website. We will not call you or send you emails.</p>
 
         </div>

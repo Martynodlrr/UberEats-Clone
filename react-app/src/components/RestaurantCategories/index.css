@@ -55,3 +55,32 @@
         height:150px;
     }
 }
+
+#categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px 20px 20px 20px;
+    margin: 0px 0px 0px 0px;
+    border-bottom: solid rgb(168, 167, 167) 1px;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.category:hover {
+    background-color: rgb(194, 194, 194);
+}
+
+.category-image {
+    width: 60px;
+}

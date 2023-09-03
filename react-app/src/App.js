@@ -10,8 +10,8 @@ import Deals from "./components/Deals";
 import RestaurantCategories from "./components/RestaurantCategories";
 import RestaurantDetails from "./components/RestaurantDetails";
 import UserRestaurants from "./components/UserRestaurants";
+import AboutLinks from "./components/aboutLinks";
 import Order from "./components/Order";
-import * as reviewActions from './store/review'
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <AboutLinks/>
     </>
   );
 }
