@@ -26,3 +26,8 @@
 .category-image {
     width: 60px;
 }
+
+.hrefs {
+    text-decoration: none;
+    color: black;
+}
