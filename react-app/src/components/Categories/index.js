@@ -52,17 +52,18 @@ export default function Categories() {
             imgUrl: 'electronics.png'
         },
     }
-
     return (
         <div id='categories'>
             {
                 Object.values(categories).map(category => {
                     return <div className="category">
-                        <img src={`/images/category-images/${category.imgUrl}`} className='category-image'/>
-                        <p className='category-title'>{category.title}</p>
+                        <a href={`#${category.title}`} className="hrefs">
+                            <img src={`/images/category-images/${category.imgUrl}`} className='category-image' />
+                            <p className='category-title'>{category.title}</p>
+                        </a>
                     </div>
                 })
             }
-        </div>
+        </div >
     )
 }

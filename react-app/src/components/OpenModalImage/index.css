@@ -1,3 +1,5 @@
-.user-menu-button {
-    height: 80px;
+#user-menu-button {
+    font-size: 200%;
+    cursor: pointer;
+    display: flex;
 }

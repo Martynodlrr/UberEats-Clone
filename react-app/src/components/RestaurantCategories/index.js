@@ -45,7 +45,7 @@ export default function RestaurantCategories() {
                         category = category.join('')
                     }
                     return <div className="restaurant-category">
-                        <h1 className='category-name'>{category}</h1>
+                        <h1 id={category}>{category}</h1>
                         <div className='restaurant-category-list'>
                             {Object.values(categories[originalCat]).map((restaurant) => {
                                 return <div className='category-restaurant category-restaurant-margin' onClick={() => history.push(`/restaurant/${restaurant.id}`)}>
