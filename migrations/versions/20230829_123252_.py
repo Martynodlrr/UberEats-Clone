@@ -1,6 +1,6 @@
 """empty message
 
-Revision ID: 27a461324a4b
+Revision ID: 505fa1a5609c
 Revises:
 Create Date: 2023-08-29 12:32:52.018095
 
@@ -13,7 +13,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '27a461324a4b'
+revision = '505fa1a5609c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,7 +35,7 @@ def upgrade():
     op.create_table('restaurants',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('image', sa.String(length=255), nullable=False),
+    sa.Column('image', sa.String(length=2000), nullable=False),
     sa.Column('address', sa.String(length=255), nullable=False),
     sa.Column('category', sa.Enum('deals', 'grocery', 'convenience', 'fastFood', 'alcohol', 'pharmacy', 'baby', 'specialtyFoods', 'petSupplies', 'flowers', 'retail', 'electronics', name='restauranttype'), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=False),
@@ -52,7 +52,7 @@ def upgrade():
     sa.Column('restaurant_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=60), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
-    sa.Column('image', sa.String(length=255), nullable=False),
+    sa.Column('image', sa.String(length=2000), nullable=False),
     sa.Column('calories', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['restaurant_id'], ['restaurants.id'], ),
     sa.PrimaryKeyConstraint('id')
