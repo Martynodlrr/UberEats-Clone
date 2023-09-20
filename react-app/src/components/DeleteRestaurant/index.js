@@ -15,10 +15,12 @@ export default function DeleteRestaurant({ restaurantId }) {
 
     return (
         <>
-            <h1>Confirm Delete</h1>
-            <h2>Are you sure you want to remove this restaurant from your list?</h2>
-            <button onClick={(e) => restaurantDelete(e, restaurantId)} id='deleteButton'>Yes (Delete Restaurant)</button>
-            <button onClick={closeModal} id='dontDeleteButton'>No (Keep Restaurant)</button>
+            <div id='menuItemDelete'>
+                <h1>Confirm Delete</h1>
+                <h2>Are you sure you want to delete this restaurant?</h2>
+                <button onClick={(e) => restaurantDelete(e, restaurantId)} id='deleteButton'>Yes (Delete Restaurant)</button>
+                <button onClick={closeModal} id='dontDeleteButton'>No (Keep Restaurant)</button>
+            </div>
         </>
     )
 }
