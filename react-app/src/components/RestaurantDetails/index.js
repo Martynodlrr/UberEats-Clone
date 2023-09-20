@@ -1,17 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import * as restaurantActions from '../../store/restaurant'
-import * as reviewActions from '../../store/review'
-import * as menuItemActions from '../../store/menuItems'
-import * as cartActions from '../../store/session'
-import ShoppingCartModal from '../shoppingCartModal'
-import LoginFormModal from '../LoginFormModal'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import * as restaurantActions from '../../store/restaurant';
+import * as reviewActions from '../../store/review';
+import * as menuItemActions from '../../store/menuItems';
+import * as cartActions from '../../store/session';
+import ShoppingCartModal from '../shoppingCartModal';
+import LoginFormModal from '../LoginFormModal';
 import OpenModalButton from "../OpenModalButton";
-import DeleteMenuItem from '../DeleteMenuItemModal'
-import Reviews from '../Reviews'
-import CreateMenuItem from '../CreateMenuItem'
-import CreateReview from '../CreateReview'
+import DeleteMenuItem from '../DeleteMenuItemModal';
+import Reviews from '../Reviews';
+import CreateMenuItem from '../CreateMenuItem';
+import CreateReview from '../CreateReview';
+import { BsDot } from "react-icons/bs";
 import './index.css'
 
 export default function RestaurantDetails() {
@@ -126,7 +127,7 @@ export default function RestaurantDetails() {
                                             <img className='item-image' src={item.image} />
                                         </div>
                                         <p className='item-name'>{item.name}</p>
-                                        <p className='item-price'>${item.price}</p>
+                                        <p className='item-price'>${item.price}<BsDot />{item.calories} Cal.</p>
                                     </div>
                                 })
                             }
@@ -137,13 +138,13 @@ export default function RestaurantDetails() {
             <div id='review-container'>
                 <div >
 
-                <h1>Reviews</h1>
-                {user &&
-                <OpenModalButton
-                    buttonText="Write a Review"
-                    className='write-review'
-                    modalComponent={<CreateReview userId={user.id} restaurantId={id}/>}
-                />}
+                    <h1>Reviews</h1>
+                    {user &&
+                        <OpenModalButton
+                            buttonText="Write a Review"
+                            className='write-review'
+                            modalComponent={<CreateReview userId={user.id} restaurantId={id} />}
+                        />}
                 </div>
                 <Reviews reviews={Object.values(reviews)} userId={user ? user.id : 0} />
             </div>
