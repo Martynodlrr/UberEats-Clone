@@ -13,5 +13,8 @@ Live Site: https://ubereats-clone-cbjy.onrender.com
 # ShoppingCart Preview Page
 ![shoppingCart-BradEats](https://github.com/Martynodlrr/BradEats/assets/123061539/40effeb8-ec6a-4237-bd54-9a5cac60f1df)
 
+# Order Checkout Preview Page
+![orderCheckout-BradEats](https://github.com/Martynodlrr/BradEats/assets/123061539/ecf34eed-04d2-4e88-8c0f-f03e8b690667)
+
 # Reviews Preview Page
 ![reviews-BradEats](https://github.com/Martynodlrr/BradEats/assets/123061539/c023e409-ce93-431b-bb14-a0e361607f34)
