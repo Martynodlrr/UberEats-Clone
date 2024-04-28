@@ -25,9 +25,9 @@ python-dateutil==2.8.2
 python-dotenv==0.21.0
 python-editor==1.0.4
 six==1.16.0
-sqlalchemy==1.4.46
-werkzeug==2.2.2
-wtforms==3.0.1
+sqlalchemy==2.0.29
+werkzeug==3.0.2
+wtforms==3.1.2
 boto3==1.28.36
 faker==5.0.0
-email-validator==2.0.0
+email-validator==2.1.1
